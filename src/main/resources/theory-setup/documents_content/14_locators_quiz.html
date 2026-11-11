@@ -1,0 +1,226 @@
+<p>1. Ποιος CSS selector επιλέγει αποκλειστικά το πεδίο αναζήτησης προϊόντων;</p>
+<p>&lt;main id=&quot;store&quot;&gt;<br>
+    &lt;form class=&quot;search-form&quot;&gt;<br>
+    &lt;label for=&quot;product-search&quot;&gt;Search products&lt;/label&gt;<br>
+    &lt;input id=&quot;product-search&quot; name=&quot;query&quot; type=&quot;search&quot;&gt;<br>
+    &lt;button class=&quot;btn search-button&quot;&gt;Search&lt;/button&gt;<br>
+    &lt;/form&gt;<br>
+    &lt;input id=&quot;newsletter-email&quot; type=&quot;email&quot;&gt;<br>
+    &lt;/main&gt;</p>
+<p>A) input</p>
+<p>B) input[type="email"]</p>
+<p>C) #product-search</p>
+<p>D) .search-form button</p>
+
+<p>2. Ποιος CSS selector εντοπίζει μόνο το δεύτερο στοιχείο της λίστας;</p>
+<p>&lt;section class=&quot;catalog&quot;&gt;<br>
+    &lt;h2&gt;Catalog&lt;/h2&gt;<br>
+    &lt;ul id=&quot;products&quot;&gt;<br>
+    &lt;li class=&quot;product&quot;&gt;Laptop&lt;/li&gt;<br>
+    &lt;li class=&quot;product featured&quot;&gt;Monitor&lt;/li&gt;<br>
+    &lt;li class=&quot;product&quot;&gt;Keyboard&lt;/li&gt;<br>
+    &lt;/ul&gt;<br>
+    &lt;p class=&quot;summary&quot;&gt;3 items&lt;/p&gt;<br>
+    &lt;/section&gt;</p>
+<p>A) #products li:first-child</p>
+<p>B) #products li:nth-child(2)</p>
+<p>C) #products li:last-child</p>
+<p>D) .catalog p:nth-child(2)</p>
+
+<p>3. Ποιος CSS selector επιλέγει το κουμπί Checkout και όχι το Add to cart;</p>
+<p>&lt;div class=&quot;cart-panel&quot;&gt;<br>
+    &lt;div class=&quot;cart-actions&quot;&gt;<br>
+    &lt;button data-action=&quot;add&quot;&gt;Add to cart&lt;/button&gt;<br>
+    &lt;button data-action=&quot;checkout&quot; class=&quot;primary&quot;&gt;Checkout&lt;/button&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;button data-action=&quot;cancel&quot;&gt;Cancel&lt;/button&gt;<br>
+    &lt;/div&gt;</p>
+<p>A) button.primary</p>
+<p>B) button[data-action="add"]</p>
+<p>C) button[data-action="cancel"]</p>
+<p>D) button.primary[data-action="add"]</p>
+
+<p>4. Ποιος XPath locator εντοπίζει το input με βάση το label «Email»;</p>
+<p>&lt;form id=&quot;signup&quot;&gt;<br>
+    &lt;div class=&quot;field&quot;&gt;<br>
+    &lt;label for=&quot;signup-email&quot;&gt;Email&lt;/label&gt;<br>
+    &lt;input id=&quot;signup-email&quot; type=&quot;email&quot; name=&quot;email&quot;&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;div class=&quot;field&quot;&gt;<br>
+    &lt;label for=&quot;signup-phone&quot;&gt;Phone&lt;/label&gt;<br>
+    &lt;input id=&quot;signup-phone&quot; type=&quot;tel&quot; name=&quot;phone&quot;&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;/form&gt;</p>
+<p>A) //label[text()="Email"]</p>
+<p>B) //input[@id="signup-phone"]</p>
+<p>C) //label[text()="Email"]/@for</p>
+<p>D) //input[@id=//label[normalize-space()="Email"]/@for]</p>
+
+<p>5. Ποιος CSS selector επιστρέφει ΜΟΝΟ την ενεργή καρτέλα;</p>
+<p>&lt;nav class=&quot;tabs&quot; aria-label=&quot;Account sections&quot;&gt;<br>
+    &lt;button class=&quot;tab&quot; data-tab=&quot;overview&quot;&gt;Overview&lt;/button&gt;<br>
+    &lt;button class=&quot;tab active&quot; data-tab=&quot;orders&quot; aria-selected=&quot;true&quot;&gt;Orders&lt;/button&gt;<br>
+    &lt;button class=&quot;tab&quot; data-tab=&quot;settings&quot; aria-selected=&quot;false&quot;&gt;Settings&lt;/button&gt;<br>
+    &lt;/nav&gt;</p>
+<p>A) .tabs .tab</p>
+<p>B) .tabs button[aria-selected="true"]</p>
+<p>C) .tabs button[data-tab="settings"]</p>
+<p>D) .active button</p>
+
+<p>6. Ποιος XPath επιλέγει το κουμπί Edit που ανήκει ΜΟΝΟ στη γραμμή του χρήστη Maria;</p>
+<p>&lt;table id=&quot;users&quot;&gt;<br>
+    &lt;tbody&gt;<br>
+    &lt;tr&gt;&lt;td&gt;Alex&lt;/td&gt;&lt;td&gt;Viewer&lt;/td&gt;&lt;td&gt;&lt;button&gt;Edit&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;<br>
+    &lt;tr&gt;&lt;td&gt;Maria&lt;/td&gt;&lt;td&gt;Admin&lt;/td&gt;&lt;td&gt;&lt;button&gt;Edit&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;<br>
+    &lt;tr&gt;&lt;td&gt;Nikos&lt;/td&gt;&lt;td&gt;Viewer&lt;/td&gt;&lt;td&gt;&lt;button&gt;Edit&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;<br>
+    &lt;/tbody&gt;<br>
+    &lt;/table&gt;</p>
+<p>A) //table[@id="users"]//button[text()="Edit"]</p>
+<p>B) //tr[td="Alex"]//button</p>
+<p>C) //tr[td[normalize-space()="Maria"]]//button[normalize-space()="Edit"]</p>
+<p>D) //tr[2]/td[1]</p>
+
+<p>7. Ποιος CSS selector εντοπίζει μόνο τις μη απενεργοποιημένες επιλογές της φόρμας;</p>
+<p>&lt;form id=&quot;filters&quot;&gt;<br>
+    &lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;color&quot; value=&quot;red&quot;&gt; Red&lt;/label&gt;<br>
+    &lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;color&quot; value=&quot;blue&quot; disabled&gt; Blue&lt;/label&gt;<br>
+    &lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;size&quot; value=&quot;large&quot;&gt; Large&lt;/label&gt;<br>
+    &lt;button type=&quot;submit&quot;&gt;Apply&lt;/button&gt;<br>
+    &lt;/form&gt;</p>
+<p>A) #filters input[type="checkbox"]:not(:disabled)</p>
+<p>B) #filters input:disabled</p>
+<p>C) #filters input:checked</p>
+<p>D) #filters button:not(:disabled)</p>
+
+<p>8. Ποιος Playwright locator είναι ο πιο στοχευμένος για το κουμπί «Save changes»;</p>
+<p>&lt;div class=&quot;profile-card&quot;&gt;<br>
+    &lt;h2&gt;Profile&lt;/h2&gt;<br>
+    &lt;button type=&quot;button&quot;&gt;Cancel&lt;/button&gt;<br>
+    &lt;button type=&quot;submit&quot; aria-label=&quot;Save changes&quot;&gt;<br>
+    &lt;span class=&quot;icon&quot;&gt;✓&lt;/span&gt; Save<br>
+    &lt;/button&gt;<br>
+    &lt;/div&gt;</p>
+<p>A) page.getByText("Save")</p>
+<p>B) page.locator("button").first()</p>
+<p>C) page.getByRole("button", { name: "Cancel" })</p>
+<p>D) page.getByRole("button", { name: "Save changes" })</p>
+
+<p>9. Ποιος CSS selector βρίσκει τον σύνδεσμο που ανοίγει το αρχείο PDF;</p>
+<p>&lt;div class=&quot;attachments&quot;&gt;<br>
+    &lt;a href=&quot;/files/report.pdf&quot; download&gt;Download report&lt;/a&gt;<br>
+    &lt;a href=&quot;/files/report.docx&quot; download&gt;Download document&lt;/a&gt;<br>
+    &lt;a href=&quot;/help&quot;&gt;Help&lt;/a&gt;<br>
+    &lt;/div&gt;</p>
+<p>A) .attachments a[href^=".pdf"]</p>
+<p>B) .attachments a[href$=".pdf"]</p>
+<p>C) .attachments a[href*="docx"]</p>
+<p>D) .attachments a:not([download])</p>
+
+<p>10. Ποιος XPath εντοπίζει το μήνυμα σφάλματος για το password;</p>
+<p>&lt;form id=&quot;login&quot;&gt;<br>
+    &lt;div class=&quot;field&quot; data-field=&quot;email&quot;&gt;<br>
+    &lt;input type=&quot;email&quot; name=&quot;email&quot;&gt;<br>
+    &lt;small class=&quot;error&quot;&gt;Enter a valid email&lt;/small&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;div class=&quot;field&quot; data-field=&quot;password&quot;&gt;<br>
+    &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;<br>
+    &lt;small class=&quot;error&quot;&gt;Password is required&lt;/small&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;/form&gt;</p>
+<p>A) //small[@class="error"]</p>
+<p>B) //input[@name="password"]</p>
+<p>C) //div[@data-field="password"]//small[contains(@class,"error")]</p>
+<p>D) //div[@data-field="email"]//small</p>
+
+<p>11. Τι επιστρέφει το document.querySelector(".card .price") στο συγκεκριμένο DOM;</p>
+<p>&lt;div id=&quot;results&quot;&gt;<br>
+    &lt;article class=&quot;card&quot; data-id=&quot;101&quot;&gt;<br>
+    &lt;h3&gt;Keyboard&lt;/h3&gt;<br>
+    &lt;span class=&quot;price&quot;&gt;€39&lt;/span&gt;<br>
+    &lt;/article&gt;<br>
+    &lt;article class=&quot;card&quot; data-id=&quot;102&quot;&gt;<br>
+    &lt;h3&gt;Mouse&lt;/h3&gt;<br>
+    &lt;span class=&quot;price&quot;&gt;€19&lt;/span&gt;<br>
+    &lt;/article&gt;<br>
+    &lt;/div&gt;</p>
+<p>A) Το πρώτο span.price, με κείμενο €39</p>
+<p>B) Και τα δύο span.price ως NodeList</p>
+<p>C) Το δεύτερο span.price, με κείμενο €19</p>
+<p>D) Το στοιχείο #results</p>
+
+<p>12. Ποιος CSS selector εντοπίζει το κουμπί Remove ΜΟΝΟ μέσα στο προϊόν με data-id="B2";</p>
+<p>&lt;ul class=&quot;basket&quot;&gt;<br>
+    &lt;li class=&quot;basket-item&quot; data-id=&quot;A1&quot;&gt;<br>
+    &lt;span&gt;USB Cable&lt;/span&gt;&lt;button class=&quot;remove&quot;&gt;Remove&lt;/button&gt;<br>
+    &lt;/li&gt;<br>
+    &lt;li class=&quot;basket-item&quot; data-id=&quot;B2&quot;&gt;<br>
+    &lt;span&gt;HDMI Adapter&lt;/span&gt;&lt;button class=&quot;remove&quot;&gt;Remove&lt;/button&gt;<br>
+    &lt;/li&gt;<br>
+    &lt;/ul&gt;</p>
+<p>A) .basket .remove</p>
+<p>B) .basket-item[data-id="A1"] .remove</p>
+<p>C) .basket-item + .remove</p>
+<p>D) .basket-item[data-id="B2"] .remove</p>
+
+<p>13. Ποιος XPath βρίσκει το κουμπί «Continue» παρά τα επιπλέον κενά στο κείμενό του;</p>
+<p>&lt;div class=&quot;wizard&quot;&gt;<br>
+    &lt;div class=&quot;step&quot;&gt;Shipping address&lt;/div&gt;<br>
+    &lt;button class=&quot;back&quot;&gt;Back&lt;/button&gt;<br>
+    &lt;button class=&quot;next&quot;&gt;   Continue   &lt;/button&gt;<br>
+    &lt;p class=&quot;hint&quot;&gt;Review your details&lt;/p&gt;<br>
+    &lt;/div&gt;</p>
+<p>A) //button[text()="Continue"]</p>
+<p>B) //button[normalize-space(.)="Continue"]</p>
+<p>C) //p[normalize-space(.)="Continue"]</p>
+<p>D) //button[contains(@class,"back")]</p>
+
+<p>14. Ποιος CSS selector επιλέγει μόνο τα υποχρεωτικά input που βρίσκονται μέσα στην ενότητα Billing;</p>
+<p>&lt;form id=&quot;order-form&quot;&gt;<br>
+    &lt;fieldset class=&quot;billing&quot;&gt;<br>
+    &lt;legend&gt;Billing&lt;/legend&gt;<br>
+    &lt;input name=&quot;company&quot; placeholder=&quot;Company&quot;&gt;<br>
+    &lt;input name=&quot;taxId&quot; required placeholder=&quot;Tax ID&quot;&gt;<br>
+    &lt;input name=&quot;city&quot; required placeholder=&quot;City&quot;&gt;<br>
+    &lt;/fieldset&gt;<br>
+    &lt;fieldset class=&quot;shipping&quot;&gt;<br>
+    &lt;legend&gt;Shipping&lt;/legend&gt;<br>
+    &lt;input name=&quot;address&quot; required placeholder=&quot;Address&quot;&gt;<br>
+    &lt;/fieldset&gt;<br>
+    &lt;/form&gt;</p>
+<p>A) #order-form input[required]</p>
+<p>B) .billing input</p>
+<p>C) .billing input:required</p>
+<p>D) .shipping input:required</p>
+
+<p>15. Ποιος CSS selector βρίσκει το span της κατάστασης μόνο για το request API-204;</p>
+<p>&lt;section id=&quot;requests&quot;&gt;<br>
+    &lt;div class=&quot;request&quot; data-request-id=&quot;API-203&quot;&gt;<br>
+    &lt;strong&gt;Export&lt;/strong&gt;&lt;span class=&quot;status&quot;&gt;Done&lt;/span&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;div class=&quot;request&quot; data-request-id=&quot;API-204&quot;&gt;<br>
+    &lt;strong&gt;Import&lt;/strong&gt;&lt;span class=&quot;status&quot;&gt;Pending&lt;/span&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;div class=&quot;request&quot; data-request-id=&quot;API-205&quot;&gt;<br>
+    &lt;strong&gt;Sync&lt;/strong&gt;&lt;span class=&quot;status&quot;&gt;Done&lt;/span&gt;<br>
+    &lt;/div&gt;<br>
+    &lt;/section&gt;</p>
+<p>A) #requests .status</p>
+<p>B) .request[data-request-id="API-205"] .status</p>
+<p>C) .request .status:last-child</p>
+<p>D) #requests .request[data-request-id="API-204"] > .status</p>
+
+<p># 1 - C</p>
+<p># 2 - B</p>
+<p># 3 - A</p>
+<p># 4 - D</p>
+<p># 5 - B</p>
+<p># 6 - C</p>
+<p># 7 - A</p>
+<p># 8 - D</p>
+<p># 9 - B</p>
+<p># 10 - C</p>
+<p># 11 - A</p>
+<p># 12 - D</p>
+<p># 13 - B</p>
+<p># 14 - C</p>
+<p># 15 - D</p>

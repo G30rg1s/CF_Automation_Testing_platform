@@ -1,0 +1,74 @@
+<th:block th:fragment="applicationUpdate">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/application-update-modal.css}"
+    >
+
+
+    <div
+            id="applicationUpdateModal"
+            class="application-update-modal"
+            hidden
+    >
+
+        <div class="application-update-modal__backdrop"></div>
+
+        <div
+                class="application-update-modal__dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="applicationUpdateModalTitle"
+        >
+
+            <h2 id="applicationUpdateModalTitle">
+                New Version Available
+            </h2>
+
+            <p>
+                A newer version of Automation Platform is available.
+            </p>
+
+            <div class="application-update-modal__versions">
+
+                <div>
+                    Current version:
+                    <strong id="applicationCurrentVersion">-</strong>
+                </div>
+
+                <div>
+                    New version:
+                    <strong id="applicationLatestVersion">-</strong>
+                </div>
+
+            </div>
+
+            <div class="application-update-modal__actions">
+
+                <button
+                        type="button"
+                        id="applicationUpdateLaterButton"
+                >
+                    Later
+                </button>
+
+                <button
+                        type="button"
+                        id="applicationUpdateButton"
+                >
+                    Update
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script
+            th:src="@{/js/update-check.js}"
+            defer
+    ></script>
+
+</th:block>

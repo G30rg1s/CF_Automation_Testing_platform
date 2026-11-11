@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- ========================================
+     DOCUMENT ACTIONS BAR
+     ======================================== -->
+
+<div class="document-actions-bar"
+     th:fragment="documentActionsBar"
+     data-testid="document-actions-bar">
+
+    <!-- ========================================
+         LEFT SIDE
+         ======================================== -->
+
+    <div class="document-actions-bar-info">
+
+        <span class="document-actions-bar-label">
+            Document Actions
+        </span>
+
+        <span class="document-actions-bar-description">
+            Manage the current document.
+        </span>
+
+    </div>
+
+
+    <!-- ========================================
+         ACTION BUTTONS
+         ======================================== -->
+
+    <div class="document-actions-bar-buttons">
+
+        <!-- ========================================
+             UPDATE TITLE
+             ======================================== -->
+
+        <button type="button"
+                id="updateDocumentTitleButton"
+                class="document-action-button document-action-update-button"
+                data-testid="update-document-title-button">
+
+            Update Title
+
+        </button>
+
+
+        <!-- ========================================
+             REUPLOAD
+             ======================================== -->
+
+        <button type="button"
+                id="reuploadDocumentButton"
+                class="document-action-button document-action-reupload-button"
+                data-testid="reupload-document-button">
+
+            Reupload
+
+        </button>
+
+
+        <!-- ========================================
+             FORMAT DOCUMENT
+             ======================================== -->
+
+        <button type="button"
+                id="formatDocumentButton"
+                class="document-action-button document-action-format-button"
+                data-testid="format-document-button">
+
+            Format Document
+
+        </button>
+
+
+        <!-- ========================================
+             DELETE DOCUMENT
+             ======================================== -->
+
+        <button type="button"
+                id="deleteDocumentButton"
+                class="document-action-button document-action-delete-button"
+                data-testid="delete-document-button">
+
+            Delete Document
+
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

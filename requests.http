@@ -1,0 +1,58 @@
+# IntelliJ HTTP Client. Run registration first: it saves the token automatically.
+@baseUrl = http://localhost:8080
+
+### Health
+GET {{baseUrl}}/api/health
+
+### Register (change email when repeating)
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Maria",
+  "lastName": "Papadopoulou",
+  "email": "maria@example.com",
+  "phone": "6912345678",
+  "fatherName": "Nikos",
+  "motherName": "Eleni",
+  "age": 22,
+  "password": "Student123!"
+}
+
+> {% client.global.set("token", response.body.accessToken); %}
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"email":"maria@example.com","password":"Student123!"}
+
+> {% client.global.set("token", response.body.accessToken); %}
+
+### My profile
+GET {{baseUrl}}/api/users/me
+Authorization: Bearer {{token}}
+
+### Replace profile (send every required field; omit optional names to clear them)
+PUT {{baseUrl}}/api/users/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firstName": "Maria",
+  "lastName": "Papadopoulou",
+  "email": "maria@example.com",
+  "phone": "+306912345678",
+  "fatherName": "Nikos",
+  "motherName": "Eleni",
+  "age": 23
+}
+
+### Missing token -> 401
+GET {{baseUrl}}/api/users/me
+
+### Wrong password -> 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"email":"maria@example.com","password":"WrongPassword!"}

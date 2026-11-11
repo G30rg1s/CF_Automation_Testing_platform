@@ -1,0 +1,101 @@
+
+<p>Software Testing</p>
+<p>Βασική θεωρία, επίπεδα tests, τεχνικές και automation</p>
+<p>Στόχος: να υπάρχει ένα ενιαίο θεωρητικό πλαίσιο για το τι τεστάρουμε, γιατί το τεστάρουμε, σε ποιο επίπεδο και με ποιον τρόπο.</p>
+<p>1. Η εφαρμογή ως σύστημα</p>
+<p>Για να μιλήσουμε για testing, αρκεί αρχικά να θεωρήσουμε ότι μία εφαρμογή αποτελείται από τρία βασικά μέρη:</p>
+<p>Το frontend είναι το κομμάτι με το οποίο αλληλεπιδρά ο χρήστης.</p>
+<p>Το backend περιέχει τη business logic, τα APIs και την επικοινωνία με άλλα συστήματα.</p>
+<p>Η database αποθηκεύει και διατηρεί τα δεδομένα της εφαρμογής.</p>
+<p>Στην πράξη μπορεί να υπάρχουν και άλλα services, message queues, caches ή third-party APIs, όμως το παραπάνω μοντέλο είναι αρκετό για να κατανοήσουμε τις βασικές αρχές του testing.</p>
+<p>2. Τι είναι Testing και γιατί το κάνουμε</p>
+<p>Testing είναι η συστηματική διαδικασία με την οποία ελέγχουμε ότι ένα σύστημα ή ένα μέρος του συστήματος συμπεριφέρεται όπως αναμένεται. Δεν ελέγχουμε μόνο τα happy paths, αλλά και λανθασμένα inputs, edge cases, exceptions, timeouts, invalid states και ανεπιθύμητες συμπεριφορές.</p>
+<p>Κύριοι στόχοι του testing:</p>
+<p>να επιβεβαιώνουμε ότι η εφαρμογή λειτουργεί σύμφωνα με τις απαιτήσεις,</p>
+<p>να εντοπίζουμε defects όσο το δυνατόν νωρίτερα,</p>
+<p>να ελέγχουμε positive και negative scenarios,</p>
+<p>να βεβαιωνόμαστε ότι διαφορετικά components συνεργάζονται σωστά,</p>
+<p>να μειώνουμε τον κίνδυνο μια νέα αλλαγή να χαλάσει υπάρχουσα λειτουργικότητα.</p>
+<p>Βασική ιδέα: Testing δεν σημαίνει μόνο «δουλεύει;», αλλά και «τι γίνεται όταν κάτι πάει λάθος;».</p>
+<p>3. Verification και Validation</p>
+<p>Με απλά λόγια, verification είναι το «φτιάξαμε σωστά αυτό που μας ζητήθηκε;», ενώ validation είναι το «φτιάξαμε αυτό που πραγματικά χρειαζόταν;».</p>
+<p>4. Testing Pyramid και επίπεδα ελέγχου</p>
+<p>                 End-to-End\n            Integration / API\n                 Unit Tests</p>
+<p>Η testing pyramid εκφράζει την ιδέα ότι θέλουμε πολλά μικρά και γρήγορα tests στη βάση, λιγότερα integration/API tests στο μεσαίο επίπεδο και ακόμα λιγότερα μεγάλα end-to-end tests στην κορυφή. Όσο μεγαλώνει το scope, τόσο συνήθως αυξάνονται ο χρόνος εκτέλεσης, το κόστος συντήρησης και η πολυπλοκότητα.</p>
+<p>4.1 Unit Tests</p>
+<p>Τα unit tests ελέγχουν μία μικρή μονάδα κώδικα απομονωμένα, όπως μία function, method, class ή business rule. Συνήθως γράφονται από developers και τα dependencies γίνονται mock ώστε να ελέγχεται μόνο η μονάδα που μας ενδιαφέρει.</p>
+<p>Παράδειγμα: μία function που κάνει πρόσθεση μπορεί να ελεγχθεί ώστε για inputs 2 και 3 να επιστρέφει 5. Σε πιο ρεαλιστικό backend παράδειγμα, ένας controller μπορεί να ελεγχθεί με mocked service ώστε να επιβεβαιώσουμε ότι χειρίζεται σωστά το request και το response.</p>
+<p>4.2 API / Service Tests</p>
+<p>Τα API ή service tests ελέγχουν ένα backend service μέσω των endpoints του. Εξετάζουμε status codes, response bodies, validations, business rules, positive και negative scenarios. Το test μπορεί να είναι black-box ή gray-box, ανάλογα με το πόση γνώση της εσωτερικής υλοποίησης χρησιμοποιούμε.</p>
+<p>4.3 Integration Tests</p>
+<p>Τα integration tests ελέγχουν ότι δύο ή περισσότερα πραγματικά components συνεργάζονται σωστά, για παράδειγμα backend με database ή service A με service B. Δεν mockάρουμε τα components των οποίων την ολοκλήρωση θέλουμε να επαληθεύσουμε. Άλλα άσχετα ή εξωτερικά dependencies μπορούν να γίνουν mock, ανάλογα με το scope του test.</p>
+<p>4.4 End-to-End Tests</p>
+<p>Τα end-to-end tests ελέγχουν μία ολόκληρη business ροή από την αρχή μέχρι το τέλος. Το πιο χαρακτηριστικό σενάριο ξεκινά από το UI και περνά από frontend, backend και database μέχρι να εμφανιστεί το τελικό αποτέλεσμα στον χρήστη.</p>
+<p>Μπορούμε επίσης να έχουμε system-level ή backend end-to-end flows που ξεκινούν από API και διασχίζουν όλα τα εσωτερικά components. Αν σημαντικά external systems είναι mocked, είναι συχνά πιο ακριβές να μιλάμε για component/system-level test αντί για πλήρες end-to-end.</p>
+<p>5. External Services και Mocking</p>
+<p>Ένα backend συχνά εξαρτάται από άλλα συστήματα. Για παράδειγμα, ένα payment backend μπορεί να χρειάζεται ισοτιμία νομίσματος από εξωτερικό Currency Service. Όταν θέλουμε να ελέγξουμε μόνο τη δική μας business logic, μπορούμε να αντικαταστήσουμε το external dependency με ένα mock που επιστρέφει ελεγχόμενες απαντήσεις.</p>
+<p>POS / Client  →  Payment Backend  →  Currency Service</p>
+<p>Με mock μπορούμε να καθορίσουμε ότι το Currency Service επιστρέφει, για παράδειγμα, συγκεκριμένη ισοτιμία και να ελέγξουμε αν το δικό μας backend υπολογίζει σωστά το ποσό. Μπορούμε επίσης να προσομοιώσουμε 200 OK, 400, 500, timeout ή invalid response ώστε να ελέγξουμε negative scenarios χωρίς να εξαρτόμαστε από την πραγματική διαθεσιμότητα του εξωτερικού συστήματος.</p>
+<p>6. Frontend και Backend Validation</p>
+<p>Το validation στο frontend είναι σημαντικό για το user experience, αλλά δεν αρκεί για να προστατεύσει το σύστημα. Κάποιος μπορεί να παρακάμψει εντελώς το UI και να στείλει request απευθείας στο backend μέσω Postman, curl, browser dev tools ή custom client.</p>
+<p>Γι’ αυτό κρίσιμοι validators πρέπει να υπάρχουν και στο backend. Αν, για παράδειγμα, το frontend ελέγχει τη σωστή μορφή email, το backend πρέπει να κάνει τον ίδιο ουσιαστικό έλεγχο πριν δεχτεί ή αποθηκεύσει τα δεδομένα.</p>
+<p>Συμπέρασμα: Το ότι όλα τα flows και οι validators του frontend λειτουργούν σωστά δεν σημαίνει ότι η εφαρμογή είναι ασφαλής. Το backend πρέπει να ελέγχεται και να προστατεύεται ανεξάρτητα.</p>
+<p>7. Black Box, White Box και Gray Box Testing</p>
+<p>7.1 White Box Testing</p>
+<p>Στο white box testing γνωρίζουμε την εσωτερική δομή και τον κώδικα της εφαρμογής. Γνωρίζουμε classes, methods, branches και dependencies και σχεδιάζουμε tests με βάση αυτή τη γνώση. Τα unit tests είναι χαρακτηριστικό παράδειγμα. Ένα controller unit test που γνωρίζει ότι ο controller καλεί συγκεκριμένο service και κάνει mock αυτή τη dependency είναι επίσης τυπικό white-box παράδειγμα.</p>
+<p>7.2 Black Box Testing</p>
+<p>Στο black box testing δεν μας ενδιαφέρει πώς είναι υλοποιημένο εσωτερικά το σύστημα. Στέλνουμε input και ελέγχουμε το observable output: status code, response, UI αποτέλεσμα ή συμπεριφορά. Το σύστημα αντιμετωπίζεται σαν “μαύρο κουτί”.</p>
+<p>7.3 Gray Box Testing</p>
+<p>Στο gray box testing γνωρίζουμε μέρος της εσωτερικής αρχιτεκτονικής, αλλά το test εξακολουθεί να εστιάζει κυρίως στο behavior. Για παράδειγμα, γνωρίζουμε ότι το payment endpoint εξαρτάται από Currency Service και κάνουμε mock μόνο το external dependency, ενώ ελέγχουμε ολόκληρη τη δική μας ροή.</p>
+<p>Σημαντικό: White/Gray/Black Box δεν περιγράφουν το “επίπεδο” του test, αλλά το πόση γνώση της εσωτερικής υλοποίησης χρησιμοποιούμε κατά το testing.</p>
+<p>8. Functional και Non-Functional Testing</p>
+<p>8.1 Functional Testing</p>
+<p>Functional testing ελέγχει τι κάνει το σύστημα και αν η λειτουργικότητά του συμφωνεί με τα requirements. Περιλαμβάνει business flows, validations, calculations, API behavior, login, create/update/delete και γενικά το αν το σύστημα εκτελεί σωστά τις αναμενόμενες λειτουργίες.</p>
+<p>8.2 Non-Functional Testing</p>
+<p>Non-functional testing ελέγχει πώς συμπεριφέρεται το σύστημα και όχι μόνο ποια business λειτουργία εκτελεί. Εξετάζει χαρακτηριστικά όπως performance, load, stress και security, δηλαδή πόσο γρήγορα, σταθερά και ασφαλώς λειτουργεί η εφαρμογή.</p>
+<p>9. Performance, Load, Stress και Security Testing</p>
+<p>9.1 Performance Testing</p>
+<p>Ελέγχει γενικά την απόδοση του συστήματος. Μετράμε response time, latency, throughput και resource usage και εξετάζουμε αν το σύστημα ανταποκρίνεται μέσα στα αποδεκτά όρια.</p>
+<p>9.2 Load Testing</p>
+<p>Ελέγχει πώς συμπεριφέρεται το σύστημα κάτω από αναμενόμενο ή υψηλό αλλά ρεαλιστικό φορτίο, όπως μεγάλος αριθμός concurrent users ή requests ανά λεπτό. Στόχος είναι να δούμε αν συνεχίζει να λειτουργεί σωστά και με αποδεκτή απόδοση.</p>
+<p>9.3 Stress Testing</p>
+<p>Πηγαίνει το σύστημα πέρα από τα φυσιολογικά ή αναμενόμενα όριά του. Στόχος είναι να δούμε πότε αρχίζει να αποτυγχάνει, με ποιον τρόπο αποτυγχάνει και αν μπορεί να ανακάμψει σωστά μετά το overload.</p>
+<p>9.4 Security Testing</p>
+<p>Ελέγχει αν το σύστημα προστατεύεται σωστά από μη εξουσιοδοτημένη ή κακόβουλη χρήση. Περιλαμβάνει authentication, authorization, invalid ή malicious input, πρόσβαση σε δεδομένα άλλων χρηστών, injection attacks και σωστή διαχείριση tokens/sessions. Πολλά negative API scenarios έχουν και security διάσταση, αλλά το security testing είναι ευρύτερο από τα απλά negative functional tests.</p>
+<p>10. Smoke, Sanity και Regression Testing</p>
+<p>Οι παρακάτω όροι δεν περιγράφουν τόσο το επίπεδο του test, αλλά περισσότερο τον σκοπό και το πότε εκτελείται ένα σύνολο tests.</p>
+<p>10.1 Smoke Testing</p>
+<p>Γρήγορος βασικός έλεγχος ότι το build ή η εφαρμογή είναι αρκετά υγιής ώστε να συνεχίσουμε με πιο αναλυτικό testing. Ελέγχουμε κρίσιμες λειτουργίες όπως αν η εφαρμογή ξεκινά, αν απαντά το βασικό API, αν λειτουργεί το login και αν υπάρχει σύνδεση με database.</p>
+<p>10.2 Sanity Testing</p>
+<p>Στοχευμένος έλεγχος μετά από συγκεκριμένη αλλαγή ή bug fix. Ελέγχουμε ότι η συγκεκριμένη αλλαγή λειτουργεί και ότι τα άμεσα συνδεδεμένα flows δεν επηρεάστηκαν εμφανώς.</p>
+<p>10.3 Regression Testing</p>
+<p>Ελέγχει αν μία νέα αλλαγή χάλασε functionality που προηγουμένως λειτουργούσε. Εκτελούμε ξανά υπάρχοντα tests ώστε να βεβαιωθούμε ότι νέα features, refactoring ή bug fixes δεν δημιούργησαν regressions σε άλλα σημεία της εφαρμογής.</p>
+<p>11. Manual Testing και Test Automation</p>
+<p>Τα ίδια testing scenarios μπορούν να εκτελεστούν χειροκίνητα ή αυτοματοποιημένα. Η επιλογή εξαρτάται από τη συχνότητα εκτέλεσης, τη σταθερότητα του feature, το κόστος συντήρησης και την αξία που προσφέρει η αυτοματοποίηση.</p>
+<p>11.1 Manual Testing</p>
+<p>Στο frontend ο tester λειτουργεί όπως ένας πραγματικός χρήστης: ανοίγει την εφαρμογή, εκτελεί flows, συμπληρώνει φόρμες και ελέγχει το αποτέλεσμα. Στο backend/API το manual testing μπορεί να γίνει με εργαλεία όπως Postman, Insomnia, Bruno ή curl, όπου στέλνουμε requests και ελέγχουμε status codes, headers, response bodies και errors.</p>
+<p>11.2 Automation Testing</p>
+<p>Στο automation γράφουμε κώδικα που εκτελεί τα test steps και τα assertions αυτόματα. Στο backend/API μπορούμε να χρησιμοποιήσουμε REST Assured, Karate, Postman/Newman ή pytest/requests. Στο frontend/browser automation μπορούμε να χρησιμοποιήσουμε Playwright, Selenium, Cypress ή WebdriverIO.</p>
+<p>Στο συγκεκριμένο learning path: Backend automation με REST Assured και frontend automation με Playwright.</p>
+<p>11.3 Γιατί χρειαζόμαστε Automation</p>
+<p>Όσο μεγαλώνει μία εφαρμογή, μεγαλώνει και το regression suite. Είναι πρακτικά αδύνατο να εκτελούνται χειροκίνητα εκατοντάδες ή χιλιάδες test cases μετά από κάθε αλλαγή. Το automation επιτρέπει να επαναλαμβάνουμε γρήγορα και με συνέπεια τους ίδιους σημαντικούς ελέγχους και να εντοπίζουμε regressions νωρίς.</p>
+<p>11.4 Δεν χρειάζεται να αυτοματοποιηθούν όλα</p>
+<p>Automation έχει μεγαλύτερη αξία σε σταθερά, επαναλαμβανόμενα, business-critical scenarios με προβλέψιμο expected result. Δεν αξίζει πάντα να επενδύσουμε χρόνο σε automation για προσωρινό functionality, one-off flows ή σενάρια που αλλάζουν συνεχώς.</p>
+<p>Παράδειγμα: μία Black Friday λειτουργία που θα υπάρχει μόνο για λίγες ημέρες μπορεί να ελεγχθεί χειροκίνητα αν το κόστος δημιουργίας και συντήρησης automation είναι μεγαλύτερο από το όφελος που θα προσφέρει.</p>
+<p>11.5 Partial Automation και ανθρώπινος έλεγχος</p>
+<p>Ορισμένα scenarios είναι δυνατό να αυτοματοποιηθούν μόνο εν μέρει ή δεν αξίζει να αυτοματοποιηθούν πλήρως. Για παράδειγμα, σε έναν Excel parser μπορούμε να αυτοματοποιήσουμε ότι το αρχείο ανέβηκε, ότι δημιουργήθηκε ο σωστός αριθμός records και ότι υπάρχουν βασικά fields. Παράλληλα, ένας manual έλεγχος μπορεί να εξετάσει πιο λεπτομερώς δύσκολες ή οπτικές περιπτώσεις, ειδικές τιμές και edge cases.</p>
+<p>Το σωστό μοντέλο δεν είναι “manual ή automation”, αλλά συνδυασμός των δύο. Το automation χρησιμοποιείται κυρίως εκεί όπου προσφέρει επαναληψιμότητα, ταχύτητα και regression coverage, ενώ το manual testing παραμένει σημαντικό για exploratory testing, νέα ή προσωρινά features και περιπτώσεις που χρειάζονται ανθρώπινη κρίση.</p>
+<p>12. Πώς συνδέονται όλα μεταξύ τους</p>
+<p>13. Συνοπτικό Mental Model</p>
+<p>Unit: ελέγχω μικρή μονάδα κώδικα απομονωμένα.</p>
+<p>Integration: ελέγχω ότι πραγματικά components συνεργάζονται σωστά.</p>
+<p>E2E: ελέγχω ολόκληρη business ροή από άκρη σε άκρη.</p>
+<p>White/Gray/Black Box: περιγράφουν πόση γνώση της εσωτερικής υλοποίησης χρησιμοποιώ.</p>
+<p>Functional: ελέγχω τι κάνει το σύστημα.</p>
+<p>Non-Functional: ελέγχω πώς συμπεριφέρεται το σύστημα.</p>
+<p>Smoke: ελέγχω αν το build είναι αρκετά υγιές για να συνεχίσω.</p>
+<p>Sanity: ελέγχω γρήγορα μία συγκεκριμένη αλλαγή ή fix.</p>
+<p>Regression: ελέγχω αν η νέα αλλαγή χάλασε κάτι παλιό.</p>
+<p>Manual: άνθρωπος εκτελεί τα βήματα.</p>
+<p>Automation: κώδικας εκτελεί επαναλαμβανόμενα τα βήματα και τα assertions.</p>
+<p>Τελικό συμπέρασμα: Δεν υπάρχει ένας μόνο τύπος testing που “καλύπτει τα πάντα”. Η ποιότητα προκύπτει από συνδυασμό διαφορετικών επιπέδων, τεχνικών, positive/negative scenarios, manual ελέγχου και automation.</p>

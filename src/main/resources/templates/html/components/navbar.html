@@ -1,0 +1,126 @@
+<nav
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="navbar"
+        class="navbar"
+        data-testid="navbar">
+
+
+
+    <!-- ========================================
+         BRAND
+         ======================================== -->
+
+    <div class="navbar-brand">
+        <span class="navbar-brand-icon" aria-hidden="true">⚙</span>
+        <span>Automation Platform</span>
+    </div>
+
+
+    <!-- ========================================
+         ACTIONS
+         ======================================== -->
+
+    <div class="navbar-actions">
+
+
+        <!-- ========================================
+             DATABASE MODE
+             ======================================== -->
+
+        <form
+                id="databaseModeForm"
+                class="navbar-database-mode-form"
+                th:action="@{/automation/database-mode}"
+                method="post">
+
+            <label
+                    for="databaseModeSelect"
+                    class="navbar-database-mode-label">
+
+                Mode
+
+            </label>
+
+
+            <select
+                    id="databaseModeSelect"
+                    name="mode"
+                    class="navbar-database-mode-select"
+                    data-testid="database-mode-select"
+                    onchange="this.form.submit()">
+
+
+                <!-- ========================================
+                     NO MODE SELECTED
+                     ======================================== -->
+
+                <option
+                        value=""
+                        disabled
+                        th:selected="${selectedDatabaseMode == null}">
+
+                    Select Mode
+
+                </option>
+
+
+                <!-- ========================================
+                     PRODUCTION
+                     ======================================== -->
+
+                <option
+                        value="production"
+                        th:selected="${selectedDatabaseMode == 'production'}">
+
+                    Production
+
+                </option>
+
+
+                <!-- ========================================
+                     FRONTEND TESTING
+                     ======================================== -->
+
+                <option
+                        value="frontendtesting"
+                        th:selected="${selectedDatabaseMode == 'frontendtesting'}">
+
+                    Frontend Testing
+
+                </option>
+
+
+                <!-- ========================================
+                     API TESTING
+                     ======================================== -->
+
+                <option
+                        value="apitesting"
+                        th:selected="${selectedDatabaseMode == 'apitesting'}">
+
+                    API Testing
+
+                </option>
+
+            </select>
+
+        </form>
+
+
+        <!-- ========================================
+             LOGOUT
+             ======================================== -->
+
+        <button
+                type="button"
+                id="logoutButton"
+                class="navbar-logout-button"
+                data-testid="logout-button">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</nav>

@@ -1,0 +1,218 @@
+/* ========================================
+   DOCUMENT ACTIONS BAR
+   ======================================== */
+
+.document-actions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    width: 100%;
+
+    padding: 14px 18px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+
+/* ========================================
+   LEFT SIDE
+   ======================================== */
+
+.document-actions-bar-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.document-actions-bar-label {
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.document-actions-bar-description {
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/* ========================================
+   BUTTONS CONTAINER
+   ======================================== */
+
+.document-actions-bar-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+/* ========================================
+   BASE BUTTON
+   ======================================== */
+
+.document-action-button {
+    min-height: 38px;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.document-action-button:active {
+    transform: translateY(1px);
+}
+
+
+/* ========================================
+   UPDATE TITLE
+   ======================================== */
+
+.document-action-update-button {
+    border: 1px solid #bfdbfe;
+
+    background: #eff6ff;
+
+    color: #1d4ed8;
+}
+
+.document-action-update-button:hover {
+    border-color: #2563eb;
+
+    background: #dbeafe;
+}
+
+
+/* ========================================
+   REUPLOAD
+   ======================================== */
+
+.document-action-reupload-button {
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+
+    color: #374151;
+}
+
+.document-action-reupload-button:hover {
+    border-color: #9ca3af;
+
+    background: #f3f4f6;
+}
+
+
+/* ========================================
+   FORMAT DOCUMENT
+   ======================================== */
+
+.document-action-format-button {
+    border: 1px solid #c4b5fd;
+
+    background: #f5f3ff;
+
+    color: #6d28d9;
+}
+
+.document-action-format-button:hover {
+    border-color: #8b5cf6;
+
+    background: #ede9fe;
+
+    color: #5b21b6;
+}
+
+
+/* ========================================
+   DELETE DOCUMENT
+   ======================================== */
+
+.document-action-delete-button {
+    border: 1px solid #fecaca;
+
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+.document-action-delete-button:hover {
+    border-color: #dc2626;
+
+    background: #fee2e2;
+}
+
+
+/* ========================================
+   DISABLED
+   ======================================== */
+
+.document-action-button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 750px) {
+
+    .document-actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .document-actions-bar-buttons {
+        justify-content: stretch;
+    }
+
+    .document-action-button {
+        flex: 1;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .document-actions-bar-buttons {
+        flex-direction: column;
+    }
+
+    .document-action-button {
+        width: 100%;
+    }
+}

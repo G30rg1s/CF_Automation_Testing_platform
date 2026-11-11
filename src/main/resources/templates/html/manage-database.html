@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Database | Coding Factory Automation</title>
+
+    <!-- ========================================
+         PAGE CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/dashboard.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/manage-database.css}">
+
+    <!-- ========================================
+         COMPONENT CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/dashboard-sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/add-category-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/category-already-exists-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/delete-category-modal.css}">
+
+    <!-- ========================================
+         THEORY SETUP CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/theory-setup.css}">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- ========================================
+         SHARED SIDEBAR
+         ======================================== -->
+
+    <div th:replace="~{html/components/dashboard-sidebar :: dashboardSidebar}">
+    </div>
+
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+
+    <div class="dashboard-main">
+
+        <!-- SHARED NAVBAR -->
+
+        <div th:replace="~{html/components/navbar :: navbar}">
+        </div>
+
+        <main class="dashboard-content">
+
+            <!-- ========================================
+                 PAGE HEADER
+                 ======================================== -->
+
+            <div class="dashboard-overview-header">
+
+                <p class="dashboard-label">
+                    Database Management
+                </p>
+
+                <h1>
+                    Manage Database
+                </h1>
+
+                <p class="dashboard-overview-description">
+                    Initialize learning material, manage documents
+                    and work with saved SQL queries.
+                </p>
+
+            </div>
+
+            <!-- ========================================
+                 INITIALIZE THEORY
+                 ======================================== -->
+
+            <section class="manage-database-panel"
+                     aria-labelledby="initializeTheoryTitle">
+
+                <h2 id="initializeTheoryTitle">
+                    Initialize Theory
+                </h2>
+
+                <p>
+                    Insert the Theory category, the Testing_Basics
+                    document and its formatting records into the
+                    database selected from the Navbar.
+                </p>
+
+                <p id="theorySetupInfo"
+                   aria-live="polite">
+                    Checking theory setup configuration...
+                </p>
+
+                <button type="button"
+                        id="initializeTheoryButton"
+                        class="manage-database-button primary"
+                        disabled>
+                    Initialize Theory
+                </button>
+
+                <p id="theorySetupResult"
+                   role="status"
+                   aria-live="polite">
+                </p>
+
+            </section>
+
+            <!-- ========================================
+                 SQL QUERY CONSOLE
+                 ======================================== -->
+
+            <section class="manage-database-panel"
+                     aria-labelledby="sqlConsoleSectionTitle">
+
+                <h2 id="sqlConsoleSectionTitle">
+                    SQL Query Console
+                </h2>
+
+                <p>
+                    Search, create, edit, copy and delete saved
+                    SQL queries. Saved queries are synchronized
+                    across Production, FrontendTesting and
+                    ApiTesting.
+                </p>
+
+                <p>
+                    SQL execution uses the database selected
+                    from the Navbar.
+                </p>
+
+                <button type="button"
+                        id="openSqlConsoleButton"
+                        class="manage-database-button primary">
+                    Open SQL Query Console
+                </button>
+
+            </section>
+
+            <!-- ========================================
+                 DELETE ALL DOCUMENTS
+                 ======================================== -->
+
+            <section class="manage-database-panel"
+                     aria-labelledby="deleteAllDocumentsTitle">
+
+                <h2 id="deleteAllDocumentsTitle">
+                    Delete All Documents
+                </h2>
+
+                <p>
+                    Delete documents and their related formatting
+                    records from the database selected in the Navbar.
+                </p>
+
+                <p>
+                    The deletion must preserve users, categories
+                    and saved SQL queries.
+                </p>
+
+                <button type="button"
+                        id="cleanDatabaseButton"
+                        class="manage-database-button danger">
+                    Delete All Documents
+                </button>
+
+                <p id="databaseCleanupResult"
+                   role="status"
+                   aria-live="polite">
+                </p>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- ========================================
+     EXISTING SHARED MODALS
+     ======================================== -->
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}">
+</div>
+
+<div th:replace="~{html/components/add-category-modal :: addCategoryModal}">
+</div>
+
+<div th:replace="~{html/components/category-already-exists-modal :: categoryAlreadyExistsModal}">
+</div>
+
+<div th:replace="~{html/components/delete-category-modal :: deleteCategoryModal}">
+</div>
+
+<!-- ========================================
+     EXISTING COMPONENT JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/components/dashboard-sidebar.js}">
+</script>
+
+<script th:src="@{/js/components/add-category-modal.js}">
+</script>
+
+<script th:src="@{/js/components/delete-category-modal.js}">
+</script>
+
+<script th:src="@{/js/components/navbar.js}">
+</script>
+
+<!-- ========================================
+     THEORY SETUP JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/theory-setup.js}">
+</script>
+
+<!-- ========================================
+     MANAGE DATABASE JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/manage-database.js}">
+</script>
+
+<!-- ========================================
+     INDEPENDENT SQL CONSOLE WINDOW
+     ======================================== -->
+
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+        "use strict";
+
+        const openButton = document.getElementById(
+            "openSqlConsoleButton"
+        );
+
+        if (!openButton) {
+            return;
+        }
+
+        const sqlConsoleUrl =
+            /*[[@{/automation/sql-console}]]*/
+            "/automation/sql-console";
+
+        openButton.addEventListener("click", () => {
+
+            const sqlWindow = window.open(
+                sqlConsoleUrl,
+                "CodingFactorySqlConsole",
+                "popup=yes,width=1400,height=900," +
+                "resizable=yes,scrollbars=yes"
+            );
+
+            if (sqlWindow) {
+                sqlWindow.focus();
+            } else {
+                window.alert(
+                    "The browser blocked the SQL Console window. " +
+                    "Please allow popups for this application."
+                );
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

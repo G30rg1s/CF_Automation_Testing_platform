@@ -1,0 +1,263 @@
+
+<p>REST Assured, Cucumber &amp; Gherkin</p>
+<p>Βασική θεωρία, δομή requests και παράδειγμα automation framework</p>
+<p>1. Τι είναι το REST Assured</p>
+<p>Το REST Assured είναι Java library για automation testing REST APIs. Μας επιτρέπει να δημιουργούμε HTTP requests, να στέλνουμε headers, query/path parameters και body, να λαμβάνουμε responses και να κάνουμε validations πάνω στο αποτέλεσμα.</p>
+<p>Η πιο συνηθισμένη μορφή του ακολουθεί τη λογική BDD-style:</p>
+<p>given()
+    // request setup
+    .when()
+    // send HTTP request
+    .then()
+    // validations / extraction</p>
+<p>2. Δομή ενός request</p>
+<p>given(): προετοιμάζουμε το request — headers, authorization, content type, query params, path params και body.</p>
+<p>when(): εκτελούμε τη HTTP method, π.χ. GET, POST, PUT, PATCH ή DELETE.</p>
+<p>then(): μπορούμε να κάνουμε assertions ή να κάνουμε extract το response για να το ελέγξουμε αργότερα.</p>
+<p>GET με query parameter</p>
+<p>given()
+    .queryParam("email", "nikos@test.com")
+    .when()
+    .get("/users")
+    .then()
+    .statusCode(200);</p>
+<p>POST με headers, query param και body</p>
+<p>given()
+    .header("Authorization", "Bearer token")
+    .contentType(ContentType.JSON)
+    .queryParam("sendEmail", true)
+    .body(requestBody)
+    .when()
+    .post("/users")
+    .then()
+    .statusCode(201);</p>
+<p>3. ExtractableResponse και separation των validations</p>
+<p>Σε μεγαλύτερα automation frameworks είναι συχνά πιο καθαρό να μην βάζουμε όλα τα assertions μέσα στο chained then(). Αντί γι’ αυτό, κρατάμε το response και το περνάμε σε ξεχωριστό validation layer.</p>
+<p>ExtractableResponse&lt;Response&gt; response =
+    given()
+    .contentType(ContentType.JSON)
+    .body(requestBody)
+    .when()
+    .post("/users")
+    .then()
+    .extract();</p>
+<p>Μετά μπορούμε να χρησιμοποιήσουμε το response σε ξεχωριστή class για validations:</p>
+<p>assertEquals(201, response.statusCode());
+    assertEquals("maria@test.com", response.jsonPath().getString("email"));</p>
+<p>Η βασική ιδέα είναι separation of concerns: ο API client στέλνει requests, ενώ ο validator ελέγχει το response.</p>
+<p>4. Παράδειγμα project structure</p>
+<p>src/test/java
+    ├── clients
+    │   └── UserApiClient.java
+    ├── models
+    │   └── UserRequest.java
+    ├── validators
+    │   └── UserValidator.java
+    ├── steps
+    │   └── UserSteps.java
+    └── runner
+    └── CucumberTest.java
+
+    src/test/resources
+    └── features
+    └── users.feature</p>
+<p>5. Request Model / POJO</p>
+<p>Αντί να γράφουμε raw JSON μέσα σε κάθε test, μπορούμε να έχουμε ένα Java object που αντιπροσωπεύει το request body.</p>
+<p>public class UserRequest {
+
+    private String username;
+    private String email;
+    private Integer age;
+    private Boolean active;
+
+    public UserRequest(String username, String email, Integer age, Boolean active) {
+    this.username = username;
+    this.email = email;
+    this.age = age;
+    this.active = active;
+    }
+
+    public String getUsername() { return username; }
+    public String getEmail() { return email; }
+    public Integer getAge() { return age; }
+    public Boolean getActive() { return active; }
+    }</p>
+<p>6. API Client με REST Assured</p>
+<p>Η client class είναι υπεύθυνη για τη δημιουργία και αποστολή των HTTP requests. Επιστρέφει το response χωρίς να φορτώνεται με business assertions.</p>
+<p>import io.restassured.http.ContentType;
+    import io.restassured.response.ExtractableResponse;
+    import io.restassured.response.Response;
+
+    import static io.restassured.RestAssured.given;
+
+    public class UserApiClient {
+
+    private static final String BASE_URL = "https://api.example.com";
+
+    public ExtractableResponse&lt;Response&gt; createUser(UserRequest request) {
+    return given()
+    .baseUri(BASE_URL)
+    .contentType(ContentType.JSON)
+    .body(request)
+    .when()
+    .post("/users")
+    .then()
+    .extract();
+    }
+
+    public ExtractableResponse&lt;Response&gt; getUserByEmail(String email) {
+    return given()
+    .baseUri(BASE_URL)
+    .queryParam("email", email)
+    .when()
+    .get("/users")
+    .then()
+    .extract();
+    }
+    }</p>
+<p>7. Validator Class</p>
+<p>Η validator class συγκεντρώνει τα assertions. Έτσι τα tests και τα Cucumber steps παραμένουν πιο καθαρά και τα ίδια validations μπορούν να επαναχρησιμοποιηθούν.</p>
+<p>import io.restassured.response.ExtractableResponse;
+    import io.restassured.response.Response;
+
+    import static org.junit.jupiter.api.Assertions.*;
+
+    public class UserValidator {
+
+    public void validateUserCreated(
+    ExtractableResponse&lt;Response&gt; response,
+    UserRequest expected) {
+
+    assertEquals(201, response.statusCode());
+    assertEquals(expected.getUsername(),
+    response.jsonPath().getString("username"));
+    assertEquals(expected.getEmail(),
+    response.jsonPath().getString("email"));
+    assertEquals(expected.getAge(),
+    response.jsonPath().getInt("age"));
+    assertEquals(expected.getActive(),
+    response.jsonPath().getBoolean("active"));
+    }
+
+    public void validateUserReturned(
+    ExtractableResponse&lt;Response&gt; response,
+    String expectedEmail) {
+
+    assertEquals(200, response.statusCode());
+    assertEquals(expectedEmail,
+    response.jsonPath().getString("email"));
+    }
+    }</p>
+<p>8. Τι είναι Cucumber</p>
+<p>Το Cucumber είναι εργαλείο που υποστηρίζει Behaviour-Driven Development (BDD). Διαβάζει executable specifications γραμμένες σε plain text και συνδέει τα βήματα των scenarios με πραγματικό automation code μέσω step definitions.</p>
+<p>9. Τι είναι Gherkin</p>
+<p>Το Gherkin είναι η γλώσσα/σύνταξη με την οποία γράφονται τα Cucumber scenarios. Τα αρχεία αποθηκεύονται συνήθως με κατάληξη .feature και χρησιμοποιούν λέξεις όπως Feature, Scenario, Given, When, Then, And και But.</p>
+<p>Given: περιγράφει το αρχικό context / precondition.</p>
+<p>When: περιγράφει την ενέργεια που εκτελείται.</p>
+<p>Then: περιγράφει το αναμενόμενο αποτέλεσμα.</p>
+<p>And / But: χρησιμοποιούνται για πιο φυσική συνέχεια των βημάτων.</p>
+<p>10. Παράδειγμα Gherkin Feature</p>
+<p>Feature: User API
+
+    Scenario: Create a new user and retrieve it by email
+    Given a new user with username "maria" and email "maria@test.com"
+    When I create the user
+    Then the user should be created successfully
+    When I retrieve the user by email
+    Then the correct user should be returned</p>
+<p>Το feature file περιγράφει το business scenario με αναγνώσιμη μορφή. Δεν περιέχει REST Assured implementation details.</p>
+<p>11. Step Definitions</p>
+<p>Τα step definitions συνδέουν το Gherkin με τον Java automation code. Κάθε Given/When/Then αντιστοιχίζεται σε μία Java method.</p>
+<p>import io.cucumber.java.en.Given;
+    import io.cucumber.java.en.When;
+    import io.cucumber.java.en.Then;
+    import io.restassured.response.ExtractableResponse;
+    import io.restassured.response.Response;
+
+    public class UserSteps {
+
+    private final UserApiClient userClient = new UserApiClient();
+    private final UserValidator userValidator = new UserValidator();
+
+    private UserRequest userRequest;
+    private ExtractableResponse&lt;Response&gt; response;
+
+    @Given("a new user with username {string} and email {string}")
+    public void aNewUser(String username, String email) {
+    userRequest = new UserRequest(
+    username,
+    email,
+    25,
+    true
+    );
+    }
+
+    @When("I create the user")
+    public void iCreateTheUser() {
+    response = userClient.createUser(userRequest);
+    }
+
+    @Then("the user should be created successfully")
+    public void userShouldBeCreated() {
+    userValidator.validateUserCreated(response, userRequest);
+    }
+
+    @When("I retrieve the user by email")
+    public void iRetrieveTheUserByEmail() {
+    response = userClient.getUserByEmail(userRequest.getEmail());
+    }
+
+    @Then("the correct user should be returned")
+    public void correctUserShouldBeReturned() {
+    userValidator.validateUserReturned(
+    response,
+    userRequest.getEmail()
+    );
+    }
+    }</p>
+<p>12. Cucumber Runner</p>
+<p>Χρειαζόμαστε και configuration/runner ώστε το test framework να γνωρίζει πού βρίσκονται τα feature files και τα step definitions. Η ακριβής μορφή εξαρτάται από το test runner και την έκδοση που χρησιμοποιούμε.</p>
+<p>/* Ενδεικτική δομή runner/configuration */
+
+    Features: src/test/resources/features
+    Glue / Step Definitions: steps
+
+    Το runner εκτελεί τα .feature scenarios και το Cucumber
+    αντιστοιχίζει κάθε step στην αντίστοιχη Java method.</p>
+<p>13. Πώς συνδέονται όλα μαζί</p>
+<p>users.feature
+    ↓
+    Gherkin Scenario
+    ↓
+    Cucumber Step Definitions
+    ↓
+    UserApiClient
+    ↓
+    REST Assured HTTP Request
+    ↓
+    ExtractableResponse&lt;Response&gt;
+    ↓
+    UserValidator
+    ↓
+    Assertions</p>
+<p>Έτσι έχουμε καθαρό separation:</p>
+<p>Gherkin: περιγράφει το business scenario.</p>
+<p>Step Definitions: συνδέουν τα business steps με Java code.</p>
+<p>API Client: στέλνει τα HTTP requests.</p>
+<p>Request Model: περιγράφει το request body.</p>
+<p>ExtractableResponse: κρατά το response.</p>
+<p>Validator: εκτελεί τα assertions.</p>
+<p>14. Βασικό mental model</p>
+<p>GIVEN
+    → φτιάχνω test data / preconditions
+
+    WHEN
+    → καλώ το API
+
+    THEN
+    → κάνω validation στο response</p>
+<p>Το Cucumber/Gherkin δεν αντικαθιστά το REST Assured. Το Gherkin περιγράφει το scenario, το Cucumber συνδέει τα steps με Java code και το REST Assured είναι αυτό που εκτελεί τα HTTP requests.</p>
+<p>15. Σύντομες αναφορές</p>
+<p>https://github.com/rest-assured/rest-assured/wiki/Usage</p>
+<p>https://cucumber.io/docs/</p>
+<p>https://cucumber.io/docs/gherkin/reference/</p>

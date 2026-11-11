@@ -1,0 +1,296 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(
+            135deg,
+            #dbeafe 0%,
+            #eef2ff 45%,
+            #f5f3ff 100%
+    );
+    color: #1f2937;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.hero {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-content h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.hero-content h1 span {
+    color: #2563eb;
+}
+
+.hero-content p {
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #4b5563;
+    margin-bottom: 30px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.button {
+    display: inline-block;
+    padding: 13px 26px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.primary-button {
+    background: #2563eb;
+    color: white;
+}
+
+.primary-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    background: white;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.secondary-button:hover {
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.info-card h2 {
+    margin-bottom: 20px;
+    color: #1e3a8a;
+}
+
+.feature {
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.feature:last-child {
+    border-bottom: none;
+}
+
+.feature-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #111827;
+}
+
+.feature-description {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* ========================================
+   DATABASE MODE
+   ======================================== */
+
+.database-mode-section {
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.database-mode-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.database-mode-current {
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.database-mode-current strong {
+    color: #111827;
+    font-weight: 700;
+}
+
+.database-mode-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.database-mode-form select {
+    min-width: 220px;
+    height: 48px;
+
+    padding: 0 42px 0 16px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    color: #1f2937;
+    background-color: #ffffff;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+}
+
+.database-mode-form select:hover {
+    border-color: #2563eb;
+}
+
+.database-mode-form select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.database-mode-form .primary-button {
+    height: 48px;
+    padding: 0 24px;
+}
+
+.database-mode-message {
+    margin-top: 10px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #64748b;
+}
+
+
+/* ========================================
+   DISABLED ACTION BUTTONS
+   ======================================== */
+
+.hero-actions button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    .database-mode-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .database-mode-form select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .database-mode-form .primary-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+
+    header {
+        padding: 18px 25px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .info-card {
+        margin-top: 20px;
+    }
+}

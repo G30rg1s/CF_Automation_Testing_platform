@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #f1f5f9;
+    color: #0f172a;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.activation-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.activation-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 34px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
+}
+
+.activation-header {
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    margin-bottom: 10px;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.activation-header h1 {
+    margin: 0 0 10px;
+    color: #0f172a;
+    font-size: 28px;
+}
+
+.activation-header p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.activation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 13px;
+    color: #0f172a;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+}
+
+.button {
+    width: 100%;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.button-primary {
+    color: #ffffff;
+    background: #2563eb;
+}
+
+.button-primary:hover {
+    background: #1d4ed8;
+}
+
+.button-secondary {
+    color: #1e40af;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.button-secondary:hover {
+    background: #dbeafe;
+}
+
+.retry-form {
+    margin-top: 12px;
+}
+
+.message {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.message-success {
+    color: #166534;
+    background: #dcfce7;
+}
+
+.message-error {
+    color: #991b1b;
+    background: #fee2e2;
+}
+
+.current-state {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding: 12px 14px;
+    color: #475569;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.current-state strong {
+    color: #0f172a;
+}
+
+.state-message {
+    margin: 18px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}

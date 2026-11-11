@@ -1,0 +1,984 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SQL Query Console | Coding Factory Automation</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/sql-query-console.css}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* STANDALONE TOP BAR */
+
+        .standalone-console-topbar {
+            position: relative;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            min-height: 66px;
+            padding: 12px 24px;
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .standalone-console-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .standalone-console-brand strong {
+            font-size: 17px;
+        }
+
+        .standalone-console-brand span {
+            font-size: 12px;
+            color: #cbd5e1;
+        }
+
+        .standalone-console-database {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            border-radius: 8px;
+            background: #1e293b;
+            font-size: 13px;
+        }
+
+        .standalone-console-database strong {
+            color: #93c5fd;
+        }
+
+        /* FULL WINDOW CONSOLE */
+
+        #sqlQueryConsoleModal {
+            position: fixed !important;
+            inset: 66px 0 0 0 !important;
+            display: flex !important;
+            align-items: stretch !important;
+            justify-content: center !important;
+            margin: 0 !important;
+            padding: 12px !important;
+            background: transparent !important;
+            backdrop-filter: none !important;
+            pointer-events: none !important;
+            z-index: 1000;
+        }
+
+        #sqlQueryConsoleModal[aria-hidden="true"] {
+            display: none !important;
+        }
+
+        #sqlQueryConsoleWindow {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-width: 0 !important;
+            min-height: 0 !important;
+            max-width: none !important;
+            max-height: none !important;
+            margin: 0 !important;
+            transform: none !important;
+            resize: none !important;
+            overflow: hidden !important;
+            background: #ffffff;
+            border-radius: 12px;
+            pointer-events: auto !important;
+        }
+
+        #sqlQueryConsoleDragHandle {
+            cursor: default !important;
+            flex-shrink: 0;
+        }
+
+        .sql-console-window-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #maximizeSqlConsoleButton {
+            display: none !important;
+        }
+
+        #sqlQueryConsoleWindowBody {
+            display: block;
+            flex: 1 1 auto;
+            min-width: 0;
+            min-height: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #sqlQueryConsoleWindow .sql-console-query-list {
+            overflow: visible;
+            min-height: 0;
+        }
+
+        #sqlQueryConsoleWindow .sql-console-window-footer {
+            flex-shrink: 0;
+        }
+
+        #sqlQueryEditorModal {
+            z-index: 2200 !important;
+        }
+
+        #sqlQueryDeleteModal {
+            z-index: 2300 !important;
+        }
+
+        /* SQL COMMAND SELECTOR */
+
+        .sql-command-template-controls {
+            display: flex;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        #sqlQueryCommandTemplate {
+            flex: 1;
+            min-width: 0;
+            min-height: 43px;
+            padding: 9px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #1e3a8a;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        #sqlQueryCommandTemplate:focus-visible {
+            outline: 2px solid #6366f1;
+            outline-offset: 1px;
+        }
+
+        #insertSqlCommandTemplateButton {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .standalone-console-topbar {
+                min-height: 90px;
+                padding: 12px;
+            }
+
+            #sqlQueryConsoleModal {
+                inset: 90px 0 0 0 !important;
+                padding: 5px !important;
+            }
+
+            #sqlQueryConsoleWindow {
+                border-radius: 8px;
+            }
+
+            .sql-command-template-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ========================================
+     TOP BAR
+     ======================================== -->
+
+<header class="standalone-console-topbar">
+
+    <div class="standalone-console-brand">
+        <strong>Coding Factory Automation</strong>
+        <span>Independent SQL Query Console</span>
+    </div>
+
+    <div class="standalone-console-database">
+        <span>Selected Database:</span>
+
+        <strong id="standaloneDatabaseLabel"
+                th:text="${selectedDatabaseModeLabel != null ? selectedDatabaseModeLabel : 'Select Mode'}">
+            Select Mode
+        </strong>
+    </div>
+
+</header>
+
+<!-- ========================================
+     SQL QUERY CONSOLE
+     ======================================== -->
+
+<div id="sqlQueryConsoleModal"
+     class="sql-console-overlay sql-console-window-overlay"
+     data-testid="sql-query-console-modal"
+     aria-hidden="false">
+
+    <div id="sqlQueryConsoleWindow"
+         class="sql-console-dialog sql-console-window"
+         role="region"
+         aria-labelledby="sqlConsoleTitle">
+
+        <!-- HEADER -->
+
+        <div id="sqlQueryConsoleDragHandle"
+             class="sql-console-header sql-console-window-header">
+
+            <div class="sql-console-window-heading">
+                <p class="sql-console-label">
+                    Database Management
+                </p>
+
+                <h2 id="sqlConsoleTitle">
+                    SQL Query Console
+                </h2>
+            </div>
+
+            <div class="sql-console-window-controls">
+
+                <button type="button"
+                        id="maximizeSqlConsoleButton"
+                        class="sql-console-window-control"
+                        aria-label="Maximize"
+                        hidden>
+                    &#9633;
+                </button>
+
+                <button type="button"
+                        id="closeSqlConsoleButton"
+                        class="sql-console-close"
+                        aria-label="Close SQL Console">
+                    &times;
+                </button>
+
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+
+        <div id="sqlQueryConsoleWindowBody"
+             class="sql-console-window-body">
+
+            <div class="sql-console-toolbar">
+
+                <div class="sql-console-search">
+
+                    <label for="sqlQuerySearch">
+                        Search by Title
+                    </label>
+
+                    <input type="search"
+                           id="sqlQuerySearch"
+                           placeholder="Search saved queries..."
+                           autocomplete="off">
+
+                </div>
+
+                <div class="sql-console-toolbar-actions">
+
+                    <button type="button"
+                            id="refreshSqlQueriesButton"
+                            class="sql-console-button secondary">
+                        Refresh
+                    </button>
+
+                    <button type="button"
+                            id="newSqlQueryButton"
+                            class="sql-console-button primary">
+                        + New Query
+                    </button>
+
+                </div>
+            </div>
+
+            <p id="sqlQueryLibraryStatus"
+               class="sql-console-status"
+               role="status"
+               aria-live="polite">
+            </p>
+
+            <div id="sqlQueryList"
+                 class="sql-console-query-list"
+                 data-testid="sql-query-list">
+            </div>
+
+            <div id="sqlQueryEmptyState"
+                 class="sql-console-empty-state"
+                 hidden>
+
+                <h3>No saved queries found</h3>
+
+                <p>
+                    Create your first query using
+                    the + New Query button.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="sql-console-footer sql-console-window-footer">
+
+            <span id="sqlQueryCount">
+                0 saved queries
+            </span>
+
+            <button type="button"
+                    id="closeSqlConsoleFooterButton"
+                    class="sql-console-button secondary">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ========================================
+     NEW / EDIT SQL QUERY MODAL
+     ======================================== -->
+
+<div id="sqlQueryEditorModal"
+     class="sql-console-overlay sql-console-editor-overlay"
+     data-testid="sql-query-editor-modal"
+     aria-hidden="true">
+
+    <div class="sql-console-dialog sql-console-editor-dialog"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="sqlQueryEditorTitle">
+
+        <!-- HEADER -->
+
+        <div class="sql-console-header">
+
+            <div>
+                <p class="sql-console-label">
+                    SQL Query Library
+                </p>
+
+                <h2 id="sqlQueryEditorTitle">
+                    New SQL Query
+                </h2>
+            </div>
+
+            <button type="button"
+                    id="closeSqlQueryEditorButton"
+                    class="sql-console-close"
+                    aria-label="Close Query Editor">
+                &times;
+            </button>
+
+        </div>
+
+        <!-- EDITOR FORM -->
+
+        <form id="sqlQueryEditorForm">
+
+            <input type="hidden"
+                   id="sqlQueryEditorUuid">
+
+            <!-- QUERY TITLE -->
+
+            <div class="sql-console-form-group">
+
+                <label for="sqlQueryTitle">
+                    Query Title
+                </label>
+
+                <input type="text"
+                       id="sqlQueryTitle"
+                       maxlength="200"
+                       placeholder="e.g. Show All Users"
+                       autocomplete="off"
+                       required>
+
+            </div>
+
+            <!-- ========================================
+                 SQL COMMAND DROPDOWN
+                 ======================================== -->
+
+            <div class="sql-console-form-group sql-command-template-group">
+
+                <label for="sqlQueryCommandTemplate">
+                    SQL Command
+                </label>
+
+                <div class="sql-command-template-controls">
+
+
+                    <select id="sqlQueryCommandTemplate">
+
+                        <option value="">
+                            Choose a SQL command...
+                        </option>
+
+                        <option value="SELECT">SELECT</option>
+                        <option value="INSERT">INSERT</option>
+                        <option value="UPDATE">UPDATE</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="REPLACE">REPLACE</option>
+                        <option value="CREATE">CREATE</option>
+                        <option value="ALTER">ALTER</option>
+                        <option value="DROP">DROP</option>
+                        <option value="TRUNCATE">TRUNCATE</option>
+                        <option value="RENAME">RENAME</option>
+                        <option value="SHOW">SHOW</option>
+                        <option value="DESCRIBE">DESCRIBE</option>
+                        <option value="EXPLAIN">EXPLAIN</option>
+
+                    </select>
+
+                </div>
+
+                <p id="sqlCommandTemplateHelp"
+                   class="sql-console-help">
+                    Select a command to insert an editable example.
+                    Existing SQL is never overwritten.
+                </p>
+
+            </div>
+
+            <!-- ========================================
+                 SQL CODE
+                 ======================================== -->
+
+            <div class="sql-console-form-group">
+
+                <label for="sqlQueryText">
+                    SQL Code
+                </label>
+
+                <textarea id="sqlQueryText"
+                          rows="13"
+                          spellcheck="false"
+                          placeholder="SELECT * FROM users;"
+                          required></textarea>
+
+                <p class="sql-console-help">
+                    Enter a SQL query and save it.
+                    SQL execution currently supports SELECT.
+                </p>
+
+            </div>
+
+            <!-- ========================================
+                 DETECTED QUERIES
+                 ======================================== -->
+
+            <div class="sql-console-preview">
+
+                <div class="sql-console-preview-header">
+
+                    <h3>Detected Queries</h3>
+
+                    <span id="sqlQueryDetectedCount">
+                        0
+                    </span>
+
+                </div>
+
+                <div id="sqlQueryPreviewList"
+                     class="sql-console-preview-list">
+                </div>
+
+            </div>
+
+            <!-- EDITOR STATUS -->
+
+            <p id="sqlQueryEditorStatus"
+               class="sql-console-status"
+               role="status"
+               aria-live="polite">
+            </p>
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="sql-console-editor-actions">
+
+                <button type="button"
+                        id="cancelSqlQueryEditorButton"
+                        class="sql-console-button secondary">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        id="saveSqlQueryButton"
+                        class="sql-console-button primary">
+                    Save Query
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- ========================================
+     DELETE QUERY CONFIRMATION
+     ======================================== -->
+
+<div id="sqlQueryDeleteModal"
+     class="sql-console-overlay sql-console-delete-overlay"
+     data-testid="sql-query-delete-modal"
+     aria-hidden="true">
+
+    <div class="sql-console-dialog sql-console-delete-dialog"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="sqlQueryDeleteTitle">
+
+        <div class="sql-console-header">
+
+            <h2 id="sqlQueryDeleteTitle">
+                Delete Saved Query
+            </h2>
+
+            <button type="button"
+                    id="closeSqlQueryDeleteButton"
+                    class="sql-console-close"
+                    aria-label="Close Delete Confirmation">
+                &times;
+            </button>
+
+        </div>
+
+        <p>
+            Are you sure you want to delete
+            this saved query?
+        </p>
+
+        <p id="sqlQueryDeleteName"
+           class="sql-console-delete-name">
+        </p>
+
+        <p class="sql-console-delete-warning">
+            This removes the saved query from
+            Production, FrontendTesting and ApiTesting.
+            It does not execute the SQL code.
+        </p>
+
+        <p id="sqlQueryDeleteStatus"
+           class="sql-console-status"
+           role="status"
+           aria-live="polite">
+        </p>
+
+        <div class="sql-console-editor-actions">
+
+            <button type="button"
+                    id="cancelSqlQueryDeleteButton"
+                    class="sql-console-button secondary">
+                Cancel
+            </button>
+
+            <button type="button"
+                    id="confirmSqlQueryDeleteButton"
+                    class="sql-console-button danger">
+                Delete Query
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ========================================
+     HIDDEN OPEN BUTTON
+     ======================================== -->
+
+<button type="button"
+        id="openSqlConsoleButton"
+        hidden>
+    Open SQL Console
+</button>
+
+<!-- ========================================
+     EXISTING SQL CONSOLE JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/components/sql-query-console.js}">
+</script>
+
+<!-- ========================================
+     STANDALONE WINDOW INITIALIZATION
+     ======================================== -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        "use strict";
+
+        const consoleModal =
+            document.getElementById("sqlQueryConsoleModal");
+
+        const openButton =
+            document.getElementById("openSqlConsoleButton");
+
+        const closeButton =
+            document.getElementById("closeSqlConsoleButton");
+
+        const footerCloseButton =
+            document.getElementById(
+                "closeSqlConsoleFooterButton"
+            );
+
+        const databaseLabel =
+            document.getElementById(
+                "standaloneDatabaseLabel"
+            );
+
+        /* CLOSE STANDALONE WINDOW */
+
+        function closeStandaloneWindow() {
+            window.close();
+        }
+
+        if (closeButton) {
+            closeButton.addEventListener(
+                "click",
+                closeStandaloneWindow
+            );
+        }
+
+        if (footerCloseButton) {
+            footerCloseButton.addEventListener(
+                "click",
+                closeStandaloneWindow
+            );
+        }
+
+        /* DATABASE MODE LABEL */
+
+        async function refreshDatabaseLabel() {
+            if (!databaseLabel) {
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    "/cf_automation/theory-setup/status",
+                    {
+                        method: "GET",
+                        credentials: "same-origin",
+                        cache: "no-store",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const data = await response.json();
+
+                const aliases = {
+                    PRODUCTION: "Production",
+                    FRONTEND_TESTING: "Frontend Testing",
+                    FRONTENDTESTING: "Frontend Testing",
+                    API_TESTING: "API Testing",
+                    APITESTING: "API Testing"
+                };
+
+                const database = String(
+                    data?.database || ""
+                ).trim().toUpperCase();
+
+                databaseLabel.textContent =
+                    aliases[database] || "Select Mode";
+
+            } catch (error) {
+                console.warn(
+                    "Cannot refresh selected database:",
+                    error
+                );
+            }
+        }
+
+        /* OPEN CONSOLE */
+
+        if (consoleModal) {
+            consoleModal.classList.add("is-open");
+
+            consoleModal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+        }
+
+        if (openButton) {
+            window.setTimeout(() => {
+                openButton.click();
+            }, 0);
+        }
+
+        refreshDatabaseLabel();
+    });
+</script>
+
+<!-- ========================================
+     SQL COMMAND TEMPLATES
+     ======================================== -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        "use strict";
+
+        const selector = document.getElementById(
+            "sqlQueryCommandTemplate"
+        );
+
+        const insertButton = document.getElementById(
+            "insertSqlCommandTemplateButton"
+        );
+
+        const titleInput = document.getElementById(
+            "sqlQueryTitle"
+        );
+
+        const codeInput = document.getElementById(
+            "sqlQueryText"
+        );
+
+        const help = document.getElementById(
+            "sqlCommandTemplateHelp"
+        );
+
+        if (
+            !selector ||
+            !insertButton ||
+            !titleInput ||
+            !codeInput
+        ) {
+            return;
+        }
+
+        /* ========================================
+           SQL EXAMPLES
+           ======================================== */
+
+        const templates = {
+
+            SELECT:
+                "SELECT * FROM users;",
+
+            DESCRIBE:
+                "DESCRIBE users;",
+
+            SHOW:
+                "SHOW TABLES;",
+
+            EXPLAIN:
+                "EXPLAIN SELECT * FROM users;",
+
+            WITH:
+                "WITH active_users AS (\n" +
+                "    SELECT * FROM users WHERE active = 1\n" +
+                ")\n" +
+                "SELECT * FROM active_users;",
+
+            JOIN:
+                "SELECT u.id, o.id\n" +
+                "FROM users AS u\n" +
+                "INNER JOIN orders AS o ON o.user_id = u.id;",
+
+            UNION:
+                "SELECT name FROM users\n" +
+                "UNION\n" +
+                "SELECT name FROM admins;",
+
+            GROUP_BY:
+                "SELECT status, COUNT(*) AS total\n" +
+                "FROM users\n" +
+                "GROUP BY status;",
+
+            ORDER_BY:
+                "SELECT * FROM users ORDER BY id DESC;",
+
+            HAVING:
+                "SELECT status, COUNT(*) AS total\n" +
+                "FROM users\n" +
+                "GROUP BY status\n" +
+                "HAVING COUNT(*) > 1;",
+
+            DISTINCT:
+                "SELECT DISTINCT status FROM users;",
+
+            AGGREGATE:
+                "SELECT COUNT(*) AS total, " +
+                "SUM(amount) AS sum_amount, " +
+                "AVG(amount) AS avg_amount\n" +
+                "FROM orders;",
+
+            INSERT:
+                "INSERT INTO users (name, email)\n" +
+                "VALUES ('Example', 'example@example.com');",
+
+            UPDATE:
+                "UPDATE users\n" +
+                "SET name = 'Updated name'\n" +
+                "WHERE id = 1;",
+
+            DELETE:
+                "DELETE FROM users WHERE id = 1;",
+
+            REPLACE:
+                "REPLACE INTO users (id, name)\n" +
+                "VALUES (1, 'Example');",
+
+            CREATE_TABLE:
+                "CREATE TABLE example (\n" +
+                "    id BIGINT PRIMARY KEY,\n" +
+                "    name VARCHAR(100) NOT NULL\n" +
+                ");",
+
+            CREATE_INDEX:
+                "CREATE INDEX idx_users_name " +
+                "ON users (name);",
+
+            ALTER:
+                "ALTER TABLE users " +
+                "ADD COLUMN active BOOLEAN DEFAULT TRUE;",
+
+            DROP:
+                "DROP TABLE example;",
+
+            TRUNCATE:
+                "TRUNCATE TABLE example;",
+
+            RENAME:
+                "RENAME TABLE old_name TO new_name;",
+
+            TRANSACTION:
+                "START TRANSACTION;\n" +
+                "-- SQL statements here\n" +
+                "COMMIT;",
+
+            ROLLBACK:
+                "START TRANSACTION;\n" +
+                "-- SQL statements here\n" +
+                "ROLLBACK;",
+
+            GRANT:
+                "GRANT SELECT ON example_db.* " +
+                "TO 'reader'@'localhost';",
+
+            REVOKE:
+                "REVOKE SELECT ON example_db.* " +
+                "FROM 'reader'@'localhost';"
+        };
+
+        /* ========================================
+           INSERT TEMPLATE
+           ======================================== */
+
+        insertButton.addEventListener("click", () => {
+
+            const command = selector.value;
+            const template = templates[command];
+
+            if (!template) {
+                if (help) {
+                    help.textContent =
+                        "Choose a SQL command first.";
+                }
+
+                selector.focus();
+                return;
+            }
+
+            /*
+             * Protect existing SQL:
+             * never overwrite user input.
+             */
+            if (codeInput.value.trim()) {
+                if (help) {
+                    help.textContent =
+                        "SQL Code already contains text. " +
+                        "Clear it first to insert a template.";
+                }
+
+                codeInput.focus();
+                return;
+            }
+
+            codeInput.value = template;
+
+            /*
+             * Notify existing SQL Console JS
+             * so Detected Queries can refresh.
+             */
+            codeInput.dispatchEvent(
+                new Event("input", {
+                    bubbles: true
+                })
+            );
+
+            /*
+             * Add suggested title only
+             * when Query Title is empty.
+             */
+            if (!titleInput.value.trim()) {
+
+                const selectedOption =
+                    selector.options[
+                        selector.selectedIndex
+                    ];
+
+                titleInput.value =
+                    selectedOption.text.trim() + " Query";
+
+                titleInput.dispatchEvent(
+                    new Event("input", {
+                        bubbles: true
+                    })
+                );
+            }
+
+            if (help) {
+                help.textContent =
+                    "Template inserted. You can edit " +
+                    "the SQL before saving. Execution " +
+                    "permissions have not changed.";
+            }
+
+            codeInput.focus();
+        });
+    });
+</script>
+
+</body>
+</html>

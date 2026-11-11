@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coding Factory Automation</title>
+
+    <link rel="stylesheet" th:href="@{/css/homepage.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <header>
+
+        <div class="logo">
+            Coding Factory Automation
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h1>
+                    Learn.
+                    Test.
+                    <span>Automate.</span>
+                </h1>
+
+                <p>
+                    A learning platform for Software Testing and Test Automation.
+                    Explore testing concepts, work with parsed learning material
+                    and practice real automation workflows.
+                </p>
+
+
+                <!-- ========================================
+                     DATABASE MODE
+                     ======================================== -->
+
+                <div class="database-mode-section">
+
+                    <div class="database-mode-title">
+                        Database Mode
+                    </div>
+
+                    <div class="database-mode-current">
+                        Current:
+                        <strong th:text="${selectedDatabaseModeLabel}">
+                            Select Mode
+                        </strong>
+                    </div>
+
+
+                    <form
+                            th:action="@{/automation/database-mode}"
+                            method="post"
+                            class="database-mode-form">
+
+                        <select
+                                name="mode"
+                                required>
+
+                            <option
+                                    value=""
+                                    th:selected="${selectedDatabaseMode == null}"
+                                    disabled>
+                                Select database mode
+                            </option>
+
+                            <option
+                                    value="production"
+                                    th:selected="${selectedDatabaseMode == 'production'}">
+                                Production
+                            </option>
+
+                            <option
+                                    value="frontendtesting"
+                                    th:selected="${selectedDatabaseMode == 'frontendtesting'}">
+                                Frontend Testing
+                            </option>
+
+                            <option
+                                    value="apitesting"
+                                    th:selected="${selectedDatabaseMode == 'apitesting'}">
+                                API Testing
+                            </option>
+
+                        </select>
+
+
+                        <button
+                                type="submit"
+                                class="button primary-button">
+                            Apply Mode
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- ========================================
+                     LOGIN / REGISTER
+                     ======================================== -->
+
+                <div class="hero-actions">
+
+                    <button
+                            type="button"
+                            class="button primary-button register-redirect"
+                            th:disabled="${selectedDatabaseMode == null}">
+                        Get Started
+                    </button>
+
+                    <button
+                            type="button"
+                            class="button secondary-button login-redirect"
+                            th:disabled="${selectedDatabaseMode == null}">
+                        I already have an account
+                    </button>
+
+                </div>
+
+
+                <p
+                        class="database-mode-message"
+                        th:if="${selectedDatabaseMode == null}">
+                    Select a database mode before continuing.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h2>
+                    Automation Platform
+                </h2>
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Software Testing
+                    </div>
+
+                    <div class="feature-description">
+                        Learn testing fundamentals, testing levels
+                        and testing techniques.
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Test Automation
+                    </div>
+
+                    <div class="feature-description">
+                        Practice automated testing with realistic backend
+                        and frontend workflows.
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Learning Documents
+                    </div>
+
+                    <div class="feature-description">
+                        Upload and process learning material
+                        through the document parsing workflow.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        Coding Factory Automation Platform
+    </footer>
+
+</div>
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+<script th:src="@{/js/homepage.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+
+<!-- ========================================
+     DOCUMENT FULLSCREEN MODAL
+     ======================================== -->
+
+<div th:fragment="documentFullscreenModal"
+     id="documentFullscreenModal"
+     class="document-fullscreen-modal"
+     aria-hidden="true">
+
+
+    <!-- ========================================
+         MODAL CONTENT
+         ======================================== -->
+
+    <div class="document-fullscreen-modal-content">
+
+
+        <!-- ========================================
+             HEADER
+             ======================================== -->
+
+        <div class="document-fullscreen-modal-header">
+
+            <div class="document-fullscreen-modal-title-section">
+
+                <p class="document-fullscreen-modal-label">
+                    Document
+                </p>
+
+                <h2 class="document-fullscreen-modal-title">
+                    Full Screen View
+                </h2>
+
+            </div>
+
+
+            <!-- ========================================
+                 CLOSE BUTTON
+                 ======================================== -->
+
+            <button type="button"
+                    id="closeDocumentFullscreenModalButton"
+                    class="document-fullscreen-modal-close-button"
+                    aria-label="Close full screen document">
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- ========================================
+             DOCUMENT FRAME
+             ======================================== -->
+
+        <div class="document-fullscreen-modal-body">
+
+
+            <!-- ========================================
+                 NORMAL DOCUMENT FRAME
+                 ======================================== -->
+
+            <iframe id="documentFullscreenFrame"
+                    class="document-fullscreen-frame"
+                    title="Full screen document content"
+                    sandbox="allow-popups allow-popups-to-escape-sandbox">
+            </iframe>
+
+
+            <!-- ========================================
+                 QUIZ FULLSCREEN CONTAINER
+                 ======================================== -->
+
+            <div id="documentFullscreenQuizContainer"
+                 class="document-fullscreen-quiz-container"
+                 hidden>
+
+                <!-- Existing documentQuiz will be moved here by JS -->
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<div
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="categoryAlreadyExistsModal"
+        id="categoryAlreadyExistsModal"
+        class="category-exists-modal"
+        data-testid="category-already-exists-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="categoryAlreadyExistsTitle">
+
+    <div class="category-exists-modal-content">
+
+        <div class="category-exists-icon">
+            !
+        </div>
+
+        <h2 id="categoryAlreadyExistsTitle">
+            Category Already Exists
+        </h2>
+
+        <p>
+            The category
+            <strong
+                    id="existingCategoryName"
+                    data-testid="existing-category-name">
+            </strong>
+            already exists.
+        </p>
+
+        <button
+                type="button"
+                id="closeCategoryAlreadyExistsButton"
+                class="category-exists-button"
+                data-testid="close-category-already-exists-button">
+            OK
+        </button>
+
+    </div>
+
+</div>

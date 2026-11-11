@@ -1,0 +1,128 @@
+<p>Automation Platform</p>
+<p>BACKEND API TEST CASES | UC-001 έως UC-005</p>
+<p>73 Test Cases • 5 Scenarios • Traceability σε Backend Functional Requirements</p>
+
+<p>1. AP_SVC_USER_REGISTRATION</p>
+<p>Use Case: UC-001 — User Registration     Endpoint: POST /cf_automation/users/register</p>
+<p>Requirements: API-REG-001 έως API-REG-010     |     17 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0001</td><td>Registration με όλα τα έγκυρα στοιχεία</td><td>Επιτυχής δημιουργία χρήστη στη DB</td><td>API-REG-001</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0002</td><td>Registration χωρίς υποχρεωτικό πεδίο</td><td>Απόρριψη λόγω validation, χωρίς δημιουργία χρήστη</td><td>API-REG-002</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0004</td><td>Registration με κενή τιμή σε υποχρεωτικό πεδίο</td><td>Απόρριψη λόγω validation</td><td>API-REG-002</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0005</td><td>Registration με μη έγκυρο email</td><td>Απόρριψη λόγω email validation</td><td>API-REG-003</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0006</td><td>Registration με μη έγκυρο phone</td><td>Απόρριψη λόγω phone validation</td><td>API-REG-004</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0007</td><td>Registration με password που δεν πληροί τους κανόνες</td><td>Απόρριψη λόγω password validation</td><td>API-REG-005</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0008</td><td>Registration με email που υπάρχει ήδη</td><td>Απόρριψη, χωρίς δεύτερο λογαριασμό</td><td>API-REG-006</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0009</td><td>Registration με παραβίαση άλλου κανόνα μοναδικότητας</td><td>Απόρριψη διπλότυπου χρήστη</td><td>API-REG-007</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0010</td><td>Registration με μη αποδεκτό First Name</td><td>Απόρριψη λόγω validation</td><td>API-REG-002</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0011</td><td>Registration με μη αποδεκτό Last Name</td><td>Απόρριψη λόγω validation</td><td>API-REG-002</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0012</td><td>Registration με μη έγκυρο JSON request</td><td>Κατάλληλη απόκριση αποτυχίας, χωρίς δημιουργία χρήστη</td><td>API-REG-008</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0013</td><td>Ταυτόχρονο Registration δύο χρηστών με ίδιο email</td><td>Δημιουργείται το πολύ ένας λογαριασμός με το email</td><td>API-REG-006, API-REG-007</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0014</td><td>Registration με προσομοιωμένη αποτυχία αποθήκευσης στη DB</td><td>Δεν παραμένει μερικώς δημιουργημένος χρήστης</td><td>API-REG-008</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0015</td><td>Έλεγχος αποθήκευσης password μετά από επιτυχή Registration</td><td>Το password δεν αποθηκεύεται σε plain text</td><td>API-REG-009</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0016</td><td>Έλεγχος ότι το response επιτυχούς Registration δεν περιέχει password</td><td>Δεν επιστρέφεται password ή άλλο μυστικό διαπιστευτήριο</td><td>API-REG-010</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0017</td><td>Έλεγχος ότι το error response δεν εκθέτει password</td><td>Δεν επιστρέφονται μυστικά διαπιστευτήρια</td><td>API-REG-010</td></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION_0018</td><td>Έλεγχος ότι αποτυχημένο Registration δεν δημιουργεί χρήστη στη DB</td><td>Δεν υπάρχει νέα εγγραφή χρήστη</td><td>API-REG-008</td></tr>
+</table>
+
+<p>2. AP_SVC_USER_LOGIN</p>
+<p>Use Case: UC-002 — User Login     Endpoint: POST /cf_automation/users/login</p>
+<p>Requirements: API-AUTH-001 έως API-AUTH-005     |     11 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0001</td><td>Login με έγκυρα διαπιστευτήρια</td><td>Επιτυχής αυθεντικοποίηση και πρόσβαση στις προστατευμένες λειτουργίες</td><td>API-AUTH-001</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0002</td><td>Login με λανθασμένο password</td><td>Απόρριψη αυθεντικοποίησης</td><td>API-AUTH-002</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0003</td><td>Login με ανύπαρκτο χρήστη</td><td>Απόρριψη αυθεντικοποίησης</td><td>API-AUTH-002</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0004</td><td>Login χωρίς αναγνωριστικό χρήστη</td><td>Απόρριψη λόγω validation</td><td>API-AUTH-003</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0005</td><td>Login χωρίς password</td><td>Απόρριψη λόγω validation</td><td>API-AUTH-003</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0006</td><td>Login με κενό αναγνωριστικό χρήστη</td><td>Απόρριψη λόγω validation</td><td>API-AUTH-003</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0007</td><td>Login με κενό password</td><td>Απόρριψη λόγω validation</td><td>API-AUTH-003</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0008</td><td>Login με μη έγκυρο JSON request</td><td>Κατάλληλη απόκριση αποτυχίας</td><td>API-AUTH-003</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0009</td><td>Πρόσβαση σε προστατευμένο endpoint μετά από αποτυχημένο Login</td><td>Η πρόσβαση απορρίπτεται</td><td>API-AUTH-004</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0010</td><td>Έλεγχος response επιτυχούς Login</td><td>Το response δεν περιέχει password</td><td>API-AUTH-005</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN_0011</td><td>Έλεγχος response αποτυχημένου Login</td><td>Το response δεν περιέχει password ή άλλα μυστικά</td><td>API-AUTH-005</td></tr>
+</table>
+
+<p>3. AP_SVC_USER_PROFILE_UPDATE</p>
+<p>Use Case: UC-003 — User Profile Update     Endpoint: PUT /cf_automation/users/update</p>
+<p>Requirements: API-UPD-001 έως API-UPD-011     |     17 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0001</td><td>Update με έγκυρα επιτρεπόμενα στοιχεία</td><td>Επιτυχής ενημέρωση των στοιχείων στη DB</td><td>API-UPD-002, API-UPD-010</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0002</td><td>Update χωρίς αυθεντικοποίηση</td><td>Απόρριψη αιτήματος, χωρίς αλλαγές στη DB</td><td>API-UPD-001</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0003</td><td>Update με μη έγκυρα διαπιστευτήρια</td><td>Απόρριψη αιτήματος</td><td>API-UPD-001</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0004</td><td>Προσπάθεια αλλαγής First Name</td><td>Το αποθηκευμένο First Name παραμένει αμετάβλητο</td><td>API-UPD-003</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0005</td><td>Προσπάθεια αλλαγής Last Name</td><td>Το αποθηκευμένο Last Name παραμένει αμετάβλητο</td><td>API-UPD-004</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0006</td><td>Προσπάθεια ταυτόχρονης αλλαγής First Name και Last Name</td><td>Και τα δύο πεδία παραμένουν αμετάβλητα</td><td>API-UPD-003, API-UPD-004</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0007</td><td>Update email με έγκυρη νέα τιμή</td><td>Επιτυχής ενημέρωση email στη DB</td><td>API-UPD-002, API-UPD-010</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0008</td><td>Update email με email άλλου χρήστη</td><td>Απόρριψη ενημέρωσης λόγω μοναδικότητας</td><td>API-UPD-005</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0009</td><td>Update email με μη έγκυρη μορφή</td><td>Απόρριψη λόγω email validation</td><td>API-UPD-006</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0010</td><td>Update phone με έγκυρη νέα τιμή</td><td>Επιτυχής ενημέρωση phone στη DB</td><td>API-UPD-002, API-UPD-010</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0011</td><td>Update phone με μη έγκυρη μορφή</td><td>Απόρριψη λόγω phone validation</td><td>API-UPD-007</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0012</td><td>Update password με μη έγκυρη τιμή, εφόσον υποστηρίζεται</td><td>Απόρριψη λόγω password validation</td><td>API-UPD-008</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0013</td><td>Προσπάθεια ενημέρωσης λογαριασμού άλλου χρήστη</td><td>Απόρριψη μη εξουσιοδοτημένης ενημέρωσης</td><td>API-UPD-009</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0014</td><td>Update με ένα έγκυρο και ένα μη έγκυρο πεδίο</td><td>Δεν αποθηκεύονται μερικές αλλαγές στη DB</td><td>API-UPD-011</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0015</td><td>Update με προσομοιωμένη αποτυχία αποθήκευσης στη DB</td><td>Τα προηγούμενα στοιχεία παραμένουν αμετάβλητα</td><td>API-UPD-011</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0016</td><td>Έλεγχος αποθήκευσης μετά από επιτυχημένο Update</td><td>Οι νέες τιμές διατηρούνται στη DB, χωρίς αλλαγές στα First Name και Last Name</td><td>API-UPD-010</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE_0017</td><td>Update με μη επιτρεπόμενο πεδίο</td><td>Το μη επιτρεπόμενο πεδίο δεν τροποποιείται</td><td>API-UPD-002, API-UPD-003, API-UPD-004</td></tr>
+</table>
+
+<p>4. AP_SVC_DOCUMENT_UPLOAD</p>
+<p>Use Case: UC-004 — Document Upload / Document Creation     Endpoint: POST /cf_automation/documents/upload</p>
+<p>Requirements: API-DOC-001 έως 006, 023, 024     |     13 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0001</td><td>Δημιουργία εγγράφου με έγκυρο τίτλο και πραγματικό αρχείο</td><td>Επιτυχής καταχώριση εγγράφου και δρομολόγηση επεξεργασίας</td><td>API-DOC-001, API-DOC-004</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0002</td><td>Δημιουργία εγγράφου με έγκυρο τίτλο χωρίς αρχείο</td><td>Επιτυχής δημιουργία εγγραφής εγγράφου στη DB</td><td>API-DOC-023</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0003</td><td>Δημιουργία εγγράφου χωρίς πεδίο τίτλου</td><td>Απόρριψη αιτήματος, χωρίς δημιουργία εγγράφου</td><td>API-DOC-002, API-DOC-005</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0004</td><td>Δημιουργία εγγράφου με κενό τίτλο</td><td>Απόρριψη λόγω validation</td><td>API-DOC-002</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0005</td><td>Δημιουργία εγγράφου με τίτλο που υπάρχει ήδη</td><td>Απόρριψη λόγω παραβίασης μοναδικότητας</td><td>API-DOC-003</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0006</td><td>Δημιουργία εγγράφου με μη έγκυρα δεδομένα αιτήματος</td><td>Κατάλληλη απόκριση αποτυχίας</td><td>API-DOC-002, API-DOC-005</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0007</td><td>Δημιουργία εγγράφου με προσομοιωμένη αποτυχία αποθήκευσης</td><td>Δεν παραμένει ανεπιθύμητη εγγραφή στη DB</td><td>API-DOC-005</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0008</td><td>Έλεγχος αποθήκευσης εγγράφου μετά από επιτυχή δημιουργία</td><td>Το έγγραφο υπάρχει στη DB με τα προβλεπόμενα στοιχεία</td><td>API-DOC-004</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0009</td><td>Έλεγχος αρχικής κατάστασης εγγράφου που δημιουργήθηκε χωρίς αρχείο</td><td>Το έγγραφο δεν εμφανίζεται ως επιτυχώς επεξεργασμένο</td><td>API-DOC-006, API-DOC-023</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0010</td><td>Έλεγχος κατάστασης εγγράφου ενώ το parsing βρίσκεται σε εξέλιξη</td><td>Το έγγραφο δεν εμφανίζεται πρόωρα ως πλήρως επεξεργασμένο</td><td>API-DOC-006</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0011</td><td>Επιτυχής ολοκλήρωση parsing μετά από Upload</td><td>Το περιεχόμενο και η κατάσταση εγγράφου ενημερώνονται κατάλληλα</td><td>API-DOC-006</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0012</td><td>Αποτυχία parsing μετά από Upload</td><td>Το έγγραφο δεν εμφανίζεται ως επιτυχώς επεξεργασμένο</td><td>API-DOC-006</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD_0013</td><td>Δημιουργία εγγράφου χωρίς αρχείο και μεταγενέστερη προσθήκη μέσω Reupload</td><td>Το υπάρχον έγγραφο αποκτά περιεχόμενο, χωρίς δημιουργία δεύτερης εγγραφής</td><td>API-DOC-023, API-DOC-024</td></tr>
+</table>
+
+<p>5. AP_SVC_DOCUMENT_REUPLOAD</p>
+<p>Use Case: UC-005 — Document Reupload     Endpoint: POST /cf_automation/documents/{documentId}/reupload</p>
+<p>Requirements: API-REUP-001 έως API-REUP-009     |     15 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0001</td><td>Reupload πραγματικού αρχείου σε υπάρχον έγγραφο</td><td>Το αίτημα γίνεται αποδεκτό και δρομολογείται η επεξεργασία</td><td>API-REUP-001, API-REUP-006</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0002</td><td>Reupload με ανύπαρκτο Document ID</td><td>Απόρριψη αιτήματος</td><td>API-REUP-002</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0003</td><td>Reupload με μη έγκυρο τίτλο</td><td>Απόρριψη λόγω validation</td><td>API-REUP-003</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0004</td><td>Reupload με μη έγκυρο περιεχόμενο αρχείου</td><td>Απόρριψη ή αποτυχία επεξεργασίας σύμφωνα με τους κανόνες του Backend</td><td>API-REUP-003</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0005</td><td>Reupload σε έγγραφο χωρίς προηγούμενο αρχείο</td><td>Το νέο περιεχόμενο συνδέεται με την υπάρχουσα εγγραφή</td><td>API-REUP-005</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0006</td><td>Reupload σε έγγραφο με υπάρχον περιεχόμενο</td><td>Το περιεχόμενο αντικαθίσταται χωρίς δημιουργία δεύτερου εγγράφου</td><td>API-REUP-004</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0007</td><td>Έλεγχος ότι το Reupload διατηρεί το αρχικό Document ID</td><td>Ενημερώνεται η ίδια εγγραφή εγγράφου</td><td>API-REUP-004</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0008</td><td>Έλεγχος ασύγχρονης επεξεργασίας Reupload</td><td>Το Backend δρομολογεί το parsing χωρίς να απαιτεί την ολοκλήρωσή του πριν από την αποδοχή του αιτήματος</td><td>API-REUP-006</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0009</td><td>Επιτυχής ολοκλήρωση parsing μετά από Reupload</td><td>Το υπάρχον έγγραφο ενημερώνεται με το νέο περιεχόμενο</td><td>API-REUP-007</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0010</td><td>Αποτυχία parsing μετά από Reupload</td><td>Το έγγραφο δεν εμφανίζεται ως επιτυχώς επεξεργασμένο</td><td>API-REUP-008</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0011</td><td>Αποτυχία επικοινωνίας με Parser Service</td><td>Η αποτυχία καταγράφεται και αντιμετωπίζεται κατάλληλα</td><td>API-REUP-006, API-REUP-008</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0012</td><td>Reupload σε έγγραφο συσχετισμένο με κατηγορία</td><td>Η συσχέτιση εγγράφου και κατηγορίας διατηρείται</td><td>API-REUP-009</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0013</td><td>Έλεγχος ότι το Reupload δεν δημιουργεί δεύτερη εγγραφή εγγράφου</td><td>Παραμένει μία εγγραφή για το συγκεκριμένο Document ID</td><td>API-REUP-004</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0014</td><td>Επιτυχές Reupload εγγράφου τύπου Theory</td><td>Το επεξεργασμένο περιεχόμενο συνδέεται με το υπάρχον έγγραφο και διατηρείται ο προβλεπόμενος τύπος</td><td>API-REUP-007</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD_0015</td><td>Επιτυχές Reupload εγγράφου τύπου Quiz</td><td>Το επεξεργασμένο περιεχόμενο συνδέεται με το υπάρχον έγγραφο και διατηρείται ο προβλεπόμενος τύπος</td><td>API-REUP-007</td></tr>
+</table>
+
+<p>Συγκεντρωτικά</p>
+
+<table>
+    <tr><th>Scenario</th><th>Test Cases</th></tr>
+    <tr><td>AP_SVC_USER_REGISTRATION</td><td>17</td></tr>
+    <tr><td>AP_SVC_USER_LOGIN</td><td>11</td></tr>
+    <tr><td>AP_SVC_USER_PROFILE_UPDATE</td><td>17</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_UPLOAD</td><td>13</td></tr>
+    <tr><td>AP_SVC_DOCUMENT_REUPLOAD</td><td>15</td></tr>
+    <tr><td>ΣΥΝΟΛΟ</td><td>73</td></tr>
+</table>

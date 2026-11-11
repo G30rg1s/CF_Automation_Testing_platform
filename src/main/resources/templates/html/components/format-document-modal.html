@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- ========================================
+     FORMAT DOCUMENT MODAL
+     ======================================== -->
+
+<div id="formatDocumentModal"
+     class="format-document-modal"
+     th:fragment="formatDocumentModal"
+     aria-hidden="true">
+
+    <div class="format-document-modal-content"
+         role="dialog"
+         aria-modal="true">
+
+        <!-- ========================================
+             STICKY TOP AREA
+             ======================================== -->
+
+        <div class="format-document-topbar">
+
+            <!-- ========================================
+                 TOPBAR HEADER
+                 ======================================== -->
+
+            <div class="format-document-topbar-header">
+
+                <div class="format-document-topbar-title-section">
+
+                    <span class="format-document-topbar-label">
+                        Document Formatting
+                    </span>
+
+                    <h2 class="format-document-topbar-title">
+                        Format Document
+                    </h2>
+
+                </div>
+
+                <button type="button"
+                        id="closeFormatDocumentModalButton"
+                        class="format-document-close-button"
+                        aria-label="Close format document modal">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+
+            <!-- ========================================
+                 DOCUMENT TYPES BAR
+                 ======================================== -->
+
+            <div id="formatDocumentTypesBar"
+                 class="format-document-types-bar">
+
+                <div class="format-document-types-header">
+
+                    <span class="format-document-types-title">
+                        Document Types
+                    </span>
+
+                    <div class="format-document-current-type">
+
+                        <span class="format-document-current-type-label">
+                            Current Type:
+                        </span>
+
+                        <span id="formatDocumentCurrentType"
+                              class="format-document-current-type-value">
+                            DOCUMENT
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="format-document-types-actions">
+
+                    <button type="button"
+                            id="formatDocumentSetDocumentButton"
+                            class="format-document-type-action-button"
+                            data-document-type="DOCUMENT">
+
+                        Document
+
+                    </button>
+
+                    <button type="button"
+                            id="formatDocumentSetQuizButton"
+                            class="format-document-type-action-button"
+                            data-document-type="QUIZ">
+
+                        Quiz
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 FORMAT CONTROLS
+                 ======================================== -->
+
+            <div class="format-document-controls">
+
+                <!-- ========================================
+                     SELECTION INFO
+                     ======================================== -->
+
+                <div class="format-document-selection-info">
+
+                    <span class="format-document-selection-label">
+                        Selected
+                    </span>
+
+                    <span id="formatDocumentSelectedCount"
+                          class="format-document-selection-count">
+                        0 paragraphs
+                    </span>
+
+                </div>
+
+
+                <!-- ========================================
+                     FORMAT TYPES
+                     ======================================== -->
+
+                <div class="format-document-type-buttons">
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="TITLE">
+
+                        Title
+
+                    </button>
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="HEADING">
+
+                        Heading
+
+                    </button>
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="PARAGRAPH"
+                            data-document-format-standard="true">
+
+                        Paragraph
+
+                    </button>
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="CODE">
+
+                        Code
+
+                    </button>
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="QUOTE"
+                            data-document-format-standard="true">
+
+                        Quote
+
+                    </button>
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="LINK"
+                            data-document-format-standard="true">
+
+                        Link
+
+                    </button>
+
+                    <button type="button"
+                            class="format-document-type-button"
+                            data-format-type="ARRAY"
+                            data-document-format-standard="true">
+
+                        Array
+
+                    </button>
+
+                </div>
+
+
+                <!-- ========================================
+                     CODE LANGUAGE
+                     ======================================== -->
+
+                <div id="formatDocumentLanguageContainer"
+                     class="format-document-language-container">
+
+                    <label for="formatDocumentCodeLanguage"
+                           class="format-document-language-label">
+
+                        Language
+
+                    </label>
+
+                    <select id="formatDocumentCodeLanguage"
+                            class="format-document-language-select"
+                            disabled>
+
+                        <option value="">
+                            Select language
+                        </option>
+
+                        <option value="JAVA">
+                            Java
+                        </option>
+
+                        <option value="JAVASCRIPT">
+                            JavaScript
+                        </option>
+
+                        <option value="TYPESCRIPT">
+                            TypeScript
+                        </option>
+
+                        <option value="HTML">
+                            HTML
+                        </option>
+
+                        <option value="CSS">
+                            CSS
+                        </option>
+
+                        <option value="JSON">
+                            JSON
+                        </option>
+
+                        <option value="SQL">
+                            SQL
+                        </option>
+
+                        <option value="XML">
+                            XML
+                        </option>
+
+                        <option value="PYTHON">
+                            Python
+                        </option>
+
+                        <option value="BASH">
+                            Bash
+                        </option>
+
+                        <option value="TEXT">
+                            Text
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ========================================
+                     TOPBAR ACTIONS
+                     ======================================== -->
+
+                <div class="format-document-topbar-actions">
+
+                    <button type="button"
+                            id="previewDocumentFormattingButton"
+                            class="format-document-preview-button">
+
+                        Preview
+
+                    </button>
+
+                    <button type="button"
+                            id="saveDocumentFormattingButton"
+                            class="format-document-save-button">
+
+                        Save Formatting
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================
+             DOCUMENT AREA
+             ======================================== -->
+
+        <div class="format-document-body">
+
+            <div class="format-document-instructions">
+
+                Select one or more paragraphs and choose a format from the toolbar.
+
+            </div>
+
+            <div id="formatDocumentLoading"
+                 class="format-document-state">
+
+                Loading document...
+
+            </div>
+
+            <div id="formatDocumentError"
+                 class="format-document-state format-document-error"
+                 hidden>
+
+                Unable to load document formatting.
+
+            </div>
+
+            <div id="formatDocumentEditor"
+                 class="format-document-editor"
+                 hidden>
+            </div>
+
+        </div>
+
+
+        <!-- ========================================
+             MESSAGE
+             ======================================== -->
+
+        <div id="formatDocumentMessage"
+             class="format-document-message">
+        </div>
+
+
+        <!-- ========================================
+             CHANGE DOCUMENT TYPE MODAL
+             ======================================== -->
+
+        <div id="changeDocumentTypeModal"
+             class="change-document-type-modal"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="changeDocumentTypeModalTitle"
+             hidden>
+
+            <div class="change-document-type-modal-content">
+
+                <h3 id="changeDocumentTypeModalTitle">
+                    Change Document Type
+                </h3>
+
+                <p>
+                    Change document type from
+                    <strong id="changeDocumentTypeCurrentValue">
+                        DOCUMENT
+                    </strong>
+                    to
+                    <strong id="changeDocumentTypeNewValue">
+                        QUIZ
+                    </strong>?
+                </p>
+
+                <p>
+                    This changes the document type only.
+                    Existing paragraph formatting will be preserved.
+                </p>
+
+                <div class="change-document-type-modal-actions">
+
+                    <button type="button"
+                            id="cancelDocumentTypeChangeButton">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="button"
+                            id="confirmDocumentTypeChangeButton">
+
+                        Confirm Change
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

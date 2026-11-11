@@ -1,0 +1,298 @@
+
+<p>HTTP Methods – Semantics και Idempotency</p>
+<p>Χρήσιμος σύνδεσμος αναφοράς:</p>
+<p>http.dev/methods</p>
+<p>1. Βασικές HTTP Methods</p>
+<p>Οι βασικές HTTP methods που θα εξετάσουμε είναι: GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD</p>
+<p>2. Η βασική ιδέα: Semantics vs Implementation</p>
+<p>Κάθε HTTP method κουβαλάει συγκεκριμένη σημασιολογία (semantics). Η method δηλώνει την πρόθεση του request — τι θέλουμε να πετύχουμε — αλλά δεν γράφει από μόνη της το business logic.</p>
+<p>HTTP Request
+    ↓
+    Controller
+    ↓
+    Service
+    ↓
+    Repository
+    ↓
+    Database</p>
+<p>Η HTTP method δηλώνει το contract / intention. Ο δικός μας κώδικας καθορίζει τι θα γίνει πραγματικά.</p>
+<p>Άρα τεχνικά μπορούμε να γράψουμε PUT που κάνει partial update, PATCH που κάνει full replacement ή POST που κάνει update. Ο κώδικας μπορεί να λειτουργεί, αλλά τότε η υλοποίηση δεν ακολουθεί σωστά τη σημασιολογία της method.</p>
+<p>3. POST</p>
+<p>Η POST χρησιμοποιείται κυρίως για δημιουργία νέου resource, εκτέλεση κάποιας ενέργειας, αποστολή δεδομένων προς επεξεργασία ή σύνθετη αναζήτηση.</p>
+<p>• Μπορεί να έχει body.</p>
+<p>• Μπορεί να έχει path params.</p>
+<p>• Μπορεί να έχει query params.</p>
+<p>• Το body δεν είναι υποχρεωτικό.</p>
+<p>• Δεν έχει idempotent semantics: το ίδιο request μπορεί να έχει νέο effect κάθε φορά.</p>
+<p>POST → «Πάρε αυτά τα δεδομένα και επεξεργάσου τα σύμφωνα με τη λειτουργία αυτού του endpoint.»</p>
+<p>4. GET</p>
+<p>Η GET χρησιμοποιείται για ανάκτηση δεδομένων.</p>
+<p>• Στο REST API design που εξετάζουμε δεν χρησιμοποιούμε body.</p>
+<p>• Μπορεί να έχει path params.</p>
+<p>• Μπορεί να έχει query params.</p>
+<p>• Είναι idempotent.</p>
+<p>• Η πρόθεσή της είναι read, όχι modification.</p>
+<p>GET → «Θέλω να διαβάσω δεδομένα.»</p>
+<p>5. PUT</p>
+<p>Η PUT δηλώνει πλήρη αντικατάσταση / ορισμό της κατάστασης ενός συγκεκριμένου resource. Συνήθως στέλνουμε ολόκληρη τη νέα representation.</p>
+<p>• Μπορεί να έχει body.</p>
+<p>• Μπορεί να έχει path params.</p>
+<p>• Μπορεί να έχει query params.</p>
+<p>• Έχει idempotent semantics.</p>
+<p>• Αν την υλοποιήσουμε non-idempotently, παραβιάζουμε τη σημασιολογία της PUT.</p>
+<p>PUT → «Κάνε αυτό το resource να έχει αυτή την κατάσταση.»</p>
+<p>6. PATCH</p>
+<p>Η PATCH δηλώνει μερική τροποποίηση ενός υπάρχοντος resource.</p>
+<p>• Μπορεί να έχει body.</p>
+<p>• Μπορεί να έχει path params.</p>
+<p>• Μπορεί να έχει query params.</p>
+<p>• Δεν εγγυάται idempotency.</p>
+<p>• Ένα συγκεκριμένο PATCH μπορεί να είναι idempotent ή non-idempotent ανάλογα με την operation.</p>
+<p>PATCH → «Κάνε αυτές τις συγκεκριμένες αλλαγές στο υπάρχον resource.»</p>
+<p>7. DELETE</p>
+<p>Η DELETE δηλώνει διαγραφή ενός resource. Στα παραδείγματά μας θα εντοπίζουμε τον user με email.</p>
+<p>• Το resource μπορεί να εντοπιστεί με id, email ή άλλο identifier.</p>
+<p>• Είναι idempotent ως προς το intended final state.</p>
+<p>DELETE → «Διέγραψε αυτό το resource.»</p>
+<p>8. OPTIONS</p>
+<p>Η OPTIONS χρησιμοποιείται για να μάθουμε ποιες HTTP methods ή δυνατότητες υποστηρίζει ένα endpoint. Χρησιμοποιείται επίσης σε CORS preflight requests.</p>
+<p>• Επιστρέφει πληροφορίες για supported capabilities/methods.</p>
+<p>• Είναι idempotent.</p>
+<p>OPTIONS → «Τι επιτρέπεται / τι υποστηρίζεται εδώ;»</p>
+<p>9. HEAD</p>
+<p>Η HEAD χρησιμοποιείται όταν θέλουμε να πάρουμε μόνο τα response headers, χωρίς response body.</p>
+<p>• Δεν επιστρέφει response body.</p>
+<p>• Μπορεί να μας δώσει Content-Type, Content-Length, ETag, Last-Modified κ.ά.</p>
+<p>• Είναι idempotent.</p>
+<p>HEAD → «Δώσε μου τα metadata / headers της response χωρίς το body.»</p>
+<p>10. Κοινό Παράδειγμα – Users API</p>
+<p>Έστω ότι στη βάση υπάρχει ο παρακάτω user:</p>
+<p>{
+    "id": 15,
+    "username": "nikos",
+    "email": "nikos@test.com",
+    "age": 30,
+    "active": true
+    }</p>
+<p>10.1 POST – Δημιουργία User</p>
+<p>POST /users
+    Content-Type: application/json</p>
+<p>{
+    "username": "maria",
+    "email": "maria@test.com",
+    "age": 25,
+    "active": true
+    }</p>
+<p>Ο server μπορεί να δημιουργήσει:</p>
+<p>{
+    "id": 16,
+    "username": "maria",
+    "email": "maria@test.com",
+    "age": 25,
+    "active": true
+    }</p>
+<p>Αν ξαναστείλουμε το ίδιο POST σε ένα απλό create endpoint χωρίς προστασία από duplicates, μπορεί να δημιουργηθεί νέα εγγραφή με νέο id. Αυτό είναι χαρακτηριστικό παράδειγμα non-idempotent συμπεριφοράς.</p>
+<p>1ο ίδιο POST → user id = 16
+    2ο ίδιο POST → user id = 17
+    3ο ίδιο POST → user id = 18</p>
+<p>10.2 POST – Αναζήτηση με Body και Query Params</p>
+<p>POST /users/search?page=0&amp;size=10&amp;sort=username
+    Content-Type: application/json</p>
+<p>{
+    "active": true,
+    "minAge": 20,
+    "maxAge": 40
+    }</p>
+<p>Εδώ το body περιέχει τα search criteria, ενώ τα query params χρησιμοποιούνται για pagination και sorting.</p>
+<p>10.3 GET – User με Email</p>
+<p>GET /users?email=nikos@test.com</p>
+<p>Το email περνάει ως query parameter. Δεν χρησιμοποιούμε request body.</p>
+<p>{
+    "id": 15,
+    "username": "nikos",
+    "email": "nikos@test.com",
+    "age": 30,
+    "active": true
+    }</p>
+<p>10.4 PUT – Πλήρης Αντικατάσταση User</p>
+<p>PUT /users/15
+    Content-Type: application/json</p>
+<p>{
+    "username": "nikos",
+    "email": "newemail@test.com",
+    "age": 30,
+    "active": true
+    }</p>
+<p>Η πρόθεση είναι να οριστεί η νέα πλήρης κατάσταση του resource /users/15.</p>
+<p>10.5 Naive PUT – Τι γίνεται αν στείλουμε μόνο email;</p>
+<p>PUT /users/15
+    Content-Type: application/json</p>
+<p>{
+    "email": "newemail@test.com"
+    }</p>
+<p>Σε μία απλή Spring Boot/JPA υλοποίηση όπου κάνουμε bind το body κατευθείαν σε User και μετά save(), τα fields που δεν στάλθηκαν μπορούν να είναι null στο Java object.</p>
+<p>@PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    user.setId(id);
+    return userService.updateUser(user);
+    }</p>
+<p>public User updateUser(User user) {
+    return userRepository.save(user);
+    }</p>
+<p>id       = 15
+    username = null
+    email    = "newemail@test.com"
+    age      = null
+    active   = null</p>
+<p>Αυτά τα null values μπορούν να περάσουν στη βάση, ανάλογα με το mapping και τους database constraints. Το PUT δεν έκανε μόνο του τα fields null· αυτό είναι αποτέλεσμα της συγκεκριμένης implementation.</p>
+<p>10.6 Μπορούμε να κάνουμε PUT σαν Partial Update;</p>
+<p>public User updateUser(Long id, User request) {
+    User existing = userRepository.findById(id).orElseThrow();
+
+    if (request.getEmail() != null) {
+    existing.setEmail(request.getEmail());
+    }
+
+    return userRepository.save(existing);
+    }</p>
+<p>Ναι. Τεχνικά δουλεύει. Όμως αυτή η συμπεριφορά μοιάζει πλέον με PATCH και δεν εκφράζει σωστά τη σημασιολογία του PUT.</p>
+<p>10.7 PATCH – Μερική Ενημέρωση User</p>
+<p>PATCH /users/15
+    Content-Type: application/json</p>
+<p>{
+    "email": "newemail@test.com"
+    }</p>
+<p>Η πρόθεση του PATCH είναι να αλλάξει μόνο το email και να κρατήσει τα υπόλοιπα fields όπως είναι.</p>
+<p>{
+    "id": 15,
+    "username": "nikos",
+    "email": "newemail@test.com",
+    "age": 30,
+    "active": true
+    }</p>
+<p>10.8 Σημαντικό – Το @PatchMapping δεν κάνει μόνο του Partial Update</p>
+<p>@PatchMapping("/{id}")
+    public User patchUser(@PathVariable Long id, @RequestBody User user) {
+    user.setId(id);
+    return userService.updateUser(user);
+    }</p>
+<p>public User updateUser(User user) {
+    return userRepository.save(user);
+    }</p>
+<p>Αν στείλουμε μόνο email, το δεσμευμένο User object μπορεί πάλι να έχει null στα υπόλοιπα fields. Άρα ένα naive PATCH μπορεί να έχει το ίδιο πρακτικό πρόβλημα με ένα naive PUT.</p>
+<p>Το @PutMapping και το @PatchMapping δεν εφαρμόζουν από μόνα τους διαφορετικό update algorithm. Δηλώνουν διαφορετική HTTP method / semantics. Το update logic το γράφουμε εμείς.</p>
+<p>10.9 PATCH Service – Πραγματικό Partial Update</p>
+<p>public User patchUser(Long id, User request) {
+    User existing = userRepository.findById(id).orElseThrow();
+
+    if (request.getUsername() != null) {
+    existing.setUsername(request.getUsername());
+    }
+    if (request.getEmail() != null) {
+    existing.setEmail(request.getEmail());
+    }
+    if (request.getAge() != null) {
+    existing.setAge(request.getAge());
+    }
+    if (request.getActive() != null) {
+    existing.setActive(request.getActive());
+    }
+
+    return userRepository.save(existing);
+    }</p>
+<p>Με body μόνο {"email":"newemail@test.com"}, αλλάζει μόνο το email.</p>
+<p>10.10 DELETE – User με Email</p>
+<p>DELETE /users?email=nikos@test.com</p>
+<p>Αν ολοκληρωθεί επιτυχώς, ο user με αυτό το email δεν υπάρχει πλέον. Ένα πιθανό response είναι 204 No Content.</p>
+<p>10.11 OPTIONS</p>
+<p>OPTIONS /users
+    HTTP/1.1 204 No Content
+    Allow: GET, POST, PUT, PATCH, DELETE, OPTIONS</p>
+<p>Το Allow δείχνει ποιες HTTP methods υποστηρίζει το endpoint.</p>
+<p>10.12 HEAD</p>
+<p>HEAD /users/15
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+    Content-Length: 104
+    ETag: "user-15-v4"
+    Last-Modified: Wed, 07 Oct 2026 15:30:00 GMT</p>
+<p>Δεν υπάρχει response body. Παίρνουμε μόνο τα response headers.</p>
+<p>11. Idempotency – Τι σημαίνει ακριβώς;</p>
+<p>Idempotent είναι ένα operation όταν, αν στείλουμε ακριβώς το ίδιο request πολλές φορές, το τελικό state του συστήματος μετά την πρώτη επιτυχημένη εκτέλεση δεν αλλάζει περισσότερο από τις επαναλήψεις.</p>
+<p>Idempotency δεν σημαίνει «δημιουργείται ή όχι νέα εγγραφή». Σημαίνει «η επανάληψη του ίδιου request αλλάζει ξανά το final state;»</p>
+<p>11.1 SET vs INCREMENT</p>
+<p>SET age = 31
+    1η φορά  → 31
+    2η φορά  → 31
+    10η φορά → 31
+    =&gt; idempotent</p>
+<p>INCREMENT age by 1
+    30 → 31 → 32 → 33 → 34
+    =&gt; non-idempotent</p>
+<p>11.2 POST – Non-Idempotent by Semantics</p>
+<p>Ένα συνηθισμένο POST create endpoint μπορεί να δημιουργήσει νέα εγγραφή σε κάθε επανάληψη του ίδιου request. Γι’ αυτό η POST δεν εγγυάται idempotency.</p>
+<p>POST /users  (ίδιο body)
+    1η φορά → user id 16
+    2η φορά → user id 17
+    3η φορά → user id 18</p>
+<p>Μπορούμε όμως να γράψουμε συγκεκριμένο POST endpoint που να συμπεριφέρεται idempotently, π.χ. create-or-update με lookup βάσει email:</p>
+<p>public User createOrUpdate(User request) {
+    User user = userRepository
+    .findByEmail(request.getEmail())
+    .orElse(new User());
+
+    user.setUsername(request.getUsername());
+    user.setEmail(request.getEmail());
+
+    return userRepository.save(user);
+    }</p>
+<p>Το UNIQUE constraint δεν είναι απαραίτητο για να γράψουμε αυτή τη business logic, αλλά μπορεί να προσφέρει επιπλέον προστασία από duplicates στη βάση. Η POST ως HTTP method παραμένει non-idempotent by semantics· απλώς το συγκεκριμένο endpoint μπορεί να έχει idempotent συμπεριφορά.</p>
+<p>11.3 PUT – Idempotent by Semantics</p>
+<p>PUT /users/15</p>
+<p>{
+    "username": "nikos",
+    "email": "new@test.com",
+    "age": 30,
+    "active": true
+    }</p>
+<p>1ο ίδιο PUT  → ίδιο final state
+    2ο ίδιο PUT  → ίδιο final state
+    10ο ίδιο PUT → ίδιο final state</p>
+<p>Αν όμως γράψουμε μέσα στο PUT service operation όπως:</p>
+<p>user.setAge(user.getAge() + 1);</p>
+<p>1ο PUT → 30 → 31
+    2ο PUT → 31 → 32
+    3ο PUT → 32 → 33</p>
+<p>Τεχνικά μπορούμε να το κάνουμε, αλλά τότε το endpoint είναι non-idempotent και παραβιάζει τη σημασιολογία του PUT.</p>
+<p>11.4 PATCH – Μπορεί να είναι Idempotent ή Non-Idempotent</p>
+<p>Η PATCH δεν εγγυάται idempotency. Η συμπεριφορά εξαρτάται από το είδος της αλλαγής.</p>
+<p>PATCH /users/15</p>
+<p>{
+    "email": "new@test.com"
+    }</p>
+<p>SET email = new@test.com
+    1η φορά  → new@test.com
+    10η φορά → new@test.com
+    =&gt; αυτό το operation είναι idempotent</p>
+<p>PATCH /users/15</p>
+<p>{
+    "operation": "increaseAge",
+    "value": 1
+    }</p>
+<p>30 → 31 → 32 → 33
+    =&gt; αυτό το operation είναι non-idempotent</p>
+<p>11.5 DELETE – Idempotent</p>
+<p>DELETE /users?email=nikos@test.com</p>
+<p>1η φορά → ο user διαγράφεται
+    2η φορά → ο user εξακολουθεί να μην υπάρχει</p>
+<p>Το response μπορεί να διαφέρει (π.χ. 204 την πρώτη φορά και 404 τη δεύτερη), αλλά το intended final state παραμένει ίδιο: ο user δεν υπάρχει.</p>
+<p>12. Τελικό Mental Model</p>
+<p>GET     → Read                      → Idempotent
+    POST    → Create / Action / Process → Δεν εγγυάται idempotency
+    PUT     → Replace / Set state       → Idempotent by semantics
+    PATCH   → Partial modification      → Μπορεί να είναι idempotent ή όχι
+    DELETE  → Delete                    → Idempotent
+    OPTIONS → Supported capabilities    → Idempotent
+    HEAD    → Response headers          → Idempotent</p>
+<p>Η HTTP method μας λέει τι σημαίνει ότι ζητάμε να γίνει. Ο controller/service/repository κώδικας καθορίζει τι θα γίνει πραγματικά.</p>
+<p>Σε ένα σωστά σχεδιασμένο API θέλουμε η συμπεριφορά του endpoint να συμφωνεί με τη σημασιολογία της HTTP method που επιλέξαμε.</p>

@@ -1,0 +1,239 @@
+<div
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="updateProfileModal"
+        id="updateProfileModal"
+        class="update-profile-modal"
+        data-testid="update-profile-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="updateProfileModalTitle">
+
+    <div class="update-profile-modal-content">
+
+        <!-- MODAL HEADER -->
+        <div class="update-profile-modal-header">
+
+            <div>
+
+                <p class="update-profile-modal-label">
+                    Account
+                </p>
+
+                <h2 id="updateProfileModalTitle">
+                    Update Profile
+                </h2>
+
+            </div>
+
+            <button
+                    type="button"
+                    id="closeUpdateProfileModalButton"
+                    class="update-profile-modal-close"
+                    data-testid="close-update-profile-modal-button"
+                    aria-label="Close update profile modal">
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- UPDATE PROFILE FORM -->
+        <form
+                id="updateProfileForm"
+                data-testid="update-profile-form"
+                novalidate>
+
+            <!-- FIRST NAME -->
+            <div class="update-profile-form-group">
+
+                <label for="updateFirstName">
+                    First Name
+                </label>
+
+                <input
+                        type="text"
+                        id="updateFirstName"
+                        name="firstName"
+                        readonly
+                        data-testid="update-first-name">
+
+            </div>
+
+
+            <!-- LAST NAME -->
+            <div class="update-profile-form-group">
+
+                <label for="updateLastName">
+                    Last Name
+                </label>
+
+                <input
+                        type="text"
+                        id="updateLastName"
+                        name="lastName"
+                        readonly
+                        data-testid="update-last-name">
+
+            </div>
+
+
+            <!-- EMAIL -->
+            <div class="update-profile-form-group">
+
+                <label for="updateEmail">
+                    Email
+                </label>
+
+                <input
+                        type="email"
+                        id="updateEmail"
+                        name="email"
+                        maxlength="254"
+                        autocomplete="email"
+                        data-testid="update-email">
+
+                <div
+                        id="updateEmailError"
+                        class="field-error"
+                        data-testid="update-email-error"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+
+            <!-- PHONE -->
+            <div class="update-profile-form-group">
+
+                <label for="updatePhone">
+                    Phone
+                </label>
+
+                <input
+                        type="text"
+                        id="updatePhone"
+                        name="phone"
+                        maxlength="10"
+                        autocomplete="tel"
+                        data-testid="update-phone">
+
+                <div
+                        id="updatePhoneError"
+                        class="field-error"
+                        data-testid="update-phone-error"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+
+            <!-- FATHER NAME -->
+            <div class="update-profile-form-group">
+
+                <label for="updateFatherName">
+                    Father Name
+                </label>
+
+                <input
+                        type="text"
+                        id="updateFatherName"
+                        name="fatherName"
+                        maxlength="100"
+                        autocomplete="off"
+                        data-testid="update-father-name">
+
+                <div
+                        id="updateFatherNameError"
+                        class="field-error"
+                        data-testid="update-father-name-error"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+
+            <!-- MOTHER NAME -->
+            <div class="update-profile-form-group">
+
+                <label for="updateMotherName">
+                    Mother Name
+                </label>
+
+                <input
+                        type="text"
+                        id="updateMotherName"
+                        name="motherName"
+                        maxlength="100"
+                        autocomplete="off"
+                        data-testid="update-mother-name">
+
+                <div
+                        id="updateMotherNameError"
+                        class="field-error"
+                        data-testid="update-mother-name-error"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+
+            <!-- AGE -->
+            <div class="update-profile-form-group">
+
+                <label for="updateAge">
+                    Age
+                </label>
+
+                <input
+                        type="number"
+                        id="updateAge"
+                        name="age"
+                        min="1"
+                        max="120"
+                        data-testid="update-age">
+
+                <div
+                        id="updateAgeError"
+                        class="field-error"
+                        data-testid="update-age-error"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+
+            <!-- GENERAL MESSAGE -->
+            <div
+                    id="updateProfileMessage"
+                    class="update-profile-message"
+                    data-testid="update-profile-message"
+                    aria-live="polite">
+            </div>
+
+
+            <!-- ACTIONS -->
+            <div class="update-profile-modal-actions">
+
+                <button
+                        type="button"
+                        id="cancelUpdateProfileButton"
+                        class="update-profile-cancel-button"
+                        data-testid="cancel-update-profile-button">
+                    Cancel
+                </button>
+
+                <button
+                        type="submit"
+                        id="saveProfileButton"
+                        class="update-profile-save-button"
+                        data-testid="save-profile-button">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

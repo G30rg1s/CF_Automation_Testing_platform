@@ -1,0 +1,1429 @@
+/* ========================================
+   GLOBAL
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   PAGE
+   ======================================== */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f3f6fb;
+
+    color: #1f2937;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   APPLICATION LAYOUT
+   ======================================== */
+
+.document-details-layout {
+    display: flex;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   RIGHT SIDE
+   ======================================== */
+
+.document-details-main {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   PAGE CONTENT
+   ======================================== */
+
+.document-details-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: 16px 32px 20px;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   PAGE HEADER
+   ======================================== */
+
+.document-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    flex-shrink: 0;
+
+    margin-bottom: 12px;
+}
+
+.document-details-page-label {
+    margin: 0 0 4px;
+
+    color: #2563eb;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.document-details-header h1 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   DOCUMENT INFORMATION BAR
+   ======================================== */
+
+.document-info-bar {
+    display: grid;
+
+    grid-template-columns:
+            minmax(0, 2fr)
+            minmax(150px, 1fr)
+            minmax(130px, 0.7fr)
+            minmax(110px, 0.6fr);
+
+    gap: 0;
+
+    flex-shrink: 0;
+
+    width: 100%;
+
+    margin-bottom: 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow: 0 5px 16px rgba(15, 23, 42, 0.04);
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   INFORMATION ITEM
+   ======================================== */
+
+.document-info-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 66px;
+
+    padding: 10px 16px;
+
+    border-right: 1px solid #e5e7eb;
+}
+
+.document-info-item:last-child {
+    border-right: none;
+}
+
+
+/* ========================================
+   INFORMATION LABEL
+   ======================================== */
+
+.document-info-label {
+    margin-bottom: 4px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+
+/* ========================================
+   INFORMATION VALUE
+   ======================================== */
+
+.document-info-value {
+    min-width: 0;
+
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   CATEGORY ITEM
+   ======================================== */
+
+.document-category-info-item {
+    position: relative;
+}
+
+
+/* ========================================
+   CATEGORY HEADER
+   ======================================== */
+
+.document-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-bottom: 4px;
+}
+
+.document-category-header .document-info-label {
+    margin-bottom: 0;
+}
+
+
+/* ========================================
+   CHANGE CATEGORY BUTTON
+   ======================================== */
+
+.document-category-change-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    min-height: 26px;
+
+    padding: 4px 9px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 7px;
+
+    background: #eff6ff;
+
+    color: #1d4ed8;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.document-category-change-button:hover {
+    border-color: #2563eb;
+
+    background: #dbeafe;
+
+    color: #1e40af;
+}
+
+.document-category-change-button:active {
+    transform: translateY(1px);
+}
+
+.document-category-change-button:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   CATEGORY DISPLAY
+   ======================================== */
+
+.document-category-display {
+    min-width: 0;
+    width: 100%;
+}
+
+
+/* ========================================
+   CATEGORY EDITOR
+   ======================================== */
+
+.document-category-editor {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    width: 100%;
+
+    margin-top: 3px;
+}
+
+
+/* ========================================
+   EXISTING CATEGORY
+   ======================================== */
+
+.document-category-existing-section {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    width: 100%;
+}
+
+
+/* ========================================
+   CATEGORY SELECT
+   ======================================== */
+
+.document-category-select {
+    flex: 1;
+
+    min-width: 0;
+    min-height: 34px;
+
+    padding: 6px 9px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    outline: none;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.document-category-select:hover {
+    border-color: #94a3b8;
+}
+
+.document-category-select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* ========================================
+   NEW CATEGORY BUTTON
+   ======================================== */
+
+.document-category-new-button {
+    flex-shrink: 0;
+
+    min-height: 34px;
+
+    padding: 6px 10px;
+
+    border: 1px solid #c4b5fd;
+    border-radius: 8px;
+
+    background: #f5f3ff;
+
+    color: #6d28d9;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease;
+}
+
+.document-category-new-button:hover {
+    border-color: #8b5cf6;
+
+    background: #ede9fe;
+
+    color: #5b21b6;
+}
+
+.document-category-new-button:focus-visible {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   NEW CATEGORY SECTION
+   ======================================== */
+
+.document-category-new-section {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    width: 100%;
+}
+
+
+/* ========================================
+   NEW CATEGORY INPUT
+   ======================================== */
+
+.document-category-new-input {
+    flex: 1;
+
+    min-width: 0;
+    min-height: 34px;
+
+    padding: 6px 9px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    outline: none;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.document-category-new-input:hover {
+    border-color: #94a3b8;
+}
+
+.document-category-new-input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.document-category-new-input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* ========================================
+   BACK TO EXISTING BUTTON
+   ======================================== */
+
+.document-category-back-button {
+    flex-shrink: 0;
+
+    min-height: 34px;
+
+    padding: 6px 10px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #f8fafc;
+
+    color: #475569;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease;
+}
+
+.document-category-back-button:hover {
+    border-color: #94a3b8;
+
+    background: #f1f5f9;
+
+    color: #111827;
+}
+
+
+/* ========================================
+   CATEGORY EDITOR ACTIONS
+   ======================================== */
+
+.document-category-editor-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    width: 100%;
+}
+
+
+/* ========================================
+   SAVE CATEGORY BUTTON
+   ======================================== */
+
+.document-category-save-button {
+    min-height: 32px;
+
+    padding: 6px 12px;
+
+    border: 1px solid #2563eb;
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease;
+}
+
+.document-category-save-button:hover {
+    border-color: #1d4ed8;
+
+    background: #1d4ed8;
+}
+
+.document-category-save-button:disabled {
+    border-color: #cbd5e1;
+
+    background: #e2e8f0;
+
+    color: #94a3b8;
+
+    cursor: not-allowed;
+}
+
+.document-category-save-button:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   CANCEL CATEGORY BUTTON
+   ======================================== */
+
+.document-category-cancel-button {
+    min-height: 32px;
+
+    padding: 6px 12px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #475569;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease;
+}
+
+.document-category-cancel-button:hover {
+    border-color: #94a3b8;
+
+    background: #f8fafc;
+
+    color: #111827;
+}
+
+
+/* ========================================
+   CATEGORY MESSAGE
+   ======================================== */
+
+.document-category-message {
+    min-height: 0;
+
+    margin: 0;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.35;
+}
+
+.document-category-message:empty {
+    display: none;
+}
+
+.document-category-message.success {
+    color: #16a34a;
+}
+
+.document-category-message.error {
+    color: #dc2626;
+}
+
+
+/* ========================================
+   CATEGORY HIDDEN STATES
+   ======================================== */
+
+.document-category-display[hidden],
+.document-category-editor[hidden],
+.document-category-existing-section[hidden],
+.document-category-new-section[hidden] {
+    display: none !important;
+}
+
+
+/* ========================================
+   CATEGORY EDIT MODE
+   ======================================== */
+
+.document-category-info-item.editing {
+    justify-content: flex-start;
+
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+
+/* ========================================
+   STATUS BADGE
+   ======================================== */
+
+.document-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    align-self: flex-start;
+
+    min-width: 74px;
+    min-height: 27px;
+
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+
+/* ========================================
+   STATUS - READY
+   ======================================== */
+
+.document-status-badge.ready {
+    background: #dcfce7;
+
+    color: #15803d;
+}
+
+
+/* ========================================
+   STATUS - PENDING
+   ======================================== */
+
+.document-status-badge.pending {
+    background: #fef3c7;
+
+    color: #b45309;
+}
+
+
+/* ========================================
+   STATUS - FAILED
+   ======================================== */
+
+.document-status-badge.failed {
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+
+/* ========================================
+   ACTIONS
+   ======================================== */
+
+.document-details-actions {
+    flex-shrink: 0;
+
+    margin-bottom: 12px;
+}
+
+
+/* ========================================
+   DOCUMENT VIEWER
+   ======================================== */
+
+.document-viewer {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   VIEWER HEADER
+   ======================================== */
+
+.document-viewer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    flex-shrink: 0;
+
+    padding: 11px 18px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    background: #ffffff;
+}
+
+.document-viewer-label {
+    margin: 0 0 2px;
+
+    color: #2563eb;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.document-viewer-header h2 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   FULLSCREEN BUTTON
+   ======================================== */
+
+.document-viewer-fullscreen-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    min-height: 36px;
+
+    padding: 7px 14px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+
+    background: #eff6ff;
+
+    color: #1d4ed8;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.document-viewer-fullscreen-button:hover {
+    border-color: #2563eb;
+
+    background: #dbeafe;
+
+    color: #1e40af;
+}
+
+.document-viewer-fullscreen-button:active {
+    transform: translateY(1px);
+}
+
+.document-viewer-fullscreen-button:disabled {
+    border-color: #e2e8f0;
+
+    background: #f8fafc;
+
+    color: #94a3b8;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   DOCUMENT CONTENT CONTAINER
+   ======================================== */
+
+.document-content-container {
+    flex: 1;
+
+    min-width: 0;
+    min-height: 0;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   DOCUMENT IFRAME
+   ======================================== */
+
+.document-content-frame {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    min-height: 0;
+
+    border: none;
+
+    background: #ffffff;
+}
+
+
+/* ========================================
+   DOCUMENT STATES
+   ======================================== */
+
+.document-state {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 0;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   IMPORTANT - HIDDEN STATES
+   ======================================== */
+
+.document-state[hidden],
+.document-content-container[hidden] {
+    display: none !important;
+}
+
+
+/* ========================================
+   STATE ICON
+   ======================================== */
+
+.document-state-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 12px;
+
+    border-radius: 50%;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.document-state h3 {
+    margin: 0 0 7px;
+
+    color: #111827;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.document-state p {
+    max-width: 520px;
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   LOADING STATE
+   ======================================== */
+
+.document-loading-state {
+    color: #64748b;
+}
+
+.document-loading-state p {
+    margin-top: 10px;
+}
+
+
+/* ========================================
+   LOADING SPINNER
+   ======================================== */
+
+.document-loading-spinner {
+    width: 34px;
+    height: 34px;
+
+    border: 4px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+
+    animation: document-loading-spin 0.8s linear infinite;
+}
+
+@keyframes document-loading-spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ========================================
+   PENDING STATE
+   ======================================== */
+
+.document-pending-state .document-state-icon {
+    background: #fef3c7;
+
+    color: #b45309;
+}
+
+
+/* ========================================
+   FAILED STATE
+   ======================================== */
+
+.document-failed-state .document-state-icon {
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+.document-failed-state h3 {
+    color: #991b1b;
+}
+
+.document-failed-state p {
+    color: #b91c1c;
+}
+
+
+/* ========================================
+   GENERAL ERROR STATE
+   ======================================== */
+
+.document-error-state h3 {
+    color: #991b1b;
+}
+
+.document-error-state p {
+    color: #b91c1c;
+}
+
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.document-empty-state h3 {
+    color: #374151;
+}
+
+
+/* ========================================
+   PAGE MESSAGE
+   ======================================== */
+
+.document-details-message {
+    flex-shrink: 0;
+
+    min-height: 0;
+
+    margin: 7px 0 0;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.document-details-message:empty {
+    display: none;
+}
+
+.document-details-message.success {
+    color: #16a34a;
+}
+
+.document-details-message.error {
+    color: #dc2626;
+}
+
+
+/* ========================================
+   SMALL DESKTOP / TABLET
+   ======================================== */
+
+@media (max-width: 1100px) {
+
+    .document-details-content {
+        padding: 16px 22px 20px;
+
+        overflow-y: auto;
+    }
+
+    .document-info-bar {
+        grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+    }
+
+    .document-info-item:nth-child(2) {
+        border-right: none;
+    }
+
+    .document-info-item:nth-child(1),
+    .document-info-item:nth-child(2) {
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .document-viewer {
+        flex: none;
+
+        min-height: 500px;
+    }
+}
+
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .document-details-layout {
+        min-height: 100vh;
+        height: auto;
+
+        overflow: visible;
+    }
+
+    .document-details-main {
+        min-height: 100vh;
+        height: auto;
+
+        overflow: visible;
+    }
+
+    .document-details-content {
+        padding: 14px 16px 20px;
+
+        overflow: visible;
+    }
+
+    .document-details-header h1 {
+        font-size: 24px;
+    }
+
+    .document-info-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .document-info-item {
+        min-height: 60px;
+
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .document-info-item:last-child {
+        border-bottom: none;
+    }
+
+    .document-category-existing-section,
+    .document-category-new-section {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .document-category-new-button,
+    .document-category-back-button {
+        width: 100%;
+    }
+
+    .document-category-editor-actions {
+        width: 100%;
+    }
+
+    .document-category-save-button,
+    .document-category-cancel-button {
+        flex: 1;
+    }
+
+    .document-viewer {
+        min-height: 520px;
+    }
+
+    .document-viewer-header {
+        padding: 11px 14px;
+    }
+
+    .document-viewer-fullscreen-button {
+        min-height: 34px;
+
+        padding: 6px 11px;
+
+        font-size: 11px;
+    }
+
+    .document-state {
+        padding: 24px 18px;
+    }
+}
+
+
+/* ========================================
+   DOCUMENT QUIZ - NORMAL VIEW
+   ======================================== */
+
+/* Quiz must occupy the available viewer space */
+
+.document-viewer > .document-quiz {
+    flex: 1 1 auto;
+
+    width: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    margin: 0;
+    padding: 20px;
+
+    background: #f8fafc;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+}
+
+
+/* ========================================
+   QUIZ CONTENT WIDTH
+   ======================================== */
+
+.document-viewer > .document-quiz .document-quiz-container {
+    width: 100%;
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* ========================================
+   HIDDEN QUIZ
+   ======================================== */
+
+.document-viewer > .document-quiz[hidden] {
+    display: none !important;
+}
+
+
+/* ========================================
+   QUIZ NORMAL VIEW - TABLET
+   ======================================== */
+
+@media (max-width: 900px) {
+
+    .document-viewer > .document-quiz {
+        padding: 16px;
+    }
+
+}
+
+
+/* ========================================
+   QUIZ NORMAL VIEW - MOBILE
+   ======================================== */
+
+@media (max-width: 600px) {
+
+    .document-viewer > .document-quiz {
+        padding: 12px;
+    }
+
+}
+
+
+/* ========================================
+   QUIZ NORMAL VIEW - SMALL MOBILE
+   ======================================== */
+
+@media (max-width: 420px) {
+
+    .document-viewer > .document-quiz {
+        padding: 8px;
+    }
+
+}
+
+
+/* ========================================
+   STRONGER QUIZ RESULT COLORS
+   ======================================== */
+
+/* Correct answer - stronger green */
+
+.document-quiz-option.is-correct {
+    background: #bbf7d0;
+    border: 2px solid #16a34a;
+    box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.12);
+}
+
+.document-quiz-option.is-correct .document-quiz-option-letter,
+.document-quiz-option.is-correct .document-quiz-option-text {
+    color: #166534;
+    font-weight: 700;
+}
+
+
+/* Incorrect selected answer - stronger red */
+
+.document-quiz-option.is-incorrect {
+    background: #fecaca;
+    border: 2px solid #dc2626;
+    box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.12);
+}
+
+.document-quiz-option.is-incorrect .document-quiz-option-letter,
+.document-quiz-option.is-incorrect .document-quiz-option-text {
+    color: #991b1b;
+    font-weight: 700;
+}
+
+
+
+/* ========================================
+   STRONGER QUESTION CARD BORDERS
+   ======================================== */
+
+/* Correctly answered question */
+
+.document-quiz-question.is-answered-correct {
+    border: 3px solid #16a34a;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 2px rgba(22, 163, 74, 0.12);
+}
+
+
+/* Incorrectly answered question */
+
+.document-quiz-question.is-answered-incorrect {
+    border: 3px solid #dc2626;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 2px rgba(220, 38, 38, 0.12);
+}
+
+
+/* Unanswered question */
+
+.document-quiz-question.is-unanswered {
+    border: 2px solid #94a3b8;
+    background: #ffffff;
+}
+
+
+/* ========================================
+   STICKY QUIZ HEADER
+   NORMAL VIEW + FULLSCREEN
+   ======================================== */
+
+.document-quiz-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    width: 100%;
+
+    margin-bottom: 24px;
+
+    background: #ffffff;
+}
+
+/* Keep quiz header above scrolling questions */
+
+.document-quiz {
+    position: relative;
+}
+
+/* Preserve compact header on mobile */
+
+@media (max-width: 700px) {
+
+    .document-quiz-header {
+        top: 0;
+    }
+
+}
+
+
+
+

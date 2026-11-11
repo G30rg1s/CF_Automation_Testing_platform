@@ -1,0 +1,111 @@
+.application-update-modal[hidden] {
+    display: none;
+}
+
+.application-update-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+.application-update-modal__backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(3px);
+}
+
+.application-update-modal__dialog {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 520px;
+
+    padding: 28px;
+
+    background: #ffffff;
+    border-radius: 16px;
+
+    box-shadow:
+            0 20px 40px rgba(15, 23, 42, 0.18),
+            0 8px 16px rgba(15, 23, 42, 0.12);
+}
+
+.application-update-modal__dialog h2 {
+    margin: 0 0 12px;
+
+    font-size: 26px;
+    color: #1e3a8a;
+}
+
+.application-update-modal__dialog p {
+    margin: 0 0 22px;
+
+    color: #475569;
+    line-height: 1.5;
+}
+
+.application-update-modal__versions {
+    display: grid;
+    gap: 10px;
+
+    margin-bottom: 24px;
+
+    padding: 16px;
+
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    color: #334155;
+}
+
+.application-update-modal__versions strong {
+    color: #0f172a;
+}
+
+.application-update-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.application-update-modal__actions button {
+    padding: 10px 18px;
+
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#applicationUpdateLaterButton {
+    background: #ffffff;
+    color: #334155;
+}
+
+#applicationUpdateButton {
+    border-color: #2563eb;
+
+    background: #2563eb;
+    color: #ffffff;
+}
+
+#applicationUpdateLaterButton:hover {
+    background: #f8fafc;
+}
+
+#applicationUpdateButton:hover {
+    background: #1d4ed8;
+}

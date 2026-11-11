@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>App Logs | Coding Factory Automation</title>
+
+    <!-- ========================================
+         APP LOGS CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/app-logs.css}">
+
+    <!-- ========================================
+         APP LOGS JAVASCRIPT
+         ======================================== -->
+
+    <script th:src="@{/js/app-logs.js}"
+            defer>
+    </script>
+
+</head>
+
+<body>
+
+<div class="app-logs-layout">
+
+    <!-- ========================================
+         HEADER
+         ======================================== -->
+
+    <header class="app-logs-header">
+
+        <div class="app-logs-heading">
+
+            <p class="app-logs-eyebrow">
+                CODING FACTORY AUTOMATION
+            </p>
+
+            <h1>
+                App Logs
+            </h1>
+
+            <p class="app-logs-description">
+                Monitor live logs from the Automation Platform
+                and Parser Service.
+            </p>
+
+        </div>
+
+        <div class="app-logs-connection-status"
+             id="appLogsConnectionStatus"
+             role="status"
+             aria-live="polite">
+
+            <span class="app-logs-status-indicator"
+                  id="appLogsStatusIndicator"
+                  aria-hidden="true">
+            </span>
+
+            <span id="appLogsStatusText">
+                Connecting...
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- ========================================
+         LOGS PANEL
+         ======================================== -->
+
+    <main class="app-logs-panel">
+
+        <!-- ====================================
+             TABS
+             ==================================== -->
+
+        <div class="app-logs-tabs"
+             role="tablist"
+             aria-label="Application log sources">
+
+            <button
+                    type="button"
+                    id="automationLogsTab"
+                    class="app-logs-tab active"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="automationLogsPanel"
+                    tabindex="0"
+                    data-log-source="automation">
+
+                Automation Platform Logs
+
+            </button>
+
+            <button
+                    type="button"
+                    id="parserLogsTab"
+                    class="app-logs-tab"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="parserLogsPanel"
+                    tabindex="-1"
+                    data-log-source="parser">
+
+                Parser Logs
+
+            </button>
+
+        </div>
+
+        <!-- ====================================
+             TOOLBAR
+             ==================================== -->
+
+        <div class="app-logs-toolbar">
+
+            <div class="app-logs-toolbar-info">
+
+                <span class="app-logs-live-indicator"
+                      id="appLogsLiveIndicator">
+                    LIVE
+                </span>
+
+                <span class="app-logs-active-source"
+                      id="appLogsActiveSource">
+                    Automation Platform
+                </span>
+
+                <span class="app-logs-line-count"
+                      id="appLogsLineCount">
+                    0 lines
+                </span>
+
+            </div>
+
+            <div class="app-logs-toolbar-actions">
+
+                <label class="app-logs-auto-scroll-label"
+                       for="appLogsAutoScroll">
+
+                    <input
+                            type="checkbox"
+                            id="appLogsAutoScroll"
+                            checked>
+
+                    Auto-scroll
+
+                </label>
+
+                <button
+                        type="button"
+                        id="appLogsPauseButton"
+                        class="app-logs-button">
+                    Pause
+                </button>
+
+                <button
+                        type="button"
+                        id="appLogsClearButton"
+                        class="app-logs-button">
+                    Clear View
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ====================================
+             AUTOMATION PLATFORM LOGS
+             ==================================== -->
+
+        <section
+                id="automationLogsPanel"
+                class="app-logs-content-panel"
+                role="tabpanel"
+                aria-labelledby="automationLogsTab">
+
+            <pre
+                    id="automationLogsOutput"
+                    class="app-logs-output"
+                    aria-label="Automation Platform log output">Waiting for Automation Platform logs...</pre>
+
+        </section>
+
+        <!-- ====================================
+             PARSER LOGS
+             ==================================== -->
+
+        <section
+                id="parserLogsPanel"
+                class="app-logs-content-panel"
+                role="tabpanel"
+                aria-labelledby="parserLogsTab"
+                hidden>
+
+            <pre
+                    id="parserLogsOutput"
+                    class="app-logs-output"
+                    aria-label="Parser Service log output">Waiting for Parser logs...</pre>
+
+        </section>
+
+    </main>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+
+    <footer class="app-logs-footer">
+
+        <span>
+            Logs are displayed for testing and debugging.
+        </span>
+
+        <span>
+            Clear View does not delete application log files.
+        </span>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

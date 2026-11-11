@@ -1,0 +1,146 @@
+
+spring:
+  application:
+    name: coding-factory-automation
+
+  # ========================================
+  # PRODUCTION DATABASE
+  # ========================================
+  datasource:
+    url: "${DB_URL:jdbc:mysql://localhost:3306/springboot-production?createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false}"
+    username: "${DB_USERNAME:root}"
+    password: "${DB_PASSWORD:1234}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ========================================
+  # JPA
+  # ========================================
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+
+  # ========================================
+  # JACKSON
+  # ========================================
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      accept-float-as-int: false
+    mapper:
+      allow-coercion-of-scalars: false
+
+  # ========================================
+  # KAFKA
+  # ========================================
+  kafka:
+    bootstrap-servers: "${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}"
+
+
+# ========================================
+# SERVER
+# ========================================
+
+server:
+  port: "${PORT:8080}"
+
+  error:
+    include-message: never
+    include-stacktrace: never
+
+
+# ========================================
+# APPLICATION SETTINGS
+# ========================================
+
+app:
+
+  # ========================================
+  # UPDATE (EXISTING CONFIGURATION)
+  # ========================================
+  update:
+    manifest-url: "${APP_UPDATE_MANIFEST_URL:https://raw.githubusercontent.com/G30rg1s/automation-platform-license-runtime/main/version.json}"
+    initial-delay-ms: 30000
+    check-interval-ms: 300000
+
+  # ========================================
+  # LICENSE REQUEST
+  # ========================================
+  license-request:
+    endpoint-url: "${LICENSE_REQUEST_ENDPOINT_URL:}"
+
+  # ========================================
+  # ENCRYPTED TXT VERSION CHECK
+  # ========================================
+  txt-update:
+    manifest-url: "https://raw.githubusercontent.com/G30rg1s/automation-platform-txt-releases/main/version.json"
+    local-txt-path: "${GVM_TXT_PATH:/app/application.gvm.txt}"
+    initial-delay-ms: 30000
+    check-interval-ms: 300000
+
+  # ========================================
+  # DATABASES
+  # ========================================
+  datasource:
+
+    # ========================================
+    # FRONTEND TESTING DATABASE
+    # ========================================
+    frontendtesting:
+      url: "${FRONTEND_TEST_DB_URL:jdbc:mysql://localhost:3306/springboot-frontendtesting?createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false}"
+      username: "${FRONTEND_TEST_DB_USERNAME:root}"
+      password: "${FRONTEND_TEST_DB_PASSWORD:1234}"
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    # ========================================
+    # API TESTING DATABASE
+    # ========================================
+    apitesting:
+      url: "${API_TEST_DB_URL:jdbc:mysql://localhost:3306/springboot-apitesting?createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false}"
+      username: "${API_TEST_DB_USERNAME:root}"
+      password: "${API_TEST_DB_PASSWORD:1234}"
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ========================================
+  # SAVED SQL QUERIES
+  # AUTO TABLE CREATION IN ALL 3 DATABASES
+  # ========================================
+  saved-queries:
+    schema-init:
+      enabled: "${SAVED_QUERIES_SCHEMA_INIT_ENABLED:true}"
+
+  # ========================================
+  # LICENSE
+  # ========================================
+  license:
+    validation-url: "${LICENSE_VALIDATION_URL:http://localhost:8090/api/licenses/validate}"
+    storage-path: "${LICENSE_STORAGE_PATH:license/activation.json}"
+    activation-storage-path: "${CF_LICENSE_STORAGE_PATH:${user.home}/.coding-factory/automation/license/activation.json}"
+
+  # ========================================
+  # JWT
+  # ========================================
+  jwt:
+    secret: "${JWT_SECRET:local-development-only-secret-change-before-deployment-2026}"
+    ttl-seconds: 3600
+
+  # ========================================
+  # CORS
+  # ========================================
+  cors-origins: "${CORS_ORIGINS:http://localhost:3000,http://localhost:5173}"
+
+  # ========================================
+  # APP LOGS PATHS
+  # ========================================
+  logs:
+    automation-path: "${AUTOMATION_LOG_FILE:logs/automation.log}"
+    parser-path: "${PARSER_LOG_FILE:logs/parser.log}"
+
+
+# ========================================
+# SPRING BOOT LOGGING
+# ========================================
+
+logging:
+  file:
+    name: "${AUTOMATION_LOG_FILE:logs/automation.log}"

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | Coding Factory Automation</title>
+
+    <!-- PAGE CSS -->
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/components/update-profile-modal.css}">
+
+    <!-- SHARED COMPONENT CSS -->
+    <link rel="stylesheet" th:href="@{/css/components/dashboard-sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/add-category-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/components/category-already-exists-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/components/delete-category-modal.css}">
+    <div th:replace="~{html/components/update-profile-modal :: updateProfileModal}"></div>
+</head>
+
+<body>
+
+<div class="profile-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <div th:replace="~{html/components/dashboard-sidebar :: dashboardSidebar}"></div>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="profile-main">
+
+        <!-- NAVBAR -->
+        <div th:replace="~{html/components/navbar :: navbar}"></div>
+
+
+        <!-- PROFILE CONTENT -->
+        <main class="profile-content">
+
+            <!-- PAGE HEADER -->
+            <div class="profile-header">
+
+                <p class="profile-label">
+                    Account
+                </p>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p class="profile-description">
+                    View and manage your personal information.
+                </p>
+
+            </div>
+
+
+            <!-- PROFILE CARD -->
+            <section
+                    class="profile-card"
+                    data-testid="profile-card">
+
+                <!-- PROFILE CARD HEADER -->
+                <div class="profile-card-header">
+
+                    <div class="profile-avatar">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2
+                                id="profileFullName"
+                                data-testid="profile-full-name">
+                            -
+                        </h2>
+
+                        <p
+                                id="profileEmailHeader"
+                                data-testid="profile-email-header">
+                            -
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE DETAILS -->
+                <div class="profile-details">
+
+                    <!-- FIRST NAME -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            First Name
+                        </span>
+
+                        <span
+                                id="profileFirstName"
+                                class="profile-field-value"
+                                data-testid="profile-first-name">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- LAST NAME -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            Last Name
+                        </span>
+
+                        <span
+                                id="profileLastName"
+                                class="profile-field-value"
+                                data-testid="profile-last-name">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            Email
+                        </span>
+
+                        <span
+                                id="profileEmail"
+                                class="profile-field-value"
+                                data-testid="profile-email">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            Phone
+                        </span>
+
+                        <span
+                                id="profilePhone"
+                                class="profile-field-value"
+                                data-testid="profile-phone">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- FATHER NAME -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            Father Name
+                        </span>
+
+                        <span
+                                id="profileFatherName"
+                                class="profile-field-value"
+                                data-testid="profile-father-name">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- MOTHER NAME -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            Mother Name
+                        </span>
+
+                        <span
+                                id="profileMotherName"
+                                class="profile-field-value"
+                                data-testid="profile-mother-name">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- AGE -->
+                    <div class="profile-field">
+
+                        <span class="profile-field-label">
+                            Age
+                        </span>
+
+                        <span
+                                id="profileAge"
+                                class="profile-field-value"
+                                data-testid="profile-age">
+                            -
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE ACTIONS -->
+                <div class="profile-actions">
+
+                    <button
+                            type="button"
+                            id="updateProfileButton"
+                            class="update-profile-button"
+                            data-testid="update-profile-button">
+                        Update Profile
+                    </button>
+
+                </div>
+
+
+                <!-- PROFILE MESSAGE -->
+                <div
+                        id="profileMessage"
+                        class="profile-message"
+                        data-testid="profile-message"
+                        aria-live="polite">
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+
+<!-- ADD CATEGORY MODAL -->
+<div th:replace="~{html/components/add-category-modal :: addCategoryModal}"></div>
+
+
+<!-- CATEGORY ALREADY EXISTS MODAL -->
+<div th:replace="~{html/components/category-already-exists-modal :: categoryAlreadyExistsModal}"></div>
+
+
+<!-- DELETE CATEGORY MODAL -->
+<div th:replace="~{html/components/delete-category-modal :: deleteCategoryModal}"></div>
+
+
+<!-- SHARED COMPONENT SCRIPTS -->
+<script th:src="@{/js/components/dashboard-sidebar.js}"></script>
+<script th:src="@{/js/components/add-category-modal.js}"></script>
+<script th:src="@{/js/components/delete-category-modal.js}"></script>
+<script th:src="@{/js/components/navbar.js}"></script>
+
+
+<!-- PROFILE PAGE SCRIPT -->
+<script th:src="@{/js/profile.js}"></script>
+
+</body>
+
+</html>

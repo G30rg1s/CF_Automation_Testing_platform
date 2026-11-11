@@ -1,0 +1,273 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.license-request-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 32px 20px;
+}
+
+.license-request-card {
+    width: 100%;
+    max-width: 860px;
+
+    padding: 32px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+
+    box-shadow:
+            0 20px 40px rgba(15, 23, 42, 0.08),
+            0 8px 16px rgba(15, 23, 42, 0.05);
+}
+
+.license-request-header {
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    color: #2563eb;
+}
+
+.license-request-header h1 {
+    margin: 0 0 10px;
+
+    font-size: 32px;
+    color: #0f172a;
+}
+
+.license-request-header p {
+    margin: 0;
+
+    color: #475569;
+    line-height: 1.6;
+}
+
+.license-request-form {
+    display: grid;
+    gap: 22px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-group {
+    display: grid;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #334155;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #0f172a;
+
+    font: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.optional {
+    margin-left: 4px;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    color: #94a3b8;
+}
+
+.field-error {
+    margin: 0;
+
+    font-size: 13px;
+    color: #b91c1c;
+}
+
+.message {
+    margin-bottom: 22px;
+
+    padding: 14px 16px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+.message-success {
+    border: 1px solid #bbf7d0;
+
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.message-error {
+    border: 1px solid #fecaca;
+
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.existing-license-information {
+    padding: 18px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+
+    background: #eff6ff;
+}
+
+.existing-license-information h2 {
+    margin: 0 0 14px;
+
+    font-size: 18px;
+    color: #1e3a8a;
+}
+
+.existing-license-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.existing-license-grid div {
+    display: grid;
+    gap: 4px;
+}
+
+.existing-license-grid span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.existing-license-grid strong {
+    color: #0f172a;
+}
+
+.existing-license-note {
+    margin: 14px 0 0;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    color: #475569;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 4px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 10px 18px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-primary {
+    border: 1px solid #2563eb;
+
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.button-primary:hover {
+    background: #1d4ed8;
+}
+
+.button-secondary {
+    border: 1px solid #cbd5e1;
+
+    background: #ffffff;
+    color: #334155;
+}
+
+.button-secondary:hover {
+    background: #f8fafc;
+}
+
+@media (max-width: 700px) {
+
+    .license-request-card {
+        padding: 22px;
+    }
+
+    .form-row,
+    .existing-license-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,234 @@
+
+<aside
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="dashboardSidebar"
+        class="dashboard-sidebar"
+        data-testid="dashboard-sidebar">
+
+    <!-- ========================================
+         SIDEBAR HEADER
+         ======================================== -->
+
+    <div class="sidebar-brand">
+        Workspace
+    </div>
+
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+
+    <nav class="sidebar-navigation">
+
+        <!-- DASHBOARD -->
+        <button
+                type="button"
+                id="dashboardNavigation"
+                class="sidebar-item active"
+                data-testid="dashboard-navigation">
+
+            <svg class="sidebar-item-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="20" height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <rect x="3" y="3" width="7" height="9" rx="1"/>
+                <rect x="14" y="3" width="7" height="5" rx="1"/>
+                <rect x="14" y="12" width="7" height="9" rx="1"/>
+                <rect x="3" y="16" width="7" height="5" rx="1"/>
+            </svg>
+
+            <span>Dashboard</span>
+        </button>
+
+        <!-- MY PROFILE -->
+        <button
+                type="button"
+                id="profileNavigation"
+                class="sidebar-item"
+                data-testid="profile-navigation">
+
+            <svg class="sidebar-item-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="20" height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M5 21a7 7 0 0 1 14 0"/>
+            </svg>
+
+            <span>My Profile</span>
+        </button>
+
+        <!-- MANAGE DATABASE -->
+        <button
+                type="button"
+                id="manageDatabaseNavigation"
+                class="sidebar-item"
+                data-testid="manage-database-navigation">
+
+            <svg class="sidebar-item-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="20" height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/>
+                <path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/>
+            </svg>
+
+            <span>Manage Database</span>
+        </button>
+
+        <!-- APP LOGS -->
+        <button
+                type="button"
+                id="appLogsNavigation"
+                class="sidebar-item"
+                data-testid="app-logs-navigation">
+
+            <svg class="sidebar-item-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="20" height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5H8z"/>
+                <path d="M16 3v5h5"/>
+                <path d="M8 13h8"/>
+                <path d="M8 17h8"/>
+            </svg>
+
+            <span>App Logs</span>
+        </button>
+
+        <!-- UPLOAD DOCUMENT -->
+        <button
+                type="button"
+                id="uploadNavigation"
+                class="sidebar-item"
+                data-testid="upload-navigation">
+
+            <svg class="sidebar-item-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="20" height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="M12 16V3"/>
+                <path d="m7 8 5-5 5 5"/>
+                <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+            </svg>
+
+            <span>Upload Document</span>
+        </button>
+
+
+        <!-- SWAGGER -->
+        <a th:href="@{/swagger-ui/index.html}"
+           href="/swagger-ui/index.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="sidebar-nav-item"
+           id="sidebarSwaggerButton">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="22"
+                 height="22"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+
+                <path d="M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1"/>
+
+                <path d="M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1"/>
+
+            </svg>
+
+            <span>APP_Swagger</span>
+        </a>
+
+
+
+    </nav>
+
+    <!-- ========================================
+         CATEGORIES
+         ======================================== -->
+
+    <div class="sidebar-categories">
+
+        <div class="sidebar-category-header">
+
+            <button
+                    type="button"
+                    id="categoriesToggleButton"
+                    class="categories-toggle-button collapsed"
+                    data-testid="categories-toggle-button"
+                    aria-expanded="false"
+                    aria-controls="categoryList">
+
+                <span>Categories</span>
+
+                <span
+                        id="categoriesToggleIcon"
+                        class="categories-toggle-icon"
+                        aria-hidden="true">
+                    ▾
+                </span>
+
+            </button>
+
+            <button
+                    type="button"
+                    id="openCategoryModalButton"
+                    class="add-category-button"
+                    data-testid="open-category-modal-button"
+                    aria-label="Add category">
+                +
+            </button>
+
+        </div>
+
+        <div
+                id="categoryList"
+                class="category-list collapsed"
+                data-testid="category-list">
+
+            <div
+                    id="categoryLoading"
+                    class="category-loading"
+                    data-testid="category-list">
+                Loading categories...
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>

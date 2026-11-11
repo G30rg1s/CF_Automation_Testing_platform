@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- ========================================
+     DELETE DOCUMENT MODAL
+     ======================================== -->
+
+<div id="deleteDocumentModal"
+     class="delete-document-modal"
+     th:fragment="deleteDocumentModal"
+     aria-hidden="true">
+
+    <div class="delete-document-modal-content"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="deleteDocumentModalTitle">
+
+        <!-- ========================================
+             HEADER
+             ======================================== -->
+
+        <div class="delete-document-modal-header">
+
+            <div>
+
+                <p class="delete-document-modal-label">
+                    Delete Document
+                </p>
+
+                <h2 id="deleteDocumentModalTitle">
+                    Are you sure?
+                </h2>
+
+            </div>
+
+
+            <!-- ========================================
+                 CLOSE
+                 ======================================== -->
+
+            <button type="button"
+                    id="closeDeleteDocumentModalButton"
+                    class="delete-document-modal-close"
+                    aria-label="Close">
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- ========================================
+             MESSAGE
+             ======================================== -->
+
+        <div class="delete-document-modal-body">
+
+            <p>
+                This document will be permanently deleted.
+            </p>
+
+            <p class="delete-document-modal-warning">
+                This action cannot be undone.
+            </p>
+
+        </div>
+
+
+        <!-- ========================================
+             RESPONSE MESSAGE
+             ======================================== -->
+
+        <p id="deleteDocumentMessage"
+           class="delete-document-message"></p>
+
+
+        <!-- ========================================
+             ACTIONS
+             ======================================== -->
+
+        <div class="delete-document-modal-actions">
+
+            <button type="button"
+                    id="cancelDeleteDocumentButton"
+                    class="delete-document-cancel-button">
+
+                Cancel
+
+            </button>
+
+            <button type="button"
+                    id="confirmDeleteDocumentButton"
+                    class="delete-document-confirm-button">
+
+                Delete Document
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

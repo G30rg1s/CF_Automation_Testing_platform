@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SQL Query Console | Coding Factory Automation</title>
+
+    <!-- ========================================
+         SQL CONSOLE STYLES
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/sql-query-console.css}">
+
+    <!-- ========================================
+         STANDALONE WINDOW STYLES
+         ======================================== -->
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .standalone-console-page {
+            display: flex;
+            flex-direction: column;
+
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        .standalone-console-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            flex-wrap: wrap;
+            gap: 14px;
+
+            padding: 14px 24px;
+
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .standalone-console-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .standalone-console-brand strong {
+            font-size: 17px;
+        }
+
+        .standalone-console-brand span {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .standalone-console-database {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+            background: #1e293b;
+
+            font-size: 13px;
+        }
+
+        .standalone-console-database strong {
+            color: #93c5fd;
+        }
+
+        .standalone-console-content {
+            flex: 1;
+            min-height: 0;
+            padding: 20px;
+        }
+
+        .standalone-console-launcher {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 18px;
+
+            min-height: 65vh;
+
+            text-align: center;
+        }
+
+        .standalone-console-launcher h1 {
+            margin: 0;
+            color: #1e3a8a;
+        }
+
+        .standalone-console-launcher p {
+            max-width: 560px;
+            margin: 0;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .standalone-console-launcher button {
+            padding: 14px 26px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: #ffffff;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .standalone-console-launcher button:hover {
+            background: #1d4ed8;
+        }
+
+        /*
+         * In the standalone page, make the
+         * SQL Console fill the browser window.
+         */
+
+        body.standalone-console-ready
+        #sqlQueryConsoleModal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+
+            display: block;
+
+            padding: 0;
+            background: transparent;
+
+            pointer-events: none;
+        }
+
+        body.standalone-console-ready
+        #sqlQueryConsoleWindow {
+            position: fixed !important;
+
+            top: 66px !important;
+            left: 1% !important;
+
+            width: 98% !important;
+            height: calc(100dvh - 76px) !important;
+
+            max-width: none !important;
+            max-height: none !important;
+
+            resize: none !important;
+        }
+
+        body.standalone-console-ready
+        #sqlQueryConsoleDragHandle {
+            cursor: default;
+        }
+
+        body.standalone-console-ready
+        #maximizeSqlConsoleButton {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .standalone-console-topbar {
+                padding: 12px;
+            }
+
+            body.standalone-console-ready
+            #sqlQueryConsoleWindow {
+                top: 100px !important;
+                height: calc(100dvh - 110px) !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="standalone-console-page">
+
+    <!-- ========================================
+         TOP BAR
+         ======================================== -->
+
+    <header class="standalone-console-topbar">
+
+        <div class="standalone-console-brand">
+            <strong>Coding Factory Automation</strong>
+            <span>Independent SQL Query Console</span>
+        </div>
+
+        <div class="standalone-console-database">
+
+            <span>Selected Database:</span>
+
+            <strong th:text="${selectedDatabaseModeLabel}">
+                Select Mode
+            </strong>
+
+        </div>
+
+    </header>
+
+    <!-- ========================================
+         LAUNCHER
+         ======================================== -->
+
+    <main class="standalone-console-content">
+
+        <div class="standalone-console-launcher">
+
+            <h1>SQL Query Console</h1>
+
+            <p>
+                Manage saved SQL queries and execute SELECT
+                statements on your selected database.
+            </p>
+
+            <button type="button"
+                    id="openSqlConsoleButton">
+                Open SQL Query Console
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ========================================
+     EXISTING SQL QUERY CONSOLE COMPONENT
+     ======================================== -->
+
+<div th:replace="~{html/components/sql-query-console-modal :: sqlQueryConsole}">
+</div>
+
+<!-- ========================================
+     EXISTING SQL CONSOLE JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/components/sql-query-console.js}">
+</script>
+
+<!-- ========================================
+     AUTOMATICALLY OPEN CONSOLE
+     ======================================== -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const button = document.getElementById(
+            "openSqlConsoleButton"
+        );
+
+        if (!button) {
+            return;
+        }
+
+        // Open automatically after existing
+        // SQL Console event listeners are registered.
+        button.click();
+
+        document.body.classList.add(
+            "standalone-console-ready"
+        );
+    });
+</script>
+
+</body>
+</html>

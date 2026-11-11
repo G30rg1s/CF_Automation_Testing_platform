@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unauthorized</title>
+
+    <link rel="stylesheet" th:href="@{/css/unauthorized.css}">
+</head>
+
+<body>
+
+<div class="unauthorized-card">
+
+    <div class="status-code">
+        401
+    </div>
+
+    <h1>Unauthorized</h1>
+
+    <p>
+        You must login to access this page.
+    </p>
+
+    <div class="actions">
+
+        <a
+                href="/automation/login"
+                class="button login-button">
+            Go to Login
+        </a>
+
+        <a
+                href="/automation/homepage"
+                class="button home-button">
+            Back to Homepage
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

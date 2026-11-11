@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+
+    <!-- ========================================
+         SHARED CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/dashboard-sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/add-category-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/category-already-exists-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/delete-category-modal.css}">
+
+
+    <!-- ========================================
+         PAGE CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/document-details.css(v=1)}">
+
+
+    <!-- ========================================
+         COMPONENT CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/document-actions-bar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/update-document-title-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/reupload-document-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/format-document-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/delete-document-modal.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/document-fullscreen-modal.css}">
+
+
+    <!-- ========================================
+         DOCUMENT QUIZ CSS
+         ======================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/components/document-quiz.css(v=1)}">
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================
+     APPLICATION LAYOUT
+     ======================================== -->
+
+<div class="document-details-layout">
+
+
+    <!-- ========================================
+         SIDEBAR
+         ======================================== -->
+
+    <div th:replace="~{html/components/dashboard-sidebar :: dashboardSidebar}"></div>
+
+
+    <!-- ========================================
+         RIGHT SIDE
+         ======================================== -->
+
+    <div class="document-details-main">
+
+
+        <!-- ========================================
+             NAVBAR
+             ======================================== -->
+
+        <div th:replace="~{html/components/navbar :: navbar}"></div>
+
+
+        <!-- ========================================
+             PAGE CONTENT
+             ======================================== -->
+
+        <main class="document-details-content">
+
+
+            <!-- ========================================
+                 PAGE HEADER
+                 ======================================== -->
+
+            <div class="document-details-header">
+
+                <div>
+
+                    <p class="document-details-page-label">
+                        Document
+                    </p>
+
+                    <h1 id="documentPageTitle">
+                        Loading document...
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 DOCUMENT INFORMATION BAR
+                 ======================================== -->
+
+            <section class="document-info-bar"
+                     data-testid="document-info-bar">
+
+
+                <!-- ========================================
+                     TITLE
+                     ======================================== -->
+
+                <div class="document-info-item">
+
+                    <span class="document-info-label">
+                        Title
+                    </span>
+
+                    <span id="documentInfoTitle"
+                          class="document-info-value">
+                        -
+                    </span>
+
+                </div>
+
+
+                <!-- ========================================
+                     CATEGORY
+                     ======================================== -->
+
+                <div class="document-info-item document-category-info-item">
+
+
+                    <!-- ========================================
+                         CATEGORY HEADER
+                         ======================================== -->
+
+                    <div class="document-category-header">
+
+                        <span class="document-info-label">
+                            Category
+                        </span>
+
+                        <button type="button"
+                                id="changeDocumentCategoryButton"
+                                class="document-category-change-button">
+                            Change
+                        </button>
+
+                    </div>
+
+
+                    <!-- ========================================
+                         CURRENT CATEGORY
+                         ======================================== -->
+
+                    <div id="documentCategoryDisplay"
+                         class="document-category-display">
+
+                        <span id="documentInfoCategory"
+                              class="document-info-value">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- ========================================
+                         CATEGORY EDIT MODE
+                         ======================================== -->
+
+                    <div id="documentCategoryEditor"
+                         class="document-category-editor"
+                         hidden>
+
+
+                        <!-- ========================================
+                             EXISTING CATEGORY
+                             ======================================== -->
+
+                        <div id="documentCategoryExistingSection"
+                             class="document-category-existing-section">
+
+                            <select id="documentCategorySelect"
+                                    class="document-category-select">
+
+                                <option value="">
+                                    Loading categories...
+                                </option>
+
+                            </select>
+
+
+                            <button type="button"
+                                    id="newDocumentCategoryButton"
+                                    class="document-category-new-button">
+                                + New
+                            </button>
+
+                        </div>
+
+
+                        <!-- ========================================
+                             NEW CATEGORY
+                             ======================================== -->
+
+                        <div id="documentCategoryNewSection"
+                             class="document-category-new-section"
+                             hidden>
+
+                            <input type="text"
+                                   id="documentCategoryNewInput"
+                                   class="document-category-new-input"
+                                   placeholder="New category name"
+                                   maxlength="100">
+
+                            <button type="button"
+                                    id="backToExistingCategoriesButton"
+                                    class="document-category-back-button">
+                                Existing
+                            </button>
+
+                        </div>
+
+
+                        <!-- ========================================
+                             CATEGORY ACTIONS
+                             ======================================== -->
+
+                        <div class="document-category-editor-actions">
+
+                            <button type="button"
+                                    id="saveDocumentCategoryButton"
+                                    class="document-category-save-button">
+                                Save
+                            </button>
+
+                            <button type="button"
+                                    id="cancelDocumentCategoryButton"
+                                    class="document-category-cancel-button">
+                                Cancel
+                            </button>
+
+                        </div>
+
+
+                        <!-- ========================================
+                             MESSAGE
+                             ======================================== -->
+
+                        <p id="documentCategoryMessage"
+                           class="document-category-message">
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================
+                     STATUS
+                     ======================================== -->
+
+                <div class="document-info-item">
+
+                    <span class="document-info-label">
+                        Status
+                    </span>
+
+                    <span id="documentInfoStatus"
+                          class="document-status-badge">
+                        -
+                    </span>
+
+                </div>
+
+
+                <!-- ========================================
+                     DOCUMENT ID
+                     ======================================== -->
+
+                <div class="document-info-item">
+
+                    <span class="document-info-label">
+                        Document ID
+                    </span>
+
+                    <span id="documentInfoId"
+                          class="document-info-value">
+                        -
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================
+                 DOCUMENT ACTIONS
+                 ======================================== -->
+
+            <div class="document-details-actions">
+
+                <div th:replace="~{html/components/document-actions-bar :: documentActionsBar}"></div>
+
+            </div>
+
+
+            <!-- ========================================
+                 DOCUMENT AREA
+                 ======================================== -->
+
+            <section class="document-viewer">
+
+
+                <!-- ========================================
+                     VIEWER HEADER
+                     ======================================== -->
+
+                <div class="document-viewer-header">
+
+                    <div>
+
+                        <p class="document-viewer-label">
+                            Content
+                        </p>
+
+                        <h2>
+                            Document Content
+                        </h2>
+
+                    </div>
+
+
+                    <!-- ========================================
+                         FULLSCREEN BUTTON
+                         ======================================== -->
+
+                    <button type="button"
+                            id="openDocumentFullscreenButton"
+                            class="document-viewer-fullscreen-button">
+                        Full Screen
+                    </button>
+
+                </div>
+
+
+                <!-- ========================================
+                     LOADING
+                     ======================================== -->
+
+                <div id="documentLoading"
+                     class="document-state document-loading-state">
+
+                    <div class="document-loading-spinner"></div>
+
+                    <p>
+                        Loading document...
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     GENERAL ERROR
+                     ======================================== -->
+
+                <div id="documentLoadError"
+                     class="document-state document-error-state"
+                     hidden>
+
+                    <h3>
+                        Unable to load document
+                    </h3>
+
+                    <p id="documentLoadErrorMessage">
+                        The document could not be loaded.
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     PENDING STATE
+                     ======================================== -->
+
+                <div id="documentPendingState"
+                     class="document-state document-pending-state"
+                     hidden>
+
+                    <div class="document-state-icon">
+                        ⏳
+                    </div>
+
+                    <h3>
+                        Document is being processed
+                    </h3>
+
+                    <p>
+                        The document content will become available when processing is complete.
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     FAILED STATE
+                     ======================================== -->
+
+                <div id="documentFailedState"
+                     class="document-state document-failed-state"
+                     hidden>
+
+                    <div class="document-state-icon">
+                        !
+                    </div>
+
+                    <h3>
+                        Document processing failed
+                    </h3>
+
+                    <p id="documentFailedMessage">
+                        The document could not be processed.
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     EMPTY CONTENT
+                     ======================================== -->
+
+                <div id="documentEmptyState"
+                     class="document-state document-empty-state"
+                     hidden>
+
+                    <h3>
+                        No content available
+                    </h3>
+
+                    <p>
+                        This document does not currently contain generated content.
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     NORMAL DOCUMENT CONTENT
+                     ======================================== -->
+
+                <div id="documentContentContainer"
+                     class="document-content-container"
+                     hidden>
+
+                    <iframe id="documentContentFrame"
+                            class="document-content-frame"
+                            title="Document content"
+                            sandbox="allow-popups allow-popups-to-escape-sandbox">
+                    </iframe>
+
+                </div>
+
+
+                <!-- ========================================
+                     QUIZ DOCUMENT CONTENT
+                     ======================================== -->
+
+                <div th:replace="~{html/components/document-quiz :: documentQuiz}"></div>
+
+            </section>
+
+
+            <!-- ========================================
+                 PAGE MESSAGE
+                 ======================================== -->
+
+            <p id="documentDetailsMessage"
+               class="document-details-message"></p>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+
+<!-- ========================================
+     ADD CATEGORY MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/add-category-modal :: addCategoryModal}"></div>
+
+
+<!-- ========================================
+     CATEGORY ALREADY EXISTS MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/category-already-exists-modal :: categoryAlreadyExistsModal}"></div>
+
+
+<!-- ========================================
+     DELETE CATEGORY MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/delete-category-modal :: deleteCategoryModal}"></div>
+
+
+<!-- ========================================
+     UPDATE TITLE MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/update-document-title-modal :: updateDocumentTitleModal}"></div>
+
+
+<!-- ========================================
+     REUPLOAD MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/reupload-document-modal :: reuploadDocumentModal}"></div>
+
+
+<!-- ========================================
+     FORMAT DOCUMENT MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/format-document-modal :: formatDocumentModal}"></div>
+
+
+<!-- ========================================
+     DELETE MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/delete-document-modal :: deleteDocumentModal}"></div>
+
+
+<!-- ========================================
+     FULLSCREEN DOCUMENT MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/document-fullscreen-modal :: documentFullscreenModal}"></div>
+
+
+<!-- ========================================
+     SHARED JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/components/navbar.js}"></script>
+
+<script th:src="@{/js/components/dashboard-sidebar.js}"></script>
+
+<script th:src="@{/js/components/add-category-modal.js}"></script>
+
+<script th:src="@{/js/components/delete-category-modal.js}"></script>
+
+
+<!-- ========================================
+     DOCUMENT ACTIONS
+     ======================================== -->
+
+<script th:src="@{/js/components/document-actions-bar.js}"></script>
+
+
+<!-- ========================================
+     MODALS
+     ======================================== -->
+
+<script th:src="@{/js/components/update-document-title-modal.js}"></script>
+
+<script th:src="@{/js/components/reupload-document-modal.js}"></script>
+
+
+<!-- ========================================
+     PRISM SYNTAX HIGHLIGHTING
+     ======================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+
+
+<!-- ========================================
+     FORMAT DOCUMENT MODAL
+     ======================================== -->
+
+<script th:src="@{/js/components/format-document-modal.js}"></script>
+
+
+<!-- ========================================
+     DOCUMENT FORMAT RENDERER
+     ======================================== -->
+
+<script th:src="@{/js/components/document-format-renderer.js}"></script>
+
+
+<!-- ========================================
+     DOCUMENT QUIZ RENDERER
+     ======================================== -->
+
+<script th:src="@{/js/components/document-quiz.js(v=1)}"></script>
+
+
+<!-- ========================================
+     REMAINING MODALS
+     ======================================== -->
+
+<script th:src="@{/js/components/delete-document-modal.js}"></script>
+
+<script th:src="@{/js/components/document-fullscreen-modal.js}"></script>
+
+
+<!-- ========================================
+     DOCUMENT PAGE
+     ======================================== -->
+
+<script th:src="@{/js/document-details.js(v=2)}"></script>
+
+
+</body>
+
+</html>

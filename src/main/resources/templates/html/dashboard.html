@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Coding Factory Automation</title>
+
+    <!-- PAGE CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/dashboard.css(v=1)}">
+
+    <!-- COMPONENT CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/components/dashboard-sidebar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/components/navbar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/components/add-category-modal.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/components/category-already-exists-modal.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/components/delete-category-modal.css}">
+
+    <!-- THEORY SETUP CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/theory-setup.css}">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <div th:replace="~{html/components/dashboard-sidebar :: dashboardSidebar}">
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="dashboard-main">
+
+        <!-- NAVBAR -->
+        <div th:replace="~{html/components/navbar :: navbar}">
+        </div>
+
+        <!-- DASHBOARD CONTENT -->
+        <main class="dashboard-content">
+
+            <!-- PAGE HEADER -->
+            <div class="dashboard-overview-header">
+
+                <p class="dashboard-label">
+                    Dashboard
+                </p>
+
+                <h1>
+                    Overview
+                </h1>
+
+                <p class="dashboard-overview-description">
+                    Manage your documents and browse your learning material.
+                </p>
+
+            </div>
+
+            <!-- ========================================
+                 SUMMARY CARDS
+                 ======================================== -->
+
+            <section class="dashboard-summary"
+                     data-testid="dashboard-summary">
+
+                <!-- TOTAL DOCUMENTS -->
+                <article class="summary-card"
+                         data-testid="total-documents-card">
+
+                    <div class="summary-card-icon">
+                        📄
+                    </div>
+
+                    <div class="summary-card-content">
+
+                        <p>
+                            Total Documents
+                        </p>
+
+                        <h2 id="totalDocumentsCount"
+                            data-testid="total-documents-count">
+                            -
+                        </h2>
+
+                    </div>
+
+                </article>
+
+                <!-- CATEGORIES -->
+                <article class="summary-card"
+                         data-testid="categories-card">
+
+                    <div class="summary-card-icon">
+                        📁
+                    </div>
+
+                    <div class="summary-card-content">
+
+                        <p>
+                            Categories
+                        </p>
+
+                        <h2 id="categoriesCount"
+                            data-testid="categories-count">
+                            -
+                        </h2>
+
+                    </div>
+
+                </article>
+
+                <!-- READY DOCUMENTS -->
+                <article class="summary-card"
+                         data-testid="ready-documents-card">
+
+                    <div class="summary-card-icon">
+                        ✓
+                    </div>
+
+                    <div class="summary-card-content">
+
+                        <p>
+                            Ready
+                        </p>
+
+                        <h2 id="readyDocumentsCount"
+                            data-testid="ready-documents-count">
+                            -
+                        </h2>
+
+                    </div>
+
+                </article>
+
+                <!-- PENDING DOCUMENTS -->
+                <article class="summary-card"
+                         data-testid="pending-documents-card">
+
+                    <div class="summary-card-icon">
+                        ⏳
+                    </div>
+
+                    <div class="summary-card-content">
+
+                        <p>
+                            Pending
+                        </p>
+
+                        <h2 id="pendingDocumentsCount"
+                            data-testid="pending-documents-count">
+                            -
+                        </h2>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- ========================================
+                 DOCUMENT BROWSING INFORMATION
+                 ======================================== -->
+
+            <section class="dashboard-welcome">
+
+                <div class="dashboard-welcome-content">
+
+                    <p class="dashboard-section-label">
+                        Documents
+                    </p>
+
+                    <h2>
+                        Browse your learning material
+                    </h2>
+
+                    <p>
+                        Select a category from the sidebar to view
+                        all documents assigned to it.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- ========================================
+                 QUICK ACTIONS
+                 ======================================== -->
+
+            <section class="dashboard-guide">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <div class="dashboard-guide-grid">
+
+                    <!-- CHOOSE CATEGORY -->
+                    <article class="guide-item">
+
+                        <div class="guide-number">
+                            1
+                        </div>
+
+                        <div class="guide-content">
+
+                            <h3>
+                                Choose a Category
+                            </h3>
+
+                            <p>
+                                Open Categories from the sidebar
+                                and select the learning material
+                                you want to browse.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                    <!-- UPLOAD DOCUMENT -->
+                    <article class="guide-item">
+
+                        <div class="guide-number">
+                            2
+                        </div>
+
+                        <div class="guide-content">
+
+                            <h3>
+                                Upload Documents
+                            </h3>
+
+                            <p>
+                                Add new learning material using
+                                the Upload Document option from
+                                the sidebar.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                    <!-- MANAGE CATEGORIES -->
+                    <article class="guide-item">
+
+                        <div class="guide-number">
+                            3
+                        </div>
+
+                        <div class="guide-content">
+
+                            <h3>
+                                Manage Categories
+                            </h3>
+
+                            <p>
+                                Create new categories or remove
+                                categories that are no longer used.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- DASHBOARD MESSAGE -->
+            <div
+                    id="dashboardMessage"
+                    class="dashboard-message"
+                    data-testid="dashboard-message"
+                    aria-live="polite">
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- APPLICATION UPDATE MODAL -->
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}">
+</div>
+
+<!-- ADD CATEGORY MODAL -->
+<div th:replace="~{html/components/add-category-modal :: addCategoryModal}">
+</div>
+
+<!-- CATEGORY ALREADY EXISTS MODAL -->
+<div th:replace="~{html/components/category-already-exists-modal :: categoryAlreadyExistsModal}">
+</div>
+
+<!-- DELETE CATEGORY MODAL -->
+<div th:replace="~{html/components/delete-category-modal :: deleteCategoryModal}">
+</div>
+
+<!-- COMPONENT JAVASCRIPT -->
+<script th:src="@{/js/components/dashboard-sidebar.js}">
+</script>
+
+<script th:src="@{/js/components/add-category-modal.js}">
+</script>
+
+<script th:src="@{/js/components/delete-category-modal.js}">
+</script>
+
+<script th:src="@{/js/components/navbar.js}">
+</script>
+
+<!-- PAGE JAVASCRIPT -->
+<script th:src="@{/js/dashboard.js(v=1)}">
+</script>
+
+<!-- THEORY SETUP JAVASCRIPT -->
+<script th:src="@{/js/theory-setup.js}">
+</script>
+
+</body>
+</html>

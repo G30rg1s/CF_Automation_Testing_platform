@@ -1,0 +1,138 @@
+<p>Automation Platform</p>
+<p>FRONTEND E2E TEST CASES</p>
+<p>TypeScript + Playwright  |  FE-UC-001 έως FE-UC-005  |  82 Test Cases</p>
+<p>Test Case IDs, περιγραφές, αναμενόμενα αποτελέσματα και αντιστοίχιση στα Frontend Functional Requirements. Δεν περιλαμβάνεται κώδικας.</p>
+
+<p>1. AP_E2E_USER_REGISTRATION</p>
+<p>Use Case: FE-UC-001 — User Registration     |     Requirements: FE-REG-001 έως FE-REG-010</p>
+<p>13 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0001</td><td>Επιτυχές Registration με έγκυρα στοιχεία</td><td>Δημιουργείται λογαριασμός και εμφανίζεται μήνυμα επιτυχίας</td><td>FE-REG-006, FE-REG-007</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0002</td><td>Πρόσβαση στη σελίδα Registration</td><td>Εμφανίζεται η φόρμα εγγραφής</td><td>FE-REG-001</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0003</td><td>Έλεγχος εμφάνισης όλων των πεδίων Registration</td><td>Εμφανίζονται First Name, Last Name, Email, Phone, Father Name, Mother Name, Age, Password</td><td>FE-REG-002</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0004</td><td>Registration με κενό υποχρεωτικό πεδίο</td><td>Εμφανίζεται ένδειξη υποχρεωτικής συμπλήρωσης</td><td>FE-REG-003</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0005</td><td>Registration με μη έγκυρο Email</td><td>Εμφανίζεται μήνυμα email validation</td><td>FE-REG-004</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0006</td><td>Registration με μη έγκυρο Phone</td><td>Εμφανίζεται μήνυμα phone validation</td><td>FE-REG-004</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0007</td><td>Registration με Password εκτός κανόνων</td><td>Εμφανίζεται κατάλληλο validation</td><td>FE-REG-005</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0008</td><td>Registration με Email που χρησιμοποιείται ήδη</td><td>Εμφανίζεται μήνυμα αποτυχίας, χωρίς ένδειξη επιτυχούς εγγραφής</td><td>FE-REG-008, FE-REG-010</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0009</td><td>Registration με μη έγκυρα προσωπικά στοιχεία</td><td>Η φόρμα εμφανίζει το αντίστοιχο πρόβλημα</td><td>FE-REG-003, FE-REG-008</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0010</td><td>Έλεγχος απόκρυψης Password</td><td>Το password δεν εμφανίζεται ως απλό κείμενο από προεπιλογή</td><td>FE-BR-REG-006</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0011</td><td>Registration με αποτυχία επικοινωνίας Backend</td><td>Εμφανίζεται αποτυχία χωρίς ψευδή επιτυχία</td><td>FE-REG-008, FE-REG-010</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0012</td><td>Διόρθωση μη έγκυρων στοιχείων και νέα υποβολή</td><td>Ο χρήστης διορθώνει τη φόρμα και πραγματοποιεί νέα υποβολή</td><td>FE-REG-009</td></tr>
+    <tr><td>AP_E2E_USER_REGISTRATION_0013</td><td>Έλεγχος ότι η επιτυχία εμφανίζεται μετά από επιβεβαίωση Backend</td><td>Δεν εμφανίζεται μήνυμα επιτυχίας πριν από θετική απόκριση</td><td>FE-REG-010</td></tr>
+</table>
+
+<p>2. AP_E2E_USER_LOGIN</p>
+<p>Use Case: FE-UC-002 — User Login     |     Requirements: FE-AUTH-001 έως FE-AUTH-009</p>
+<p>13 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0001</td><td>Επιτυχές Login με έγκυρα διαπιστευτήρια</td><td>Ο χρήστης συνδέεται και αποκτά πρόσβαση στην εφαρμογή</td><td>FE-AUTH-004, FE-AUTH-005</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0002</td><td>Πρόσβαση στη σελίδα Login</td><td>Εμφανίζεται η φόρμα σύνδεσης</td><td>FE-AUTH-001</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0003</td><td>Έλεγχος εμφάνισης πεδίων Login</td><td>Εμφανίζονται αναγνωριστικό σύνδεσης και Password</td><td>FE-AUTH-002</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0004</td><td>Login με κενό αναγνωριστικό χρήστη</td><td>Εμφανίζεται ένδειξη υποχρεωτικού πεδίου</td><td>FE-AUTH-003</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0005</td><td>Login με κενό Password</td><td>Εμφανίζεται ένδειξη υποχρεωτικού πεδίου</td><td>FE-AUTH-003</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0006</td><td>Login με λανθασμένο Password</td><td>Εμφανίζεται αποτυχία σύνδεσης</td><td>FE-AUTH-006</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0007</td><td>Login με ανύπαρκτο χρήστη</td><td>Εμφανίζεται μήνυμα αποτυχίας</td><td>FE-AUTH-006</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0008</td><td>Login με μη έγκυρα δεδομένα</td><td>Η σύνδεση δεν ολοκληρώνεται</td><td>FE-AUTH-003, FE-AUTH-006</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0009</td><td>Login με αποτυχία επικοινωνίας Backend</td><td>Εμφανίζεται μήνυμα προσωρινής αδυναμίας</td><td>FE-AUTH-006</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0010</td><td>Πρόσβαση σε προστατευμένη σελίδα μετά από αποτυχημένο Login</td><td>Η πρόσβαση δεν επιτρέπεται</td><td>FE-AUTH-007</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0011</td><td>Διόρθωση διαπιστευτηρίων και επανάληψη Login</td><td>Ο χρήστης μπορεί να δοκιμάσει ξανά</td><td>FE-AUTH-008</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0012</td><td>Έλεγχος απόκρυψης Password</td><td>Το password δεν εμφανίζεται σε plain text από προεπιλογή</td><td>FE-AUTH-009</td></tr>
+    <tr><td>AP_E2E_USER_LOGIN_0013</td><td>Έλεγχος πλοήγησης μετά από επιτυχές Login</td><td>Ο χρήστης μεταφέρεται στο προβλεπόμενο περιβάλλον</td><td>FE-AUTH-005</td></tr>
+</table>
+
+<p>3. AP_E2E_USER_PROFILE_UPDATE</p>
+<p>Use Case: FE-UC-003 — User Profile Update     |     Requirements: FE-UPD-001 έως FE-UPD-011</p>
+<p>17 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0001</td><td>Επιτυχές Profile Update με έγκυρα στοιχεία</td><td>Οι αλλαγές αποθηκεύονται και εμφανίζονται ενημερωμένες</td><td>FE-UPD-007, FE-UPD-009</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0002</td><td>Πρόσβαση στο My Profile μέσω sidebar</td><td>Εμφανίζεται η σελίδα My Profile</td><td>FE-UPD-001</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0003</td><td>Έλεγχος εμφάνισης αποθηκευμένων στοιχείων</td><td>Εμφανίζονται τα στοιχεία του συνδεδεμένου χρήστη</td><td>FE-UPD-002</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0004</td><td>Έλεγχος ότι το First Name δεν είναι επεξεργάσιμο</td><td>Ο χρήστης δεν μπορεί να αλλάξει το First Name</td><td>FE-UPD-003</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0005</td><td>Έλεγχος ότι το Last Name δεν είναι επεξεργάσιμο</td><td>Ο χρήστης δεν μπορεί να αλλάξει το Last Name</td><td>FE-UPD-004</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0006</td><td>Έλεγχος ότι επεξεργάζονται μόνο τα επιτρεπόμενα πεδία</td><td>Τα μη επιτρεπόμενα πεδία παραμένουν μη επεξεργάσιμα</td><td>FE-UPD-005</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0007</td><td>Update Email με έγκυρη νέα τιμή</td><td>Το νέο Email αποθηκεύεται και εμφανίζεται</td><td>FE-UPD-007, FE-UPD-009</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0008</td><td>Update Email με μη έγκυρη μορφή</td><td>Εμφανίζεται email validation</td><td>FE-UPD-006</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0009</td><td>Update Email με Email άλλου λογαριασμού</td><td>Εμφανίζεται μήνυμα αποτυχίας</td><td>FE-UPD-008, FE-UPD-010</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0010</td><td>Update Phone με έγκυρη νέα τιμή</td><td>Το νέο Phone αποθηκεύεται και εμφανίζεται</td><td>FE-UPD-007, FE-UPD-009</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0011</td><td>Update Phone με μη έγκυρη μορφή</td><td>Εμφανίζεται phone validation</td><td>FE-UPD-006</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0012</td><td>Πρόσβαση στο My Profile χωρίς Login</td><td>Η προστατευμένη λειτουργία δεν είναι διαθέσιμη</td><td>FE-BR-UPD-001</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0013</td><td>Profile Update με αποτυχία Backend</td><td>Εμφανίζεται αποτυχία χωρίς ψευδή επιτυχία</td><td>FE-UPD-008, FE-UPD-010</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0014</td><td>Αποτυχία φόρτωσης στοιχείων Profile</td><td>Εμφανίζεται ενημέρωση αδυναμίας φόρτωσης</td><td>FE-UPD-002, FE-UPD-008</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0015</td><td>Διόρθωση μη έγκυρων στοιχείων και νέα αποθήκευση</td><td>Επιτρέπεται διόρθωση και νέα υποβολή</td><td>FE-UPD-011</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0016</td><td>Αποτυχία αποθήκευσης αλλαγών</td><td>Οι μη αποθηκευμένες αλλαγές δεν εμφανίζονται ως οριστικές</td><td>FE-UPD-010</td></tr>
+    <tr><td>AP_E2E_USER_PROFILE_UPDATE_0017</td><td>Έλεγχος διατήρησης στοιχείων μετά από ανανέωση σελίδας</td><td>Οι επιτυχώς αποθηκευμένες τιμές εμφανίζονται ξανά</td><td>FE-UPD-002, FE-UPD-009</td></tr>
+</table>
+
+<p>4. AP_E2E_DOCUMENT_UPLOAD</p>
+<p>Use Case: FE-UC-004 — Document Upload     |     Requirements: FE-DOC-001 έως FE-DOC-014</p>
+<p>18 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0001</td><td>Επιτυχές Upload έγκυρου DOCX</td><td>Το Upload γίνεται αποδεκτό και εμφανίζεται κατάλληλη ενημέρωση</td><td>FE-DOC-005, FE-DOC-006</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0002</td><td>Πρόσβαση στη σελίδα Upload Document</td><td>Εμφανίζεται η φόρμα Upload</td><td>FE-DOC-001</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0003</td><td>Επιλογή πραγματικού DOCX από τη φόρμα</td><td>Η φόρμα επιτρέπει την επιλογή DOCX</td><td>FE-DOC-002</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0004</td><td>Upload χωρίς επιλογή αρχείου</td><td>Εμφανίζεται ένδειξη υποχρεωτικής επιλογής</td><td>FE-DOC-004</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0005</td><td>Upload μη υποστηριζόμενου τύπου αρχείου</td><td>Εμφανίζεται μήνυμα μη αποδεκτού αρχείου</td><td>FE-DOC-004</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0006</td><td>Upload χωρίς τίτλο</td><td>Εμφανίζεται ένδειξη υποχρεωτικού τίτλου</td><td>FE-DOC-003</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0007</td><td>Upload με μη έγκυρο τίτλο</td><td>Εμφανίζεται κατάλληλο validation</td><td>FE-DOC-004</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0008</td><td>Upload με διπλότυπο τίτλο</td><td>Εμφανίζεται αποτυχία λόγω μοναδικότητας</td><td>FE-DOC-006</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0009</td><td>Upload με αποτυχία Backend</td><td>Εμφανίζεται μήνυμα αποτυχίας μεταφόρτωσης</td><td>FE-DOC-006</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0010</td><td>Έλεγχος ενημέρωσης μετά από αποδοχή Upload</td><td>Το Frontend ενημερώνει για την αποδοχή, όχι για ολοκληρωμένο parsing</td><td>FE-DOC-006, FE-DOC-007</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0011</td><td>Έλεγχος κατάστασης εγγράφου κατά τη διάρκεια parsing</td><td>Το έγγραφο δεν παρουσιάζεται ως ολοκληρωμένο</td><td>FE-DOC-008, FE-DOC-009</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0012</td><td>Έλεγχος κατάστασης μετά από επιτυχές parsing</td><td>Το Frontend εμφανίζει την ενημερωμένη κατάσταση</td><td>FE-DOC-009</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0013</td><td>Προβολή εγγράφου μετά από επιτυχές parsing</td><td>Το έγγραφο μπορεί να ανοιχτεί και να προβληθεί</td><td>FE-DOC-010</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0014</td><td>Upload και προβολή εγγράφου Theory</td><td>Το περιεχόμενο εμφανίζεται ως μορφοποιημένη Theory</td><td>FE-DOC-011, FE-DOC-012</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0015</td><td>Upload και προβολή εγγράφου Quiz</td><td>Το περιεχόμενο εμφανίζεται σε διαδραστική μορφή Quiz</td><td>FE-DOC-011, FE-DOC-013</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0016</td><td>Αποτυχία parsing μετά από αποδεκτό Upload</td><td>Εμφανίζεται η προβλεπόμενη κατάσταση αποτυχίας</td><td>FE-DOC-014</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0017</td><td>Καθυστέρηση ασύγχρονου parsing</td><td>Το Frontend διατηρεί διάκριση μεταξύ αποδοχής Upload και ολοκλήρωσης parsing</td><td>FE-DOC-007, FE-DOC-008</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_UPLOAD_0018</td><td>Έλεγχος ότι δεν εμφανίζεται περιεχόμενο ως έτοιμο πριν από Backend confirmation</td><td>Η ολοκλήρωση εμφανίζεται μόνο όταν επιβεβαιωθεί από το Backend</td><td>FE-DOC-008, FE-DOC-010</td></tr>
+</table>
+
+<p>5. AP_E2E_DOCUMENT_REUPLOAD</p>
+<p>Use Case: FE-UC-005 — Document Reupload     |     Requirements: FE-REUP-001 έως FE-REUP-014</p>
+<p>21 Test Cases</p>
+
+<table>
+    <tr><th>Test Case ID</th><th>Test Case Description</th><th>Expected Result</th><th>Requirement</th></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0001</td><td>Επιτυχές Reupload DOCX σε υπάρχον έγγραφο</td><td>Το Reupload γίνεται αποδεκτό για το συγκεκριμένο έγγραφο</td><td>FE-REUP-005, FE-REUP-008</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0002</td><td>Πρόσβαση σε Reupload από υπάρχον έγγραφο</td><td>Εμφανίζεται η δυνατότητα Reupload</td><td>FE-REUP-001</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0003</td><td>Επιλογή νέου DOCX για Reupload</td><td>Η φόρμα επιτρέπει την επιλογή νέου αρχείου</td><td>FE-REUP-002</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0004</td><td>Έλεγχος εμφάνισης προβλεπόμενων στοιχείων εγγράφου</td><td>Εμφανίζονται τα στοιχεία που απαιτούνται για Reupload</td><td>FE-REUP-003</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0005</td><td>Reupload χωρίς επιλογή νέου αρχείου</td><td>Εμφανίζεται ένδειξη υποχρεωτικής επιλογής</td><td>FE-REUP-004</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0006</td><td>Reupload μη υποστηριζόμενου τύπου αρχείου</td><td>Εμφανίζεται μήνυμα validation</td><td>FE-REUP-004</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0007</td><td>Reupload με μη έγκυρο τίτλο</td><td>Εμφανίζεται ένδειξη validation</td><td>FE-REUP-004</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0008</td><td>Reupload εγγράφου που δεν υπάρχει πλέον</td><td>Εμφανίζεται αδυναμία ολοκλήρωσης</td><td>FE-REUP-008, FE-REUP-014</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0009</td><td>Reupload σε έγγραφο χωρίς προηγούμενο περιεχόμενο</td><td>Το νέο περιεχόμενο προστίθεται στο υπάρχον έγγραφο</td><td>FE-REUP-006</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0010</td><td>Reupload σε έγγραφο με υπάρχον περιεχόμενο</td><td>Το νέο περιεχόμενο αντικαθιστά το προηγούμενο</td><td>FE-REUP-007</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0011</td><td>Έλεγχος ότι το Reupload αφορά το σωστό έγγραφο</td><td>Το περιεχόμενο ενημερώνεται στο επιλεγμένο έγγραφο</td><td>FE-REUP-005</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0012</td><td>Έλεγχος ενημέρωσης μετά από αποδοχή Reupload</td><td>Εμφανίζεται αποδοχή υποβολής, όχι πρόωρη ολοκλήρωση parsing</td><td>FE-REUP-008, FE-REUP-009</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0013</td><td>Έλεγχος κατάστασης όσο το parsing βρίσκεται σε εξέλιξη</td><td>Το έγγραφο δεν εμφανίζεται πρόωρα ως έτοιμο</td><td>FE-REUP-010</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0014</td><td>Επιτυχής ολοκλήρωση parsing μετά από Reupload</td><td>Εμφανίζεται η ενημερωμένη κατάσταση εγγράφου</td><td>FE-REUP-011</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0015</td><td>Προβολή νέου περιεχομένου μετά από Reupload</td><td>Ο χρήστης βλέπει το νέο επεξεργασμένο περιεχόμενο</td><td>FE-REUP-012</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0016</td><td>Reupload εγγράφου Theory</td><td>Το νέο περιεχόμενο εμφανίζεται ως Theory</td><td>FE-REUP-013</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0017</td><td>Reupload εγγράφου Quiz</td><td>Το νέο περιεχόμενο εμφανίζεται ως Quiz</td><td>FE-REUP-013</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0018</td><td>Αποτυχία parsing μετά από Reupload</td><td>Εμφανίζεται η προβλεπόμενη κατάσταση αποτυχίας</td><td>FE-REUP-014</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0019</td><td>Αποτυχία επικοινωνίας Backend κατά το Reupload</td><td>Εμφανίζεται μήνυμα αποτυχίας</td><td>FE-REUP-014</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0020</td><td>Έλεγχος ότι αποτυχημένο Reupload δεν εμφανίζεται ως επιτυχής αντικατάσταση</td><td>Το Frontend δεν παρουσιάζει ψευδή επιτυχία</td><td>FE-REUP-014</td></tr>
+    <tr><td>AP_E2E_DOCUMENT_REUPLOAD_0021</td><td>Έλεγχος ότι το Reupload δεν εμφανίζεται ως νέο ανεξάρτητο έγγραφο</td><td>Το υπάρχον έγγραφο παραμένει η εγγραφή που ενημερώνεται</td><td>FE-REUP-005, FE-REUP-007</td></tr>
+</table>
+
+<p>Συγκεντρωτικά</p>
+
+<table>
+    <tr><th>Use Case</th><th>Scenario</th><th>Test Cases</th></tr>
+    <tr><td>FE-UC-001</td><td>AP_E2E_USER_REGISTRATION</td><td>13</td></tr>
+    <tr><td>FE-UC-002</td><td>AP_E2E_USER_LOGIN</td><td>13</td></tr>
+    <tr><td>FE-UC-003</td><td>AP_E2E_USER_PROFILE_UPDATE</td><td>17</td></tr>
+    <tr><td>FE-UC-004</td><td>AP_E2E_DOCUMENT_UPLOAD</td><td>18</td></tr>
+    <tr><td>FE-UC-005</td><td>AP_E2E_DOCUMENT_REUPLOAD</td><td>21</td></tr>
+    <tr><td>ΣΥΝΟΛΟ</td><td>5 E2E Scenarios</td><td>82</td></tr>
+</table>

@@ -1,0 +1,319 @@
+
+<p>Selectors &amp; Locators στο UI Automation</p>
+<p>HTML, CSS Selectors, XPath, Playwright Locators και Stable Automation</p>
+<p>1. Γιατί χρειαζόμαστε Selectors και Locators</p>
+<p>Στο UI automation πρέπει να μπορούμε να εντοπίσουμε με αξιόπιστο τρόπο τα HTML elements με τα οποία θέλουμε να αλληλεπιδράσουμε. Πριν κάνουμε click, fill, assert ή διαβάσουμε text, πρέπει πρώτα να βρούμε το σωστό element μέσα στο DOM.</p>
+<p>Click σε κουμπί Login ή Register</p>
+<p>Συμπλήρωση email, password ή άλλου input</p>
+<p>Έλεγχος error message</p>
+<p>Εύρεση συγκεκριμένης γραμμής σε table και click στο σωστό action button</p>
+<p>2. HTML Elements, Tags και Attributes</p>
+<p>&lt;button id="login-button" class="primary-button"&gt;
+    Login
+    &lt;/button&gt;</p>
+<p>Στο παράδειγμα αυτό:</p>
+<p>button = HTML tag / element type</p>
+<p>id="login-button" = attribute</p>
+<p>class="primary-button" = attribute</p>
+<p>Login = text content</p>
+<p>&lt;input
+    id="email"
+    name="email"
+    type="email"
+    placeholder="Enter your email"
+    /&gt;</p>
+<p>Attributes όπως id, name, type, placeholder και data-testid μπορούν να χρησιμοποιηθούν για τον εντοπισμό ενός element.</p>
+<p>3. Selector vs Locator</p>
+<p>Selector είναι η έκφραση ή ο κανόνας με τον οποίο περιγράφουμε ποιο element θέλουμε να βρούμε στο DOM.</p>
+<p>#login-button
+    button.primary-button
+    input[name="email"]</p>
+<p>Locator είναι το αντικείμενο ή API του automation framework που χρησιμοποιεί μια τέτοια πληροφορία για να βρει και να χειριστεί το element.</p>
+<p>page.locator("#login-button");
+    page.getByLabel("Email");
+    page.getByTestId("login-button");</p>
+<p>Mental model: Selector = πώς περιγράφω το element. Locator = πώς το automation framework το εντοπίζει και το χειρίζεται.</p>
+<p>4. Βασικοί τρόποι εντοπισμού Elements</p>
+<p>4.1 Stable ID</p>
+<p>&lt;button id="login-button"&gt;Login&lt;/button&gt;</p>
+<p>CSS: #login-button
+    Playwright: page.locator("#login-button");</p>
+<p>Ένα σταθερό, σημασιολογικό id είναι συνήθως καλή επιλογή. Δεν αρκεί όμως το element να έχει id· πρέπει το id να μην αλλάζει δυναμικά.</p>
+<p>4.2 Class</p>
+<p>&lt;button class="primary-button"&gt;Login&lt;/button&gt;</p>
+<p>CSS: .primary-button
+    CSS: button.primary-button</p>
+<p>Οι classes συχνά χρησιμοποιούνται για styling και μπορεί να αλλάξουν χωρίς να αλλάξει η λειτουργία. Γι’ αυτό δεν είναι πάντα η πιο σταθερή επιλογή για automation.</p>
+<p>4.3 Attribute Selectors</p>
+<p>input[name="email"]
+    input[type="email"]
+    [data-testid="email-input"]</p>
+<p>Μπορούμε να επιλέξουμε element με βάση οποιοδήποτε χρήσιμο attribute.</p>
+<p>4.4 data-testid</p>
+<p>&lt;button data-testid="login-button"&gt;Login&lt;/button&gt;
+
+    page.getByTestId("login-button");</p>
+<p>Το data-testid λειτουργεί ως explicit testing contract ανάμεσα στο frontend και στο automation. Μπορεί να παραμένει σταθερό ακόμα και αν αλλάξει το styling ή η DOM structure.</p>
+<p>4.5 Text, Role και Label</p>
+<p>page.getByText("Login");
+    page.getByRole(AriaRole.BUTTON,
+    new Page.GetByRoleOptions().setName("Login"));
+    page.getByLabel("Email");</p>
+<p>Role, label και user-facing text είναι πολύ χρήσιμα επειδή περιγράφουν το element με τρόπο κοντά σε αυτό που αντιλαμβάνεται ο χρήστης.</p>
+<p>5. CSS Selectors – πιο αναλυτικά</p>
+<p>5.1 Combinators και σχέσεις Elements</p>
+<p>form &gt; input        /* direct child */
+    form input          /* descendant */
+    label + input       /* αμέσως επόμενο sibling */
+    label ~ input       /* επόμενο sibling σε γενικότερο επίπεδο */</p>
+<p>Οι combinators επιτρέπουν να περιγράψουμε τη σχέση ανάμεσα σε elements.</p>
+<p>5.2 Attribute patterns</p>
+<p>[name="email"]
+    [id^="user-"]      /* ξεκινάει με */
+    [id$="-email"]     /* τελειώνει με */
+    [class*="error"]   /* περιέχει */</p>
+<p>Αυτά είναι χρήσιμα όταν ένα attribute είναι μερικώς δυναμικό αλλά έχει σταθερό pattern.</p>
+<p>5.3 nth-child και θέση</p>
+<p>button:nth-child(2)
+    page.locator("button").nth(1);</p>
+<p>Selectors που βασίζονται στη θέση είναι πιο fragile. Χρησιμοποιούνται όταν η θέση αποτελεί πραγματικά μέρος της λειτουργίας και όχι απλώς επειδή "τυχαίνει" το element να είναι δεύτερο.</p>
+<p>6. XPath – όταν το HTML δεν είναι automation-friendly</p>
+<p>Το XPath είναι ιδιαίτερα χρήσιμο όταν ο frontend developer δεν έχει δώσει id, class, name, data-testid, label ή άλλο σταθερό identifier. Τότε μπορούμε να αξιοποιήσουμε το text και τις σχέσεις parent/child/sibling μέσα στο DOM.</p>
+<p>&lt;main&gt;
+    &lt;section&gt;
+    &lt;h2&gt;Profile Settings&lt;/h2&gt;
+    &lt;div&gt;
+    &lt;span&gt;Email&lt;/span&gt;
+    &lt;input&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+    &lt;button&gt;Save&lt;/button&gt;
+    &lt;button&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+    &lt;h2&gt;Security Settings&lt;/h2&gt;
+    &lt;div&gt;
+    &lt;span&gt;New Password&lt;/span&gt;
+    &lt;input&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+    &lt;button&gt;Save&lt;/button&gt;
+    &lt;button&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;/section&gt;
+    &lt;/main&gt;</p>
+<p>6.1 XPath με text</p>
+<p>//button[normalize-space()="Save"]</p>
+<p>Αυτό βρίσκει όλα τα Save buttons. Αν υπάρχουν περισσότερα, χρειάζεται context.</p>
+<p>6.2 XPath με context / parent section</p>
+<p>//section[.//h2[normalize-space()="Profile Settings"]]
+    //button[normalize-space()="Save"]</p>
+<p>Η πρόθεση πλέον είναι σαφής: βρες το Save που ανήκει στο Profile Settings.</p>
+<p>6.3 XPath με sibling</p>
+<p>//span[normalize-space()="Email"]/following-sibling::input</p>
+<p>Βρίσκουμε το input που βρίσκεται δίπλα στο text Email.</p>
+<p>6.4 XPath μέσω parent</p>
+<p>//div[.//span[normalize-space()="Email"]]//input</p>
+<p>Βρίσκουμε το div που περιέχει το Email και μέσα σε αυτό το input.</p>
+<p>6.5 Ancestor / preceding-sibling / descendant</p>
+<p>//span[normalize-space()="Email"]/ancestor::div[1]//input
+    //span[normalize-space()="Email"]/preceding-sibling::input
+    //section//button</p>
+<p>Το XPath μπορεί να κινηθεί προς τα πάνω, προς siblings ή προς descendants και έτσι να χρησιμοποιήσει τη δομή του DOM όταν λείπουν καλά identifiers.</p>
+<p>6.6 Exact text vs contains</p>
+<p>//button[normalize-space()="Login"]
+    //button[contains(normalize-space(), "Login")]</p>
+<p>Το πρώτο ζητά ακριβές text. Το δεύτερο αρκείται στο να περιέχεται η λέξη Login.</p>
+<p>7. Stable vs Fragile / Flaky Locators</p>
+<p>&lt;button&gt;Login&lt;/button&gt;
+    &lt;button&gt;Cancel&lt;/button&gt;</p>
+<p>(//button)[2]</p>
+<p>Αρχικά το δεύτερο button είναι το Cancel. Αν προστεθεί πριν από αυτά ένα νέο button, η σειρά αλλάζει και ο locator μπορεί να δείχνει αλλού.</p>
+<p>&lt;button&gt;Login with Google&lt;/button&gt;
+    &lt;button&gt;Login&lt;/button&gt;
+    &lt;button&gt;Cancel&lt;/button&gt;</p>
+<p>Position-based selectors δεν περιγράφουν ποιο element θέλουμε· περιγράφουν ποιο element τυχαίνει να βρίσκεται σε μια θέση σήμερα.</p>
+<p>7.1 Absolute XPath</p>
+<p>/html/body/main/section[1]/div[4]/button[1]</p>
+<p>Ένα absolute XPath εξαρτάται έντονα από την τρέχουσα DOM structure. Μικρές αλλαγές σε wrappers ή σειρά elements μπορούν να το σπάσουν.</p>
+<p>7.2 Long CSS Path</p>
+<p>body &gt; main &gt; section:nth-child(1) &gt; div:nth-child(3) &gt; input</p>
+<p>Το ίδιο πρόβλημα υπάρχει σε μεγάλα structural CSS paths.</p>
+<p>7.3 Dynamic IDs</p>
+<p>&lt;button id="button-927461"&gt;Login&lt;/button&gt;
+    &lt;button id="button-483920"&gt;Login&lt;/button&gt;</p>
+<p>Αν το id αλλάζει σε κάθε render/session, δεν είναι stable locator. Προτιμούμε κάτι σταθερό όπως id="login-button" ή data-testid="login-button".</p>
+<p>8. Multiple Matches και Uniqueness</p>
+<p>Ένας καλός locator ιδανικά πρέπει να οδηγεί σε ένα συγκεκριμένο element. Αν ένας selector βρίσκει πολλά elements, πρέπει να τον κάνουμε πιο συγκεκριμένο χρησιμοποιώντας context, role, label, test id ή container.</p>
+<p>button
+    input[type="password"]</p>
+<p>Οι παραπάνω selectors συχνά επιστρέφουν περισσότερα από ένα elements. Αν υπάρχουν Password και Confirm Password, το input[type="password"] δεν αρκεί.</p>
+<p>9. Collections, Cards και Tables</p>
+<p>&lt;table&gt;
+    &lt;tr data-testid="user-row"&gt;
+    &lt;td&gt;Maria&lt;/td&gt;&lt;td&gt;maria@test.com&lt;/td&gt;&lt;td&gt;&lt;button&gt;Delete&lt;/button&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr data-testid="user-row"&gt;
+    &lt;td&gt;Nikos&lt;/td&gt;&lt;td&gt;nikos@test.com&lt;/td&gt;&lt;td&gt;&lt;button&gt;Delete&lt;/button&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/table&gt;</p>
+<p>Κακό mental model: "πάρε το δεύτερο Delete button". Καλύτερο: βρες πρώτα τη γραμμή του συγκεκριμένου user και μετά το Delete μέσα σε αυτή.</p>
+<p>//tr[.//td[normalize-space()="nikos@test.com"]]
+    //button[normalize-space()="Delete"]</p>
+<p>Locator row = page.getByTestId("user-row")
+    .filter(new Locator.FilterOptions().setHasText("nikos@test.com"));
+
+    row.getByRole(AriaRole.BUTTON,
+    new Locator.GetByRoleOptions().setName("Delete")).click();</p>
+<p>10. Registration Form – ολοκληρωμένο παράδειγμα</p>
+<p>&lt;form id="registration-form"&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="first-name"&gt;Όνομα&lt;/label&gt;
+    &lt;input id="first-name" name="firstName" type="text" data-testid="first-name-input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="last-name"&gt;Επώνυμο&lt;/label&gt;
+    &lt;input id="last-name" name="lastName" type="text" data-testid="last-name-input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="email"&gt;Email&lt;/label&gt;
+    &lt;input id="email" name="email" type="email" data-testid="email-input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="phone"&gt;Τηλέφωνο&lt;/label&gt;
+    &lt;input id="phone" name="phone" type="tel" data-testid="phone-input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="password"&gt;Password&lt;/label&gt;
+    &lt;input id="password" name="password" type="password" data-testid="password-input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="confirm-password"&gt;Confirm Password&lt;/label&gt;
+    &lt;input id="confirm-password" name="confirmPassword" type="password" data-testid="confirm-password-input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+    &lt;label for="address"&gt;Διεύθυνση&lt;/label&gt;
+    &lt;input id="address" name="address" type="text" data-testid="address-input"&gt;
+    &lt;/div&gt;
+
+    &lt;button id="register-button" type="submit" data-testid="register-button"&gt;Register&lt;/button&gt;
+    &lt;/form&gt;</p>
+<p>10.1 Ενδεικτικοί locators</p>
+<p>10.2 Complete Registration Flow σε Playwright</p>
+<p>page.getByLabel("Όνομα").fill("Nikos");
+    page.getByLabel("Επώνυμο").fill("Papadopoulos");
+    page.getByLabel("Email").fill("nikos@test.com");
+    page.getByLabel("Τηλέφωνο").fill("6912345678");
+    page.getByLabel("Password").fill("Password123!");
+    page.getByLabel("Confirm Password").fill("Password123!");
+    page.getByLabel("Διεύθυνση").fill("Athens");
+
+    page.getByRole(AriaRole.BUTTON,
+    new Page.GetByRoleOptions().setName("Register")).click();</p>
+<p>11. Registration Form χωρίς IDs/Labels – χρήση XPath</p>
+<p>&lt;form&gt;
+    &lt;div&gt;&lt;span&gt;Όνομα&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;Επώνυμο&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;Email&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;Τηλέφωνο&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;Password&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;Confirm Password&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;Διεύθυνση&lt;/span&gt;&lt;input&gt;&lt;/div&gt;
+    &lt;button&gt;Register&lt;/button&gt;
+    &lt;/form&gt;</p>
+<p>//div[.//span[normalize-space()="Email"]]//input
+    //div[.//span[normalize-space()="Password"]]//input
+    //div[.//span[normalize-space()="Confirm Password"]]//input
+    //button[normalize-space()="Register"]</p>
+<p>Ακόμα και όταν λείπουν identifiers, προσπαθούμε να βασιστούμε στη σημασία του element και όχι στη θέση του.</p>
+<p>(//input)[3]   /* fragile: σήμερα ίσως Email, αύριο όχι */</p>
+<p>12. Iframes</p>
+<p>Αν ένα element βρίσκεται μέσα σε iframe, δεν το εντοπίζουμε κατευθείαν από το main page DOM. Πρέπει να στοχεύσουμε πρώτα το frame και μετά το element μέσα σε αυτό.</p>
+<p>page.frameLocator("#payment-frame")
+    .getByLabel("Card number")
+    .fill("4111111111111111");</p>
+<p>13. Πρακτική προτεραιότητα επιλογής Locator</p>
+<p>Role / Label / user-facing semantics, όταν είναι διαθέσιμα και σταθερά.</p>
+<p>data-testid ή άλλο explicit testing attribute.</p>
+<p>Stable semantic id ή άλλο σταθερό attribute.</p>
+<p>Simple CSS selector.</p>
+<p>Relative XPath με meaningful context.</p>
+<p>Position-based nth/index μόνο όταν η θέση έχει πραγματική σημασία.</p>
+<p>Absolute XPath ή μεγάλα structural CSS/XPath paths ως τελευταία λύση.</p>
+<p>14. Cheat Sheet</p>
+<p>Στόχος                       Παράδειγμα
+    ID                           #login-button
+    Class                        .primary-button
+    Attribute                    input[name="email"]
+    Starts with                  [id^="user-"]
+    Ends with                    [id$="-email"]
+    Contains attribute           [class*="error"]
+    XPath exact text             //button[normalize-space()="Login"]
+    XPath contains text          //button[contains(normalize-space(), "Login")]
+    XPath sibling                //span[normalize-space()="Email"]/following-sibling::input
+    XPath contextual row         //tr[.//td[normalize-space()="nikos@test.com"]]//button[normalize-space()="Delete"]</p>
+<p>15. Shadow DOM</p>
+<p>Ορισμένα web components χρησιμοποιούν Shadow DOM, δηλαδή ξεχωριστό DOM boundary. Τα σύγχρονα automation frameworks μπορούν συχνά να το χειριστούν, αλλά πρέπει να γνωρίζουμε ότι το element μπορεί να μην βρίσκεται στο συνηθισμένο DOM tree όπως ένα απλό element.</p>
+<p>15.1 Τι είναι το Shadow DOM</p>
+<p>Στο κανονικό DOM ένα button μπορεί να βρίσκεται απευθείας μέσα σε ένα div. Με το Shadow DOM, ένα custom element μπορεί να έχει δικό του εσωτερικό DOM, απομονωμένο από την υπόλοιπη δομή της σελίδας.</p>
+<p>&lt;div&gt;
+    &lt;button&gt;Login&lt;/button&gt;
+    &lt;/div&gt;</p>
+<p>Στο κανονικό DOM το Playwright εντοπίζει το Login button με έναν συνηθισμένο locator.</p>
+<p>await page.getByRole('button', { name: 'Login' }).click();</p>
+<p>15.2 Custom element και Shadow Root</p>
+<p>Ένα web component μπορεί να εμφανίζεται στη σελίδα ως custom HTML element.</p>
+<p>&lt;login-component&gt;&lt;/login-component&gt;</p>
+<p>Στα Chrome DevTools η εσωτερική δομή του μπορεί να εμφανίζεται ως εξής. Η ένδειξη #shadow-root (open) είναι αναπαράσταση των DevTools και όχι πραγματικό HTML tag.</p>
+<p>&lt;login-component&gt;
+    #shadow-root (open)
+    &lt;button&gt;Login&lt;/button&gt;
+    &lt;/login-component&gt;</p>
+<p>15.3 Playwright TypeScript – Click μέσα σε Open Shadow DOM</p>
+<p>Το Playwright υποστηρίζει το open Shadow DOM με τους συνηθισμένους locators. Μπορούμε να περιορίσουμε την αναζήτηση στο συγκεκριμένο web component.</p>
+<p>await page.locator('login-component')
+    .getByRole('button', { name: 'Login' })
+    .click();</p>
+<p>Δεν χρειάζεται frameLocator(), γιατί το Shadow DOM δεν είναι iframe.</p>
+<p>15.4 Playwright TypeScript – Συμπλήρωση φόρμας μέσα σε Shadow DOM</p>
+<p>Φαντάσου ένα custom component με ένα input και ένα κουμπί Search μέσα στο open Shadow DOM του.</p>
+<p>&lt;search-component&gt;
+    #shadow-root (open)
+    &lt;label for="search"&gt;Search&lt;/label&gt;
+    &lt;input id="search" type="text"&gt;
+    &lt;button&gt;Search&lt;/button&gt;
+    &lt;/search-component&gt;</p>
+<p>Εντοπίζουμε πρώτα το component και μετά αλληλεπιδρούμε με τα εσωτερικά elements χρησιμοποιώντας Playwright TypeScript.</p>
+<p>const search = page.locator('search-component');
+
+    await search.getByRole('textbox', { name: 'Search' })
+    .fill('Playwright');
+
+    await search.getByRole('button', { name: 'Search' })
+    .click();</p>
+<p>15.5 Open και Closed Shadow DOM</p>
+<p>Open Shadow DOM: οι Playwright locators μπορούν να εντοπίζουν τα εσωτερικά elements. Closed Shadow DOM: δεν υποστηρίζεται η κανονική πρόσβαση στα εσωτερικά elements μέσω Playwright locators.</p>
+<p>15.6 Shadow DOM vs iframe</p>
+<p>iframe = ξεχωριστό HTML document ενσωματωμένο σε μια σελίδα. Shadow DOM = εσωτερικό DOM ενός web component στην ίδια σελίδα. Για iframe χρησιμοποιούμε frameLocator(). Για open Shadow DOM χρησιμοποιούμε κανονικούς locators.</p>
+<p>iframe:
+    await page.frameLocator('#payment-frame')
+    .getByLabel('Card number')
+    .fill('4111111111111111');
+
+    open Shadow DOM:
+    await page.locator('login-component')
+    .getByRole('button', { name: 'Login' })
+    .click();</p>
+<p>15.7 Πρακτικό συμπέρασμα</p>
+<p>Αν δεις #shadow-root (open) στα DevTools, ξέρεις ότι το element ανήκει σε Shadow DOM. Στο Playwright μπορείς συνήθως να συνεχίσεις με getByRole(), getByLabel() ή locator() όπως σε ένα κανονικό element, αρκεί το Shadow DOM να είναι open.</p>
+<p>16. Βασικό Συμπέρασμα</p>
+<p>Ο στόχος δεν είναι απλώς να βρούμε έναν selector που δουλεύει σήμερα. Θέλουμε locator που περιγράφει την πραγματική ταυτότητα του element και παραμένει αξιόπιστος όταν αλλάζει άσχετα το styling ή η DOM structure. Καλός locator είναι σταθερός, συγκεκριμένος και συνδεδεμένος με τη σημασία του element· fragile locator είναι αυτός που βασίζεται κυρίως σε σειρά, generated id, styling class ή μακρύ structural path.</p>

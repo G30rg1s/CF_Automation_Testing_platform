@@ -1,0 +1,34 @@
+<div
+        th:fragment="registrationSuccessModal"
+        id="registrationSuccessModal"
+        class="success-modal"
+        data-testid="registration-success-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="registrationSuccessTitle">
+
+    <div class="success-modal-content">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2 id="registrationSuccessTitle">
+            Registration Completed
+        </h2>
+
+        <p>
+            Your account has been created successfully.
+        </p>
+
+        <button
+                type="button"
+                id="continueToLogin"
+                class="continue-button"
+                data-testid="continue-to-login">
+            Continue to Login
+        </button>
+
+    </div>
+
+</div>

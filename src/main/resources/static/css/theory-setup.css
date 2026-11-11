@@ -1,0 +1,185 @@
+
+/* ==========================================
+   THEORY SETUP PANEL
+   ========================================== */
+
+.theory-setup-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+
+    width: 100%;
+    padding: 24px;
+    margin-bottom: 28px;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================
+   TITLE
+   ========================================== */
+
+.theory-setup-panel h2 {
+    margin: 0;
+
+    color: #111827;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* ==========================================
+   DATABASE / CONFIGURATION INFO
+   ========================================== */
+
+#theorySetupInfo {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   INITIALIZE BUTTON
+   ========================================== */
+
+#initializeTheoryButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 10px 22px;
+
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 8px;
+
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#initializeTheoryButton:hover:not(:disabled) {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+#initializeTheoryButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#initializeTheoryButton:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.3);
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   DISABLED BUTTON
+   ========================================== */
+
+#initializeTheoryButton:disabled {
+    background: #d1d5db;
+    border-color: #d1d5db;
+
+    color: #6b7280;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+    transform: none;
+}
+
+/* ==========================================
+   RESULT MESSAGE
+   ========================================== */
+
+#theorySetupResult {
+    width: 100%;
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+#theorySetupResult:empty {
+    display: none;
+}
+
+/* INFO */
+
+#theorySetupResult[data-status="info"] {
+    color: #475569;
+}
+
+/* SUCCESS */
+
+#theorySetupResult[data-status="success"] {
+    padding: 12px 14px;
+
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+
+    color: #047857;
+}
+
+/* ERROR */
+
+#theorySetupResult[data-status="error"] {
+    padding: 12px 14px;
+
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+
+    color: #b91c1c;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .theory-setup-panel {
+        padding: 18px;
+        gap: 12px;
+    }
+
+    .theory-setup-panel h2 {
+        font-size: 18px;
+    }
+
+    #initializeTheoryButton {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    #initializeTheoryButton {
+        transition: none;
+    }
+}

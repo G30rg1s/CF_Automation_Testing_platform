@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- ========================================
+     UPDATE DOCUMENT TITLE MODAL
+     ======================================== -->
+
+<div id="updateDocumentTitleModal"
+     class="update-document-title-modal"
+     th:fragment="updateDocumentTitleModal"
+     aria-hidden="true">
+
+    <div class="update-document-title-modal-content"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="updateDocumentTitleModalTitle">
+
+        <!-- ========================================
+             HEADER
+             ======================================== -->
+
+        <div class="update-document-title-modal-header">
+
+            <div>
+
+                <p class="update-document-title-modal-label">
+                    Document
+                </p>
+
+                <h2 id="updateDocumentTitleModalTitle">
+                    Update Title
+                </h2>
+
+            </div>
+
+
+            <!-- ========================================
+                 CLOSE
+                 ======================================== -->
+
+            <button type="button"
+                    id="closeUpdateDocumentTitleModalButton"
+                    class="update-document-title-modal-close"
+                    aria-label="Close">
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- ========================================
+             FORM
+             ======================================== -->
+
+        <form id="updateDocumentTitleForm"
+              novalidate>
+
+            <!-- ========================================
+                 TITLE
+                 ======================================== -->
+
+            <div class="update-document-title-form-group">
+
+                <label for="updateDocumentTitleInput">
+                    Document Title
+                </label>
+
+                <input type="text"
+                       id="updateDocumentTitleInput"
+                       name="title"
+                       maxlength="255"
+                       autocomplete="off"
+                       required>
+
+                <p id="updateDocumentTitleError"
+                   class="update-document-title-field-error"></p>
+
+            </div>
+
+
+            <!-- ========================================
+                 RESPONSE MESSAGE
+                 ======================================== -->
+
+            <p id="updateDocumentTitleMessage"
+               class="update-document-title-message"></p>
+
+
+            <!-- ========================================
+                 ACTIONS
+                 ======================================== -->
+
+            <div class="update-document-title-modal-actions">
+
+                <button type="button"
+                        id="cancelUpdateDocumentTitleButton"
+                        class="update-document-title-cancel-button">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        id="saveUpdateDocumentTitleButton"
+                        class="update-document-title-save-button">
+
+                    Update Title
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

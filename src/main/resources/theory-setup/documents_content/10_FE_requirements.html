@@ -1,0 +1,375 @@
+<p>Automation Platform</p>
+<p>FRONTEND FUNCTIONAL REQUIREMENTS</p>
+<p>Το παρόν έγγραφο καταγράφει τις λειτουργικές απαιτήσεις του Frontend ανά ενέργεια χρήστη. Περιγράφει τις φόρμες, τις αλληλεπιδράσεις, την ενημέρωση του χρήστη και την προβολή αποτελεσμάτων. Η ασύγχρονη επεξεργασία εγγράφων διαχωρίζεται από την επιτυχή υποβολή τους. Οι ακριβείς κανόνες validation και τα μηνύματα θα επιβεβαιωθούν στις πραγματικές οθόνες.</p>
+<p>FE-UC-001 — User Registration</p>
+<p>1. Περιγραφή</p>
+<p>Το Use Case περιγράφει τη διαδικασία εγγραφής νέου χρήστη στο Automation Platform μέσω της φόρμας Registration. Ο επισκέπτης συμπληρώνει τα προσωπικά του στοιχεία, υποβάλλει το αίτημα δημιουργίας λογαριασμού και ενημερώνεται για το αποτέλεσμα. Η φόρμα ελέγχει τα δεδομένα και εμφανίζει κατάλληλα μηνύματα σε περίπτωση μη έγκυρων στοιχείων.</p>
+<p>2. Βασικά στοιχεία</p>
+<table>
+    <tr><th>Πεδίο</th><th>Περιγραφή</th></tr>
+    <tr><td>Use Case ID</td><td>FE-UC-001</td></tr>
+    <tr><td>Use Case Name</td><td>User Registration</td></tr>
+    <tr><td>Actor</td><td>Επισκέπτης / Μη εγγεγραμμένος χρήστης</td></tr>
+    <tr><td>Trigger</td><td>Επιλογή εγγραφής νέου χρήστη</td></tr>
+    <tr><td>Preconditions</td><td>Η εφαρμογή είναι διαθέσιμη και ο επισκέπτης έχει πρόσβαση στη φόρμα Registration.</td></tr>
+    <tr><td>Success Postcondition</td><td>Δημιουργείται λογαριασμός και εμφανίζεται ενημέρωση επιτυχούς εγγραφής.</td></tr>
+    <tr><td>Failure Postcondition</td><td>Η εγγραφή δεν ολοκληρώνεται και ο χρήστης ενημερώνεται για το πρόβλημα.</td></tr>
+    <tr><td>Related Backend Use Case</td><td>UC-001 — User Registration</td></tr>
+</table>
+<p>3. Main Flow — Επιτυχής ολοκλήρωση</p>
+<table>
+    <tr><th>Βήμα</th><th>Actor</th><th>Ενέργεια / Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>1</td><td>Χρήστης</td><td>Ανοίγει τη σελίδα Registration.</td></tr>
+    <tr><td>2</td><td>Frontend</td><td>Εμφανίζει τη φόρμα προσωπικών στοιχείων.</td></tr>
+    <tr><td>3</td><td>Χρήστης</td><td>Συμπληρώνει First Name, Last Name, Email, Phone, Father Name, Mother Name, Age και Password.</td></tr>
+    <tr><td>4</td><td>Χρήστης</td><td>Επιλέγει το κουμπί Registration / Register.</td></tr>
+    <tr><td>5</td><td>Frontend</td><td>Ελέγχει τα υποχρεωτικά πεδία και τους διαθέσιμους κανόνες validation.</td></tr>
+    <tr><td>6</td><td>Frontend</td><td>Υποβάλλει το αίτημα εγγραφής στο Backend εφόσον τα στοιχεία είναι αποδεκτά.</td></tr>
+    <tr><td>7</td><td>Backend</td><td>Επιστρέφει το αποτέλεσμα δημιουργίας λογαριασμού.</td></tr>
+    <tr><td>8</td><td>Frontend</td><td>Εμφανίζει μήνυμα επιτυχούς εγγραφής.</td></tr>
+    <tr><td>9</td><td>Χρήστης</td><td>Μπορεί να συνεχίσει με τη διαδικασία Login.</td></tr>
+</table>
+<p>4. Alternative / Error Flows</p>
+<table>
+    <tr><th>ID</th><th>Περίπτωση</th><th>Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>FE-AF-REG-001</td><td>Κενό υποχρεωτικό πεδίο</td><td>Η φόρμα εμφανίζει ένδειξη υποχρεωτικής συμπλήρωσης.</td></tr>
+    <tr><td>FE-AF-REG-002</td><td>Μη έγκυρο Email</td><td>Εμφανίζεται κατάλληλο μήνυμα validation.</td></tr>
+    <tr><td>FE-AF-REG-003</td><td>Μη έγκυρο Phone</td><td>Εμφανίζεται κατάλληλο μήνυμα validation.</td></tr>
+    <tr><td>FE-AF-REG-004</td><td>Password εκτός κανόνων</td><td>Εμφανίζεται ενημέρωση για μη αποδεκτό password.</td></tr>
+    <tr><td>FE-AF-REG-005</td><td>Email που χρησιμοποιείται ήδη</td><td>Εμφανίζεται μήνυμα αποτυχίας εγγραφής.</td></tr>
+    <tr><td>FE-AF-REG-006</td><td>Μη έγκυρα προσωπικά στοιχεία</td><td>Η φόρμα επισημαίνει το πρόβλημα ή εμφανίζει μήνυμα.</td></tr>
+    <tr><td>FE-AF-REG-007</td><td>Αποτυχία επικοινωνίας με Backend</td><td>Εμφανίζεται αποτυχία χωρίς ψευδή ένδειξη επιτυχίας.</td></tr>
+    <tr><td>FE-AF-REG-008</td><td>Διόρθωση μη έγκυρων στοιχείων</td><td>Ο χρήστης μπορεί να υποβάλει ξανά τη φόρμα.</td></tr>
+</table>
+<p>5. Business Rules</p>
+<table>
+    <tr><th>Rule ID</th><th>Business Rule</th></tr>
+    <tr><td>FE-BR-REG-001</td><td>Η φόρμα πρέπει να εμφανίζει τα απαιτούμενα πεδία εγγραφής.</td></tr>
+    <tr><td>FE-BR-REG-002</td><td>Τα υποχρεωτικά πεδία πρέπει να ελέγχονται πριν από την υποβολή.</td></tr>
+    <tr><td>FE-BR-REG-003</td><td>Το Email και Phone πρέπει να ελέγχονται σύμφωνα με τους καθορισμένους κανόνες.</td></tr>
+    <tr><td>FE-BR-REG-004</td><td>Το Password πρέπει να υπόκειται στους προβλεπόμενους κανόνες validation.</td></tr>
+    <tr><td>FE-BR-REG-005</td><td>Σε αποτυχημένη εγγραφή πρέπει να εμφανίζεται κατάλληλη ενημέρωση.</td></tr>
+    <tr><td>FE-BR-REG-006</td><td>Το Password δεν εμφανίζεται ως απλό κείμενο από προεπιλογή.</td></tr>
+    <tr><td>FE-BR-REG-007</td><td>Η διεπαφή δεν πρέπει να εμφανίζει επιτυχία πριν επιβεβαιωθεί από το Backend.</td></tr>
+</table>
+<p>6. Frontend Functional Requirements</p>
+<table>
+    <tr><th>Requirement ID</th><th>Functional Requirement</th></tr>
+    <tr><td>FE-REG-001</td><td>Το Frontend πρέπει να παρέχει φόρμα εγγραφής νέου χρήστη.</td></tr>
+    <tr><td>FE-REG-002</td><td>Η φόρμα πρέπει να περιλαμβάνει τα προβλεπόμενα πεδία προσωπικών στοιχείων.</td></tr>
+    <tr><td>FE-REG-003</td><td>Το Frontend πρέπει να ελέγχει τα υποχρεωτικά πεδία.</td></tr>
+    <tr><td>FE-REG-004</td><td>Το Frontend πρέπει να εφαρμόζει τους διαθέσιμους κανόνες Email και Phone.</td></tr>
+    <tr><td>FE-REG-005</td><td>Το Frontend πρέπει να εφαρμόζει τους κανόνες Password.</td></tr>
+    <tr><td>FE-REG-006</td><td>Το Frontend πρέπει να επιτρέπει υποβολή με αποδεκτά δεδομένα.</td></tr>
+    <tr><td>FE-REG-007</td><td>Το Frontend πρέπει να εμφανίζει ενημέρωση μετά από επιτυχή εγγραφή.</td></tr>
+    <tr><td>FE-REG-008</td><td>Το Frontend πρέπει να εμφανίζει μηνύματα σε αποτυχημένη εγγραφή.</td></tr>
+    <tr><td>FE-REG-009</td><td>Ο χρήστης πρέπει να μπορεί να διορθώνει στοιχεία και να επαναλαμβάνει την υποβολή.</td></tr>
+    <tr><td>FE-REG-010</td><td>Το Frontend δεν πρέπει να εμφανίζει επιτυχία αν το Backend απορρίψει το αίτημα.</td></tr>
+</table>
+<p>FE-UC-002 — User Login</p>
+<p>1. Περιγραφή</p>
+<p>Το Use Case περιγράφει τη σύνδεση εγγεγραμμένου χρήστη στο Automation Platform μέσω της φόρμας Login. Ο χρήστης συμπληρώνει τα διαπιστευτήριά του και επιλέγει τη σύνδεση. Το Frontend υποβάλλει τα στοιχεία στο Backend και, ανάλογα με το αποτέλεσμα, επιτρέπει την πρόσβαση στην εφαρμογή ή εμφανίζει κατάλληλο μήνυμα αποτυχίας.</p>
+<p>2. Βασικά στοιχεία</p>
+<table>
+    <tr><th>Πεδίο</th><th>Περιγραφή</th></tr>
+    <tr><td>Use Case ID</td><td>FE-UC-002</td></tr>
+    <tr><td>Use Case Name</td><td>User Login</td></tr>
+    <tr><td>Actor</td><td>Εγγεγραμμένος χρήστης</td></tr>
+    <tr><td>Trigger</td><td>Επιλογή κουμπιού Login</td></tr>
+    <tr><td>Preconditions</td><td>Η εφαρμογή είναι διαθέσιμη και ο χρήστης διαθέτει λογαριασμό.</td></tr>
+    <tr><td>Success Postcondition</td><td>Ο χρήστης συνδέεται και αποκτά πρόσβαση στις διαθέσιμες λειτουργίες.</td></tr>
+    <tr><td>Failure Postcondition</td><td>Ο χρήστης παραμένει μη συνδεδεμένος και εμφανίζεται ενημέρωση αποτυχίας.</td></tr>
+    <tr><td>Related Backend Use Case</td><td>UC-002 — User Login</td></tr>
+</table>
+<p>3. Main Flow — Επιτυχής ολοκλήρωση</p>
+<table>
+    <tr><th>Βήμα</th><th>Actor</th><th>Ενέργεια / Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>1</td><td>Χρήστης</td><td>Ανοίγει τη σελίδα Login.</td></tr>
+    <tr><td>2</td><td>Frontend</td><td>Εμφανίζει τη φόρμα σύνδεσης.</td></tr>
+    <tr><td>3</td><td>Χρήστης</td><td>Συμπληρώνει αναγνωριστικό σύνδεσης και password.</td></tr>
+    <tr><td>4</td><td>Χρήστης</td><td>Πατά το κουμπί Login.</td></tr>
+    <tr><td>5</td><td>Frontend</td><td>Ελέγχει τη συμπλήρωση των υποχρεωτικών πεδίων.</td></tr>
+    <tr><td>6</td><td>Frontend</td><td>Υποβάλλει τα διαπιστευτήρια στο Backend.</td></tr>
+    <tr><td>7</td><td>Backend</td><td>Επιστρέφει το αποτέλεσμα αυθεντικοποίησης.</td></tr>
+    <tr><td>8</td><td>Frontend</td><td>Μετά από επιτυχία μεταφέρει τον χρήστη στο κατάλληλο περιβάλλον.</td></tr>
+    <tr><td>9</td><td>Χρήστης</td><td>Χρησιμοποιεί τις λειτουργίες στις οποίες έχει πρόσβαση.</td></tr>
+</table>
+<p>4. Alternative / Error Flows</p>
+<table>
+    <tr><th>ID</th><th>Περίπτωση</th><th>Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>FE-AF-AUTH-001</td><td>Λανθασμένο password</td><td>Εμφανίζεται μήνυμα αποτυχημένης σύνδεσης.</td></tr>
+    <tr><td>FE-AF-AUTH-002</td><td>Ανύπαρκτος χρήστης</td><td>Εμφανίζεται μήνυμα αποτυχίας.</td></tr>
+    <tr><td>FE-AF-AUTH-003</td><td>Κενό αναγνωριστικό</td><td>Επισημαίνεται το υποχρεωτικό πεδίο.</td></tr>
+    <tr><td>FE-AF-AUTH-004</td><td>Κενό password</td><td>Επισημαίνεται το υποχρεωτικό πεδίο.</td></tr>
+    <tr><td>FE-AF-AUTH-005</td><td>Μη έγκυρα δεδομένα</td><td>Δεν ολοκληρώνεται σύνδεση.</td></tr>
+    <tr><td>FE-AF-AUTH-006</td><td>Πρόβλημα επικοινωνίας</td><td>Εμφανίζεται μήνυμα προσωρινής αδυναμίας.</td></tr>
+    <tr><td>FE-AF-AUTH-007</td><td>Αποτυχημένη αυθεντικοποίηση</td><td>Δεν γίνεται πλοήγηση σε προστατευμένη σελίδα.</td></tr>
+    <tr><td>FE-AF-AUTH-008</td><td>Διόρθωση διαπιστευτηρίων</td><td>Ο χρήστης μπορεί να δοκιμάσει ξανά.</td></tr>
+</table>
+<p>5. Business Rules</p>
+<table>
+    <tr><th>Rule ID</th><th>Business Rule</th></tr>
+    <tr><td>FE-BR-AUTH-001</td><td>Η φόρμα διαθέτει τα προβλεπόμενα πεδία σύνδεσης.</td></tr>
+    <tr><td>FE-BR-AUTH-002</td><td>Τα υποχρεωτικά πεδία ελέγχονται πριν από υποβολή.</td></tr>
+    <tr><td>FE-BR-AUTH-003</td><td>Το password δεν εμφανίζεται ως απλό κείμενο από προεπιλογή.</td></tr>
+    <tr><td>FE-BR-AUTH-004</td><td>Η πρόσβαση σε προστατευμένες λειτουργίες απαιτεί επιτυχή αυθεντικοποίηση.</td></tr>
+    <tr><td>FE-BR-AUTH-005</td><td>Αποτυχημένο Login δεν εμφανίζεται ως επιτυχημένο.</td></tr>
+    <tr><td>FE-BR-AUTH-006</td><td>Ο χρήστης μπορεί να διορθώσει τα στοιχεία και να ξαναδοκιμάσει.</td></tr>
+</table>
+<p>6. Frontend Functional Requirements</p>
+<table>
+    <tr><th>Requirement ID</th><th>Functional Requirement</th></tr>
+    <tr><td>FE-AUTH-001</td><td>Το Frontend πρέπει να παρέχει φόρμα Login.</td></tr>
+    <tr><td>FE-AUTH-002</td><td>Η φόρμα πρέπει να περιλαμβάνει τα προβλεπόμενα πεδία διαπιστευτηρίων.</td></tr>
+    <tr><td>FE-AUTH-003</td><td>Το Frontend πρέπει να ελέγχει τα υποχρεωτικά πεδία.</td></tr>
+    <tr><td>FE-AUTH-004</td><td>Το Frontend πρέπει να υποβάλλει τα διαπιστευτήρια προς αυθεντικοποίηση.</td></tr>
+    <tr><td>FE-AUTH-005</td><td>Μετά από επιτυχία ο χρήστης αποκτά πρόσβαση στο προβλεπόμενο περιβάλλον.</td></tr>
+    <tr><td>FE-AUTH-006</td><td>Μετά από αποτυχία εμφανίζεται κατάλληλο μήνυμα.</td></tr>
+    <tr><td>FE-AUTH-007</td><td>Αποτυχημένο Login δεν επιτρέπει πλοήγηση σε προστατευμένες λειτουργίες.</td></tr>
+    <tr><td>FE-AUTH-008</td><td>Ο χρήστης μπορεί να επαναλάβει την προσπάθεια σύνδεσης.</td></tr>
+    <tr><td>FE-AUTH-009</td><td>Το password προστατεύεται από ορατή εμφάνιση από προεπιλογή.</td></tr>
+</table>
+<p>FE-UC-003 — User Profile Update</p>
+<p>1. Περιγραφή</p>
+<p>Το Use Case περιγράφει την προβολή και ενημέρωση των προσωπικών στοιχείων του χρήστη μέσα από τη σελίδα My Profile. Ο συνδεδεμένος χρήστης μπορεί να τροποποιήσει μόνο τα επιτρεπόμενα πεδία. Το First Name (Όνομα) και το Last Name (Επώνυμο) δεν επιτρέπεται να τροποποιούνται και διατηρούν τις αρχικές τιμές της εγγραφής.</p>
+<p>2. Βασικά στοιχεία</p>
+<table>
+    <tr><th>Πεδίο</th><th>Περιγραφή</th></tr>
+    <tr><td>Use Case ID</td><td>FE-UC-003</td></tr>
+    <tr><td>Use Case Name</td><td>User Profile Update</td></tr>
+    <tr><td>Actor</td><td>Συνδεδεμένος χρήστης</td></tr>
+    <tr><td>Trigger</td><td>Επιλογή My Profile και αποθήκευση αλλαγών</td></tr>
+    <tr><td>Preconditions</td><td>Ο χρήστης έχει πραγματοποιήσει επιτυχημένο Login.</td></tr>
+    <tr><td>Success Postcondition</td><td>Τα επιτρεπόμενα στοιχεία ενημερώνονται και εμφανίζονται στο My Profile.</td></tr>
+    <tr><td>Failure Postcondition</td><td>Δεν εμφανίζεται ψευδής επιτυχία και τα αποθηκευμένα στοιχεία δεν αλλάζουν.</td></tr>
+    <tr><td>Related Backend Use Case</td><td>UC-003 — User Profile Update</td></tr>
+</table>
+<p>3. Main Flow — Επιτυχής ολοκλήρωση</p>
+<table>
+    <tr><th>Βήμα</th><th>Actor</th><th>Ενέργεια / Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>1</td><td>Χρήστης</td><td>Επιλέγει My Profile από το sidebar.</td></tr>
+    <tr><td>2</td><td>Frontend</td><td>Φορτώνει και εμφανίζει τα προσωπικά στοιχεία.</td></tr>
+    <tr><td>3</td><td>Frontend</td><td>Εμφανίζει First Name και Last Name χωρίς δυνατότητα επεξεργασίας.</td></tr>
+    <tr><td>4</td><td>Χρήστης</td><td>Τροποποιεί επιτρεπόμενα στοιχεία, όπως Email ή Phone.</td></tr>
+    <tr><td>5</td><td>Χρήστης</td><td>Επιλέγει αποθήκευση αλλαγών.</td></tr>
+    <tr><td>6</td><td>Frontend</td><td>Ελέγχει τα δεδομένα βάσει validation της φόρμας.</td></tr>
+    <tr><td>7</td><td>Frontend</td><td>Υποβάλλει τις αλλαγές στο Backend.</td></tr>
+    <tr><td>8</td><td>Backend</td><td>Επιστρέφει το αποτέλεσμα ενημέρωσης.</td></tr>
+    <tr><td>9</td><td>Frontend</td><td>Εμφανίζει ενημέρωση επιτυχούς αποθήκευσης.</td></tr>
+    <tr><td>10</td><td>Frontend</td><td>Προβάλλει τις νέες τιμές και διατηρεί First Name / Last Name.</td></tr>
+</table>
+<p>4. Alternative / Error Flows</p>
+<table>
+    <tr><th>ID</th><th>Περίπτωση</th><th>Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>FE-AF-UPD-001</td><td>Μη συνδεδεμένος χρήστης</td><td>Δεν αποκτά πρόσβαση στην προστατευμένη λειτουργία.</td></tr>
+    <tr><td>FE-AF-UPD-002</td><td>Αλλαγή First Name</td><td>Το πεδίο δεν επιτρέπει επεξεργασία.</td></tr>
+    <tr><td>FE-AF-UPD-003</td><td>Αλλαγή Last Name</td><td>Το πεδίο δεν επιτρέπει επεξεργασία.</td></tr>
+    <tr><td>FE-AF-UPD-004</td><td>Μη έγκυρο Email</td><td>Εμφανίζεται ένδειξη validation.</td></tr>
+    <tr><td>FE-AF-UPD-005</td><td>Μη έγκυρο Phone</td><td>Εμφανίζεται ένδειξη validation.</td></tr>
+    <tr><td>FE-AF-UPD-006</td><td>Email άλλου λογαριασμού</td><td>Εμφανίζεται μήνυμα αποτυχίας ενημέρωσης.</td></tr>
+    <tr><td>FE-AF-UPD-007</td><td>Αποτυχία Backend</td><td>Δεν εμφανίζεται μήνυμα επιτυχίας.</td></tr>
+    <tr><td>FE-AF-UPD-008</td><td>Πρόβλημα ανάκτησης στοιχείων</td><td>Εμφανίζεται ενημέρωση αδυναμίας φόρτωσης.</td></tr>
+    <tr><td>FE-AF-UPD-009</td><td>Διόρθωση μη έγκυρων στοιχείων</td><td>Είναι δυνατή νέα υποβολή.</td></tr>
+    <tr><td>FE-AF-UPD-010</td><td>Αποτυχία αποθήκευσης</td><td>Μη αποθηκευμένες αλλαγές δεν παρουσιάζονται ως οριστικές.</td></tr>
+</table>
+<p>5. Business Rules</p>
+<table>
+    <tr><th>Rule ID</th><th>Business Rule</th></tr>
+    <tr><td>FE-BR-UPD-001</td><td>Η πρόσβαση στο My Profile απαιτεί σύνδεση.</td></tr>
+    <tr><td>FE-BR-UPD-002</td><td>Τα στοιχεία εμφανίζονται βάσει των αποθηκευμένων δεδομένων.</td></tr>
+    <tr><td>FE-BR-UPD-003</td><td>Το First Name είναι μη επεξεργάσιμο.</td></tr>
+    <tr><td>FE-BR-UPD-004</td><td>Το Last Name είναι μη επεξεργάσιμο.</td></tr>
+    <tr><td>FE-BR-UPD-005</td><td>Μόνο τα προβλεπόμενα πεδία τροποποιούνται.</td></tr>
+    <tr><td>FE-BR-UPD-006</td><td>Email και Phone ακολουθούν τους κανόνες validation.</td></tr>
+    <tr><td>FE-BR-UPD-007</td><td>Επιτυχία εμφανίζεται μετά από θετική απόκριση Backend.</td></tr>
+    <tr><td>FE-BR-UPD-008</td><td>Σε αποτυχία εμφανίζεται κατάλληλο μήνυμα.</td></tr>
+</table>
+<p>6. Frontend Functional Requirements</p>
+<table>
+    <tr><th>Requirement ID</th><th>Functional Requirement</th></tr>
+    <tr><td>FE-UPD-001</td><td>Το Frontend πρέπει να παρέχει πρόσβαση στο My Profile.</td></tr>
+    <tr><td>FE-UPD-002</td><td>Το Frontend πρέπει να εμφανίζει τα αποθηκευμένα προσωπικά στοιχεία.</td></tr>
+    <tr><td>FE-UPD-003</td><td>Το First Name εμφανίζεται χωρίς δυνατότητα τροποποίησης.</td></tr>
+    <tr><td>FE-UPD-004</td><td>Το Last Name εμφανίζεται χωρίς δυνατότητα τροποποίησης.</td></tr>
+    <tr><td>FE-UPD-005</td><td>Επιτρέπεται επεξεργασία μόνο των προβλεπόμενων πεδίων.</td></tr>
+    <tr><td>FE-UPD-006</td><td>Εφαρμόζονται οι προβλεπόμενοι έλεγχοι εγκυρότητας.</td></tr>
+    <tr><td>FE-UPD-007</td><td>Υποστηρίζεται η υποβολή αλλαγών προφίλ.</td></tr>
+    <tr><td>FE-UPD-008</td><td>Εμφανίζεται το αποτέλεσμα ενημέρωσης.</td></tr>
+    <tr><td>FE-UPD-009</td><td>Μετά την επιτυχία εμφανίζονται οι ενημερωμένες τιμές.</td></tr>
+    <tr><td>FE-UPD-010</td><td>Δεν εμφανίζεται επιτυχία αν το Backend απορρίπτει αλλαγές.</td></tr>
+    <tr><td>FE-UPD-011</td><td>Σε αποτυχία ο χρήστης μπορεί να διορθώσει και να υποβάλει ξανά.</td></tr>
+</table>
+<p>FE-UC-004 — Document Upload</p>
+<p>1. Περιγραφή</p>
+<p>Το Use Case περιγράφει την κανονική μεταφόρτωση πραγματικού αρχείου DOCX από τη σελίδα Upload Document. Ο χρήστης επιλέγει αρχείο, συμπληρώνει τα στοιχεία και υποβάλλει τη φόρμα. Το Backend δρομολογεί την ασύγχρονη επεξεργασία μέσω Parser Service. Η αποδοχή του Upload δεν ισοδυναμεί με ολοκληρωμένο parsing. Μετά την ολοκλήρωση, το περιεχόμενο εμφανίζεται σύμφωνα με τον τύπο του εγγράφου, όπως Theory ή Quiz. Σε αντίθεση με τη δυνατότητα δημιουργίας κενής εγγραφής μέσω Backend API, στο Frontend Use Case απαιτείται πραγματικό DOCX.</p>
+<p>2. Βασικά στοιχεία</p>
+<table>
+    <tr><th>Πεδίο</th><th>Περιγραφή</th></tr>
+    <tr><td>Use Case ID</td><td>FE-UC-004</td></tr>
+    <tr><td>Use Case Name</td><td>Document Upload</td></tr>
+    <tr><td>Actor</td><td>Χρήστης</td></tr>
+    <tr><td>Trigger</td><td>Επιλογή Upload Document και υποβολή φόρμας</td></tr>
+    <tr><td>Preconditions</td><td>Ο χρήστης έχει πρόσβαση στη σελίδα και διαθέτει αρχείο DOCX.</td></tr>
+    <tr><td>Success Postcondition</td><td>Το έγγραφο καταχωρίζεται και, μετά από parsing, το περιεχόμενο γίνεται διαθέσιμο.</td></tr>
+    <tr><td>Failure Postcondition</td><td>Εμφανίζεται αποτυχία Upload ή parsing χωρίς ψευδή κατάσταση ετοιμότητας.</td></tr>
+    <tr><td>Related Backend Use Case</td><td>UC-004 — Document Upload / Document Creation</td></tr>
+</table>
+<p>3. Main Flow — Επιτυχής ολοκλήρωση</p>
+<table>
+    <tr><th>Βήμα</th><th>Actor</th><th>Ενέργεια / Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>1</td><td>Χρήστης</td><td>Επιλέγει Upload Document από το sidebar.</td></tr>
+    <tr><td>2</td><td>Frontend</td><td>Εμφανίζει τη φόρμα μεταφόρτωσης.</td></tr>
+    <tr><td>3</td><td>Χρήστης</td><td>Επιλέγει πραγματικό αρχείο DOCX από τον υπολογιστή του.</td></tr>
+    <tr><td>4</td><td>Χρήστης</td><td>Συμπληρώνει τίτλο και άλλα προβλεπόμενα στοιχεία.</td></tr>
+    <tr><td>5</td><td>Χρήστης</td><td>Επιλέγει κατηγορία ή τύπο εγγράφου όπου το επιτρέπει η φόρμα.</td></tr>
+    <tr><td>6</td><td>Χρήστης</td><td>Υποβάλλει τη φόρμα Upload.</td></tr>
+    <tr><td>7</td><td>Frontend</td><td>Ελέγχει πεδία και αποδεκτό αρχείο.</td></tr>
+    <tr><td>8</td><td>Frontend</td><td>Αποστέλλει το αίτημα μεταφόρτωσης στο Backend.</td></tr>
+    <tr><td>9</td><td>Backend</td><td>Καταχωρίζει το έγγραφο και δρομολογεί ασύγχρονο parsing.</td></tr>
+    <tr><td>10</td><td>Frontend</td><td>Ενημερώνει ότι το Upload έγινε αποδεκτό, όχι ότι τελείωσε το parsing.</td></tr>
+    <tr><td>11</td><td>Parser Service</td><td>Επεξεργάζεται ασύγχρονα το DOCX.</td></tr>
+    <tr><td>12</td><td>Backend</td><td>Παραλαμβάνει το αποτέλεσμα και ενημερώνει κατάσταση και περιεχόμενο.</td></tr>
+    <tr><td>13</td><td>Frontend</td><td>Προβάλλει την κατάσταση βάσει των στοιχείων του Backend.</td></tr>
+    <tr><td>14</td><td>Χρήστης</td><td>Ανοίγει το έγγραφο μόλις το περιεχόμενο είναι διαθέσιμο.</td></tr>
+    <tr><td>15</td><td>Frontend</td><td>Εμφανίζει περιεχόμενο Theory ή Quiz ανάλογα με τον τύπο.</td></tr>
+</table>
+<p>4. Alternative / Error Flows</p>
+<table>
+    <tr><th>ID</th><th>Περίπτωση</th><th>Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>FE-AF-DOC-001</td><td>Χωρίς αρχείο</td><td>Εμφανίζεται ένδειξη ότι απαιτείται επιλογή αρχείου.</td></tr>
+    <tr><td>FE-AF-DOC-002</td><td>Μη υποστηριζόμενος τύπος</td><td>Εμφανίζεται ενημέρωση μη αποδεκτού αρχείου.</td></tr>
+    <tr><td>FE-AF-DOC-003</td><td>Χωρίς τίτλο</td><td>Εμφανίζεται ένδειξη υποχρεωτικού πεδίου.</td></tr>
+    <tr><td>FE-AF-DOC-004</td><td>Μη έγκυρος τίτλος</td><td>Εμφανίζεται μήνυμα validation.</td></tr>
+    <tr><td>FE-AF-DOC-005</td><td>Διπλότυπος τίτλος</td><td>Εμφανίζεται αποτυχία σύμφωνα με τον κανόνα μοναδικότητας.</td></tr>
+    <tr><td>FE-AF-DOC-006</td><td>Αποτυχία Upload</td><td>Εμφανίζεται ενημέρωση αποτυχίας μεταφόρτωσης.</td></tr>
+    <tr><td>FE-AF-DOC-007</td><td>Parsing σε εξέλιξη</td><td>Το έγγραφο δεν παρουσιάζεται ως πλήρως επεξεργασμένο.</td></tr>
+    <tr><td>FE-AF-DOC-008</td><td>Αποτυχία parsing</td><td>Εμφανίζεται προβλεπόμενη κατάσταση αποτυχίας.</td></tr>
+    <tr><td>FE-AF-DOC-009</td><td>Έγγραφο Theory</td><td>Μετά το parsing εμφανίζεται ως θεωρία.</td></tr>
+    <tr><td>FE-AF-DOC-010</td><td>Έγγραφο Quiz</td><td>Μετά το parsing εμφανίζεται μέσω λειτουργίας Quiz.</td></tr>
+    <tr><td>FE-AF-DOC-011</td><td>Πρόβλημα επικοινωνίας Backend</td><td>Εμφανίζεται αποτυχία και όχι ψευδής επιτυχία.</td></tr>
+    <tr><td>FE-AF-DOC-012</td><td>Καθυστέρηση επεξεργασίας</td><td>Το εκκρεμές parsing διαχωρίζεται από την ολοκλήρωση.</td></tr>
+</table>
+<p>5. Business Rules</p>
+<table>
+    <tr><th>Rule ID</th><th>Business Rule</th></tr>
+    <tr><td>FE-BR-DOC-001</td><td>Στο Frontend Upload επιλέγεται πραγματικό DOCX.</td></tr>
+    <tr><td>FE-BR-DOC-002</td><td>Ο τίτλος εγγράφου είναι υποχρεωτικός.</td></tr>
+    <tr><td>FE-BR-DOC-003</td><td>Η φόρμα εφαρμόζει κανόνες validation.</td></tr>
+    <tr><td>FE-BR-DOC-004</td><td>Το Frontend ενημερώνει για την υποβολή Upload.</td></tr>
+    <tr><td>FE-BR-DOC-005</td><td>Η αποδοχή Upload διαφέρει από ολοκληρωμένο parsing.</td></tr>
+    <tr><td>FE-BR-DOC-006</td><td>Η κατάσταση επεξεργασίας βασίζεται στο Backend.</td></tr>
+    <tr><td>FE-BR-DOC-007</td><td>Το έγγραφο εμφανίζεται έτοιμο μόνο μετά από επιτυχές parsing.</td></tr>
+    <tr><td>FE-BR-DOC-008</td><td>Η προβολή περιεχομένου εξαρτάται από τον τύπο του.</td></tr>
+    <tr><td>FE-BR-DOC-009</td><td>Η Theory εμφανίζεται σε μορφή ανάγνωσης.</td></tr>
+    <tr><td>FE-BR-DOC-010</td><td>Το Quiz υποστηρίζει διαδραστική προβολή.</td></tr>
+</table>
+<p>6. Frontend Functional Requirements</p>
+<table>
+    <tr><th>Requirement ID</th><th>Functional Requirement</th></tr>
+    <tr><td>FE-DOC-001</td><td>Το Frontend πρέπει να παρέχει σελίδα Upload Document.</td></tr>
+    <tr><td>FE-DOC-002</td><td>Η φόρμα πρέπει να επιτρέπει επιλογή πραγματικού DOCX.</td></tr>
+    <tr><td>FE-DOC-003</td><td>Πρέπει να απαιτείται τίτλος εγγράφου.</td></tr>
+    <tr><td>FE-DOC-004</td><td>Πρέπει να εφαρμόζονται οι προβλεπόμενοι κανόνες validation.</td></tr>
+    <tr><td>FE-DOC-005</td><td>Υποστηρίζεται η αποστολή εγγράφου στο Backend.</td></tr>
+    <tr><td>FE-DOC-006</td><td>Εμφανίζεται ενημέρωση αποδοχής ή αποτυχίας Upload.</td></tr>
+    <tr><td>FE-DOC-007</td><td>Λαμβάνεται υπόψη η ασύγχρονη επεξεργασία.</td></tr>
+    <tr><td>FE-DOC-008</td><td>Δεν εμφανίζεται ολοκληρωμένο parsing χωρίς επιβεβαίωση Backend.</td></tr>
+    <tr><td>FE-DOC-009</td><td>Υποστηρίζεται προβολή κατάστασης επεξεργασίας.</td></tr>
+    <tr><td>FE-DOC-010</td><td>Υποστηρίζεται προβολή εγγράφου μετά από επιτυχή επεξεργασία.</td></tr>
+    <tr><td>FE-DOC-011</td><td>Το περιεχόμενο εμφανίζεται ανά τύπο εγγράφου.</td></tr>
+    <tr><td>FE-DOC-012</td><td>Υποστηρίζεται προβολή μορφοποιημένης Theory.</td></tr>
+    <tr><td>FE-DOC-013</td><td>Υποστηρίζεται διαδραστική παρουσίαση Quiz.</td></tr>
+    <tr><td>FE-DOC-014</td><td>Σε αποτυχία parsing εμφανίζεται προβλεπόμενη ενημέρωση.</td></tr>
+</table>
+<p>FE-UC-005 — Document Reupload</p>
+<p>1. Περιγραφή</p>
+<p>Το Use Case περιγράφει την προσθήκη ή αντικατάσταση πραγματικού αρχείου DOCX σε ήδη καταχωρισμένο έγγραφο μέσω Reupload. Καλύπτει τόσο έγγραφα χωρίς προηγούμενο περιεχόμενο όσο και έγγραφα με υπάρχον περιεχόμενο. Το νέο αρχείο υποβάλλεται για ασύγχρονη επεξεργασία και, μετά την επιτυχία, ενημερώνεται το υπάρχον έγγραφο αντί να δημιουργείται νέα ανεξάρτητη εγγραφή.</p>
+<p>2. Βασικά στοιχεία</p>
+<table>
+    <tr><th>Πεδίο</th><th>Περιγραφή</th></tr>
+    <tr><td>Use Case ID</td><td>FE-UC-005</td></tr>
+    <tr><td>Use Case Name</td><td>Document Reupload</td></tr>
+    <tr><td>Actor</td><td>Χρήστης</td></tr>
+    <tr><td>Trigger</td><td>Επιλογή Reupload σε υπάρχον έγγραφο</td></tr>
+    <tr><td>Preconditions</td><td>Το έγγραφο υπάρχει και ο χρήστης έχει πρόσβαση στο Reupload.</td></tr>
+    <tr><td>Success Postcondition</td><td>Το υπάρχον έγγραφο αποκτά νέο επεξεργασμένο περιεχόμενο.</td></tr>
+    <tr><td>Failure Postcondition</td><td>Δεν παρουσιάζεται ψευδής επιτυχία και δεν δημιουργείται ανεξάρτητο έγγραφο.</td></tr>
+    <tr><td>Related Backend Use Case</td><td>UC-005 — Document Reupload</td></tr>
+</table>
+<p>3. Main Flow — Επιτυχής ολοκλήρωση</p>
+<table>
+    <tr><th>Βήμα</th><th>Actor</th><th>Ενέργεια / Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>1</td><td>Χρήστης</td><td>Εντοπίζει ένα υπάρχον έγγραφο.</td></tr>
+    <tr><td>2</td><td>Χρήστης</td><td>Επιλέγει Reupload για το έγγραφο.</td></tr>
+    <tr><td>3</td><td>Frontend</td><td>Εμφανίζει τη διεπαφή προσθήκης ή αντικατάστασης αρχείου.</td></tr>
+    <tr><td>4</td><td>Χρήστης</td><td>Επιλέγει νέο αρχείο DOCX από τον υπολογιστή.</td></tr>
+    <tr><td>5</td><td>Χρήστης</td><td>Συμπληρώνει ή επιβεβαιώνει τα απαιτούμενα στοιχεία, όπως τον τίτλο.</td></tr>
+    <tr><td>6</td><td>Χρήστης</td><td>Υποβάλλει το Reupload.</td></tr>
+    <tr><td>7</td><td>Frontend</td><td>Ελέγχει τα υποχρεωτικά πεδία και το αρχείο.</td></tr>
+    <tr><td>8</td><td>Frontend</td><td>Αποστέλλει το νέο περιεχόμενο για το συγκεκριμένο έγγραφο.</td></tr>
+    <tr><td>9</td><td>Backend</td><td>Ελέγχει την εγγραφή και δρομολογεί ασύγχρονη επεξεργασία.</td></tr>
+    <tr><td>10</td><td>Frontend</td><td>Ενημερώνει για την αποδοχή Reupload, όχι πρόωρη ολοκλήρωση parsing.</td></tr>
+    <tr><td>11</td><td>Parser Service</td><td>Επεξεργάζεται το νέο DOCX.</td></tr>
+    <tr><td>12</td><td>Backend</td><td>Ενημερώνει το υπάρχον έγγραφο με το αποτέλεσμα parsing.</td></tr>
+    <tr><td>13</td><td>Frontend</td><td>Εμφανίζει την ενημερωμένη κατάσταση.</td></tr>
+    <tr><td>14</td><td>Χρήστης</td><td>Ανοίγει ξανά το έγγραφο.</td></tr>
+    <tr><td>15</td><td>Frontend</td><td>Εμφανίζει το νέο περιεχόμενο βάσει τύπου εγγράφου.</td></tr>
+</table>
+<p>4. Alternative / Error Flows</p>
+<table>
+    <tr><th>ID</th><th>Περίπτωση</th><th>Αναμενόμενη συμπεριφορά</th></tr>
+    <tr><td>FE-AF-REUP-001</td><td>Χωρίς νέο αρχείο</td><td>Εμφανίζεται ένδειξη υποχρεωτικής επιλογής.</td></tr>
+    <tr><td>FE-AF-REUP-002</td><td>Μη υποστηριζόμενος τύπος</td><td>Εμφανίζεται μήνυμα μη αποδεκτού αρχείου.</td></tr>
+    <tr><td>FE-AF-REUP-003</td><td>Μη έγκυρος τίτλος</td><td>Εμφανίζεται μήνυμα validation.</td></tr>
+    <tr><td>FE-AF-REUP-004</td><td>Έγγραφο που δεν υπάρχει πλέον</td><td>Εμφανίζεται αδυναμία ολοκλήρωσης.</td></tr>
+    <tr><td>FE-AF-REUP-005</td><td>Reupload χωρίς προηγούμενο περιεχόμενο</td><td>Το νέο περιεχόμενο προστίθεται στο υπάρχον έγγραφο.</td></tr>
+    <tr><td>FE-AF-REUP-006</td><td>Reupload με προηγούμενο περιεχόμενο</td><td>Το νέο περιεχόμενο αντικαθιστά το προηγούμενο.</td></tr>
+    <tr><td>FE-AF-REUP-007</td><td>Parsing σε εξέλιξη</td><td>Δεν εμφανίζεται πρόωρη επιτυχία.</td></tr>
+    <tr><td>FE-AF-REUP-008</td><td>Αποτυχία parsing</td><td>Εμφανίζεται προβλεπόμενη κατάσταση αποτυχίας.</td></tr>
+    <tr><td>FE-AF-REUP-009</td><td>Αποτυχία Backend</td><td>Εμφανίζεται μήνυμα αποτυχίας.</td></tr>
+    <tr><td>FE-AF-REUP-010</td><td>Νέο Theory περιεχόμενο</td><td>Εμφανίζεται σε μορφή θεωρίας.</td></tr>
+    <tr><td>FE-AF-REUP-011</td><td>Νέο Quiz περιεχόμενο</td><td>Εμφανίζεται ως Quiz.</td></tr>
+    <tr><td>FE-AF-REUP-012</td><td>Αποτυχία Reupload</td><td>Δεν εμφανίζεται ψευδής επιτυχία αντικατάστασης.</td></tr>
+</table>
+<p>5. Business Rules</p>
+<table>
+    <tr><th>Rule ID</th><th>Business Rule</th></tr>
+    <tr><td>FE-BR-REUP-001</td><td>Το Reupload αφορά υπάρχον έγγραφο.</td></tr>
+    <tr><td>FE-BR-REUP-002</td><td>Ο χρήστης επιλέγει πραγματικό DOCX.</td></tr>
+    <tr><td>FE-BR-REUP-003</td><td>Η φόρμα εφαρμόζει validation.</td></tr>
+    <tr><td>FE-BR-REUP-004</td><td>Το Reupload δεν εμφανίζεται ως δημιουργία νέου εγγράφου.</td></tr>
+    <tr><td>FE-BR-REUP-005</td><td>Η υποβολή και το parsing είναι διαφορετικά στάδια.</td></tr>
+    <tr><td>FE-BR-REUP-006</td><td>Η κατάσταση βασίζεται στα δεδομένα Backend.</td></tr>
+    <tr><td>FE-BR-REUP-007</td><td>Το νέο περιεχόμενο εμφανίζεται μετά από επιτυχή επεξεργασία.</td></tr>
+    <tr><td>FE-BR-REUP-008</td><td>Η παρουσίαση ακολουθεί τον τύπο εγγράφου.</td></tr>
+    <tr><td>FE-BR-REUP-009</td><td>Σε αποτυχία εμφανίζεται ενημέρωση.</td></tr>
+</table>
+<p>6. Frontend Functional Requirements</p>
+<table>
+    <tr><th>Requirement ID</th><th>Functional Requirement</th></tr>
+    <tr><td>FE-REUP-001</td><td>Το Frontend πρέπει να παρέχει Reupload για υπάρχοντα έγγραφα.</td></tr>
+    <tr><td>FE-REUP-002</td><td>Το Frontend πρέπει να επιτρέπει επιλογή νέου DOCX.</td></tr>
+    <tr><td>FE-REUP-003</td><td>Εμφανίζονται τα προβλεπόμενα στοιχεία εγγράφου.</td></tr>
+    <tr><td>FE-REUP-004</td><td>Εφαρμόζεται validation στα απαιτούμενα πεδία.</td></tr>
+    <tr><td>FE-REUP-005</td><td>Το νέο περιεχόμενο αποστέλλεται για το σωστό έγγραφο.</td></tr>
+    <tr><td>FE-REUP-006</td><td>Υποστηρίζεται Reupload σε έγγραφο χωρίς προηγούμενο περιεχόμενο.</td></tr>
+    <tr><td>FE-REUP-007</td><td>Υποστηρίζεται αντικατάσταση περιεχομένου υπάρχοντος εγγράφου.</td></tr>
+    <tr><td>FE-REUP-008</td><td>Εμφανίζεται το αποτέλεσμα υποβολής Reupload.</td></tr>
+    <tr><td>FE-REUP-009</td><td>Λαμβάνεται υπόψη η ασύγχρονη επεξεργασία.</td></tr>
+    <tr><td>FE-REUP-010</td><td>Δεν εμφανίζεται ολοκλήρωση parsing πριν από επιβεβαίωση Backend.</td></tr>
+    <tr><td>FE-REUP-011</td><td>Εμφανίζεται η ενημερωμένη κατάσταση εγγράφου.</td></tr>
+    <tr><td>FE-REUP-012</td><td>Μετά από επιτυχία εμφανίζεται το νέο περιεχόμενο.</td></tr>
+    <tr><td>FE-REUP-013</td><td>Η προβολή υποστηρίζει Theory και Quiz.</td></tr>
+    <tr><td>FE-REUP-014</td><td>Σε αποτυχία Reupload ή parsing εμφανίζεται ενημέρωση.</td></tr>
+</table>
+<p>Συγκεντρωτική κατάσταση Frontend Use Cases</p>
+<table>
+    <tr><th>Frontend Use Case</th><th>Λειτουργία</th><th>Related Backend Use Case</th><th>Κατάσταση</th></tr>
+    <tr><td>FE-UC-001</td><td>User Registration</td><td>UC-001</td><td>Καταγεγραμμένο</td></tr>
+    <tr><td>FE-UC-002</td><td>User Login</td><td>UC-002</td><td>Καταγεγραμμένο</td></tr>
+    <tr><td>FE-UC-003</td><td>User Profile Update</td><td>UC-003</td><td>Καταγεγραμμένο</td></tr>
+    <tr><td>FE-UC-004</td><td>Document Upload</td><td>UC-004</td><td>Καταγεγραμμένο</td></tr>
+    <tr><td>FE-UC-005</td><td>Document Reupload</td><td>UC-005</td><td>Καταγεγραμμένο</td></tr>
+</table>
+<p>Σημειώσεις ανασκόπησης</p>
+<p>Τα Use Cases περιγράφουν τις συμφωνημένες αναμενόμενες συμπεριφορές από την πλευρά του Frontend. Τα ακριβή validation messages, οι διαθέσιμες επιλογές τύπου/κατηγορίας και ο τρόπος ενημέρωσης της κατάστασης parsing χρειάζονται επιβεβαίωση στις πραγματικές σελίδες πριν από την οριστικοποίηση.</p>

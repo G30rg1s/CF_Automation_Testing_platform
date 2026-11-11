@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Coding Factory Automation</title>
+
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <header>
+
+        <button
+                type="button"
+                class="logo home-redirect">
+            Coding Factory Automation
+        </button>
+
+        <div class="header-text">
+
+            Don't have an account?
+
+            <button
+                    type="button"
+                    class="link-button register-redirect">
+                Register
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <div class="login-container">
+
+            <div class="login-info">
+
+                <h1>
+                    Welcome
+                    <span>back.</span>
+                </h1>
+
+                <p>
+                    Login to continue to the Coding Factory Automation platform
+                    and access your testing and automation material.
+                </p>
+
+                <div class="info-item">
+                    Access learning documents
+                </div>
+
+                <div class="info-item">
+                    Work with uploaded testing material
+                </div>
+
+                <div class="info-item">
+                    Continue your automation workflow
+                </div>
+
+            </div>
+
+
+            <div class="login-card">
+
+                <h2>
+                    Login
+                </h2>
+
+                <p class="subtitle">
+                    Enter your credentials to continue.
+                </p>
+
+
+                <form id="loginForm" novalidate>
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                maxlength="254"
+                                placeholder="example@email.com"
+                                required
+                                aria-describedby="emailError">
+
+                        <div
+                                id="emailError"
+                                class="field-error"
+                                data-testid="email-error"
+                                aria-live="polite"></div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                placeholder="Enter password"
+                                required
+                                aria-describedby="passwordError">
+
+                        <div
+                                id="passwordError"
+                                class="field-error"
+                                data-testid="password-error"
+                                aria-live="polite"></div>
+
+                    </div>
+
+
+                    <button
+                            type="submit"
+                            class="login-button">
+                        Login
+                    </button>
+
+                </form>
+
+
+                <div
+                        id="loginMessage"
+                        class="message"
+                        data-testid="login-message"
+                        aria-live="polite"></div>
+
+
+                <div class="register-link">
+
+                    Don't have an account?
+
+                    <button
+                            type="button"
+                            class="link-button register-redirect">
+                        Register here
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+<script th:src="@{/js/login.js}"></script>
+
+</body>
+
+</html>

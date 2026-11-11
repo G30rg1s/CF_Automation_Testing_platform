@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Coding Factory Automation</title>
+
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+    <link rel="stylesheet" th:href="@{/css/components/modal.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <header>
+
+        <button
+                type="button"
+                id="homeRedirect"
+                class="logo">
+            Coding Factory Automation
+        </button>
+
+        <div class="header-text">
+
+            Already have an account?
+
+            <button
+                    type="button"
+                    class="link-button login-redirect">
+                Login
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <div class="register-container">
+
+
+            <div class="register-info">
+
+                <h1>
+                    Create your
+                    <span>account.</span>
+                </h1>
+
+                <p>
+                    Join the Coding Factory Automation platform
+                    and start exploring Software Testing and
+                    Test Automation material.
+                </p>
+
+                <div class="info-item">
+                    Learn Software Testing concepts
+                </div>
+
+                <div class="info-item">
+                    Explore automation workflows
+                </div>
+
+                <div class="info-item">
+                    Access parsed learning documents
+                </div>
+
+            </div>
+
+
+            <div class="register-card">
+
+                <h2>
+                    Register
+                </h2>
+
+                <p class="subtitle">
+                    Enter your details to create your account.
+                </p>
+
+
+                <form id="registerForm" novalidate>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="firstName">
+                                First Name
+                            </label>
+
+                            <input
+                                    id="firstName"
+                                    name="firstName"
+                                    type="text"
+                                    maxlength="100"
+                                    placeholder="Enter first name"
+                                    required
+                                    aria-describedby="firstNameError">
+
+                            <div
+                                    id="firstNameError"
+                                    class="field-error"
+                                    data-testid="first-name-error"
+                                    aria-live="polite"></div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="lastName">
+                                Last Name
+                            </label>
+
+                            <input
+                                    id="lastName"
+                                    name="lastName"
+                                    type="text"
+                                    maxlength="100"
+                                    placeholder="Enter last name"
+                                    required
+                                    aria-describedby="lastNameError">
+
+                            <div
+                                    id="lastNameError"
+                                    class="field-error"
+                                    data-testid="last-name-error"
+                                    aria-live="polite"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                maxlength="254"
+                                placeholder="example@email.com"
+                                required
+                                aria-describedby="emailError">
+
+                        <div
+                                id="emailError"
+                                class="field-error"
+                                data-testid="email-error"
+                                aria-live="polite"></div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone
+                        </label>
+
+                        <input
+                                id="phone"
+                                name="phone"
+                                type="text"
+                                inputmode="numeric"
+                                maxlength="10"
+                                pattern="69[0-9]{8}"
+                                placeholder="69XXXXXXXX"
+                                required
+                                aria-describedby="phoneError">
+
+                        <div
+                                id="phoneError"
+                                class="field-error"
+                                data-testid="phone-error"
+                                aria-live="polite"></div>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="fatherName">
+                                Father Name
+                            </label>
+
+                            <input
+                                    id="fatherName"
+                                    name="fatherName"
+                                    type="text"
+                                    maxlength="100"
+                                    placeholder="Enter father's name"
+                                    required
+                                    aria-describedby="fatherNameError">
+
+                            <div
+                                    id="fatherNameError"
+                                    class="field-error"
+                                    data-testid="father-name-error"
+                                    aria-live="polite"></div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="motherName">
+                                Mother Name
+                            </label>
+
+                            <input
+                                    id="motherName"
+                                    name="motherName"
+                                    type="text"
+                                    maxlength="100"
+                                    placeholder="Enter mother's name"
+                                    required
+                                    aria-describedby="motherNameError">
+
+                            <div
+                                    id="motherNameError"
+                                    class="field-error"
+                                    data-testid="mother-name-error"
+                                    aria-live="polite"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="age">
+                            Age
+                        </label>
+
+                        <input
+                                id="age"
+                                name="age"
+                                type="number"
+                                min="1"
+                                max="120"
+                                placeholder="Enter age"
+                                required
+                                aria-describedby="ageError">
+
+                        <div
+                                id="ageError"
+                                class="field-error"
+                                data-testid="age-error"
+                                aria-live="polite"></div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                minlength="8"
+                                maxlength="72"
+                                pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,72}"
+                                placeholder="At least 8 characters, letter and number"
+                                required
+                                aria-describedby="passwordError">
+
+                        <div
+                                id="passwordError"
+                                class="field-error"
+                                data-testid="password-error"
+                                aria-live="polite"></div>
+
+                    </div>
+
+
+                    <button
+                            type="submit"
+                            class="register-button">
+                        Create Account
+                    </button>
+
+                </form>
+
+
+                <div
+                        id="registerMessage"
+                        class="message"
+                        data-testid="registration-message"
+                        aria-live="polite"></div>
+
+
+                <div class="login-link">
+
+                    Already registered?
+
+                    <button
+                            type="button"
+                            class="link-button login-redirect">
+                        Login here
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+<div th:replace="~{html/components/registration-success-modal :: registrationSuccessModal}"></div>
+
+<script th:src="@{/js/registration.js}"></script>
+
+</body>
+
+</html>

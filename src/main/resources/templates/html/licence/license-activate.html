@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Application Activation</title>
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/license-activate.css}">
+
+</head>
+
+<body>
+
+<main class="activation-page">
+
+    <section class="activation-card">
+
+        <!-- ========================================
+             HEADER
+             ======================================== -->
+
+        <div class="activation-header">
+
+            <div class="eyebrow">
+                CODING FACTORY AUTOMATION
+            </div>
+
+            <h1>
+                Application Activation
+            </h1>
+
+            <p>
+                Enter the License ID and Activation Code
+                supplied with your installation.
+            </p>
+
+        </div>
+
+
+        <!-- ========================================
+             SUCCESS / ERROR MESSAGES
+             ======================================== -->
+
+        <div
+                th:if="${successMessage != null}"
+                class="message message-success"
+                th:text="${successMessage}">
+        </div>
+
+        <div
+                th:if="${errorMessage != null}"
+                class="message message-error"
+                th:text="${errorMessage}">
+        </div>
+
+
+        <!-- ========================================
+             CURRENT LICENSE STATUS
+             ======================================== -->
+
+        <div
+                th:if="${licenseState != null}"
+                class="current-state">
+
+            <span>
+                Current status
+            </span>
+
+            <strong
+                    th:text="${licenseState.status}">
+            </strong>
+
+        </div>
+
+
+        <!-- ========================================
+             LICENSE ACTIVATION FORM
+             ======================================== -->
+
+        <form
+                th:action="@{/license/activate}"
+                method="post"
+                class="activation-form">
+
+            <div class="form-group">
+
+                <label for="licenseId">
+                    License ID
+                </label>
+
+                <input
+                        id="licenseId"
+                        name="licenseId"
+                        type="text"
+                        placeholder="LIC-XXXXXXXXXXXXXXXX"
+                        autocomplete="off"
+                        required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="activationCode">
+                    Activation Code
+                </label>
+
+                <input
+                        id="activationCode"
+                        name="activationCode"
+                        type="password"
+                        placeholder="CF-..."
+                        autocomplete="off"
+                        required>
+
+            </div>
+
+
+            <button
+                    type="submit"
+                    class="button button-primary">
+
+                Activate Application
+
+            </button>
+
+        </form>
+
+
+        <!-- ========================================
+             REQUEST A LICENSE - TEMPORARILY DISABLED
+             ========================================
+
+        <div style="margin-top: 24px; text-align: center;">
+
+            <p style="margin-bottom: 12px; color: #475569;">
+                Don't have a licence yet?
+            </p>
+
+            <a
+                    th:href="@{/license/request}"
+                    class="button button-secondary"
+                    style="display: inline-block; text-decoration: none;">
+
+                Request a Licence
+
+            </a>
+
+        </div>
+
+        ======================================== -->
+
+
+        <!-- ========================================
+             RETRY EXISTING LICENSE
+             ======================================== -->
+
+        <form
+                th:if="${licenseState != null && licenseState.activatedLocally()}"
+                th:action="@{/license/retry}"
+                method="post"
+                class="retry-form">
+
+            <button
+                    type="submit"
+                    class="button button-secondary">
+
+                Check License Again
+
+            </button>
+
+        </form>
+
+
+        <!-- ========================================
+             LICENSE MESSAGE
+             ======================================== -->
+
+        <p
+                th:if="${licenseState != null}"
+                class="state-message"
+                th:text="${licenseState.message}">
+        </p>
+
+    </section>
+
+</main>
+
+
+<!-- ========================================
+     APPLICATION UPDATE MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+</body>
+
+</html>

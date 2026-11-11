@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Category Documents - Coding Factory Automation</title>
+
+    <!-- ========================================
+         SHARED COMPONENT CSS
+         ======================================== -->
+
+    <link rel="stylesheet" th:href="@{/css/components/dashboard-sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/add-category-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/components/category-already-exists-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/components/delete-category-modal.css}">
+
+    <link rel="stylesheet" th:href="@{/css/category-documents.css(v=1)}">
+
+</head>
+
+<body>
+
+<div class="category-documents-page-layout">
+
+    <!-- ========================================
+         SIDEBAR
+         ======================================== -->
+
+    <div th:replace="~{html/components/dashboard-sidebar :: dashboardSidebar}"></div>
+
+
+    <!-- ========================================
+         RIGHT SIDE
+         ======================================== -->
+
+    <div class="category-documents-page-right">
+
+        <!-- ========================================
+             NAVBAR
+             ======================================== -->
+
+        <div th:replace="~{html/components/navbar :: navbar}"></div>
+
+
+        <!-- ========================================
+             MAIN CONTENT
+             ======================================== -->
+
+        <main class="category-documents-main-content">
+
+            <!-- ========================================
+                 PAGE HEADER
+                 ======================================== -->
+
+            <div class="category-documents-page-header">
+
+                <p class="category-documents-page-label">
+                    Documents
+                </p>
+
+                <h1 id="selectedCategoryName">
+                    Category
+                </h1>
+
+                <p class="category-documents-page-description">
+                    Documents assigned to this category.
+                </p>
+
+            </div>
+
+
+            <!-- ========================================
+                 CATEGORY SUMMARY
+                 ======================================== -->
+
+            <section class="category-summary-card">
+
+                <div class="category-summary-item">
+
+                    <span class="category-summary-label">
+                        Selected Category
+                    </span>
+
+                    <strong id="categorySummaryName">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="category-summary-divider"></div>
+
+
+                <div class="category-summary-item">
+
+                    <span class="category-summary-label">
+                        Total Documents
+                    </span>
+
+                    <strong id="totalDocumentsCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================
+                 DOCUMENTS CARD
+                 ======================================== -->
+
+            <section class="category-documents-card">
+
+                <div class="category-documents-card-header">
+
+                    <div>
+                        <h2>Documents</h2>
+
+                        <p>
+                            Select a document to open it.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================
+                     LOADING
+                     ======================================== -->
+
+                <div id="documentsLoading" class="documents-loading">
+                    Loading documents...
+                </div>
+
+
+                <!-- ========================================
+                     ERROR
+                     ======================================== -->
+
+                <div id="documentsError" class="documents-error"></div>
+
+
+                <!-- ========================================
+                     EMPTY STATE
+                     ======================================== -->
+
+                <div id="documentsEmpty" class="documents-empty" hidden>
+
+                    <h3>No documents found</h3>
+
+                    <p>
+                        This category does not contain any documents yet.
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     DOCUMENT BUTTONS
+                     ======================================== -->
+
+                <div id="documentsContainer" class="documents-container"></div>
+
+
+                <!-- ========================================
+                     PAGINATION
+                     ======================================== -->
+
+                <div id="documentsPagination" class="documents-pagination" hidden>
+
+                    <button id="previousPageButton" class="pagination-button" type="button">
+                        Previous
+                    </button>
+
+
+                    <span id="pageIndicator" class="page-indicator">
+                        Page 1 of 1
+                    </span>
+
+
+                    <button id="nextPageButton" class="pagination-button" type="button">
+                        Next
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+
+<!-- ========================================
+     ADD CATEGORY MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/add-category-modal :: addCategoryModal}"></div>
+
+
+<!-- ========================================
+     CATEGORY ALREADY EXISTS MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/category-already-exists-modal :: categoryAlreadyExistsModal}"></div>
+
+
+<!-- ========================================
+     DELETE CATEGORY MODAL
+     ======================================== -->
+
+<div th:replace="~{html/components/delete-category-modal :: deleteCategoryModal}"></div>
+
+
+<!-- ========================================
+     SHARED JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/components/dashboard-sidebar.js}"></script>
+<script th:src="@{/js/components/add-category-modal.js}"></script>
+<script th:src="@{/js/components/delete-category-modal.js}"></script>
+<script th:src="@{/js/components/navbar.js}"></script>
+
+
+<!-- ========================================
+     PAGE JAVASCRIPT
+     ======================================== -->
+
+<script th:src="@{/js/category-documents.js(v=1)}"></script>
+
+</body>
+</html>

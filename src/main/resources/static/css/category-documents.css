@@ -1,0 +1,427 @@
+/* ========================================
+   GLOBAL
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   PAGE
+   ======================================== */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8fafc;
+    color: #111827;
+    overflow: hidden;
+}
+
+
+/* ========================================
+   MAIN LAYOUT
+   ======================================== */
+
+.category-documents-page-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+
+/* ========================================
+   RIGHT SIDE
+   ======================================== */
+
+.category-documents-page-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+
+.category-documents-main-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    padding: 14px 40px;
+    overflow: hidden;
+}
+
+
+/* ========================================
+   PAGE HEADER
+   ======================================== */
+
+.category-documents-page-header {
+    width: 100%;
+    max-width: 980px;
+    margin-bottom: 10px;
+}
+
+.category-documents-page-label {
+    margin: 0 0 3px;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+}
+
+.category-documents-page-header h1 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.category-documents-page-description {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   CATEGORY SUMMARY
+   ======================================== */
+
+.category-summary-card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 980px;
+    margin-bottom: 10px;
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+.category-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.category-summary-label {
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.category-summary-item strong {
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.category-summary-divider {
+    width: 1px;
+    height: 30px;
+    margin: 0 24px;
+    background: #e2e8f0;
+}
+
+
+/* ========================================
+   DOCUMENTS CARD
+   ======================================== */
+
+.category-documents-card {
+    width: 100%;
+    max-width: 980px;
+    padding: 16px 22px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 8px 26px rgba(15, 23, 42, 0.06);
+}
+
+
+/* ========================================
+   DOCUMENTS CARD HEADER
+   ======================================== */
+
+.category-documents-card-header {
+    margin-bottom: 10px;
+}
+
+.category-documents-card-header h2 {
+    margin: 0 0 3px;
+    color: #111827;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.category-documents-card-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   DOCUMENTS CONTAINER
+   ======================================== */
+
+.documents-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
+/* ========================================
+   DOCUMENT BUTTON
+   ======================================== */
+
+.document-title-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #111827;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.2s ease;
+}
+
+.document-title-button:hover {
+    border-color: #2563eb;
+    background: #f8fbff;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
+    transform: translateY(-1px);
+}
+
+.document-title-button:active {
+    transform: translateY(0);
+}
+
+.document-title-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.document-title-arrow {
+    flex-shrink: 0;
+    margin-left: 14px;
+    color: #2563eb;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.documents-loading {
+    padding: 12px 0;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   ERROR
+   ======================================== */
+
+.documents-error {
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.documents-error:empty {
+    display: none;
+}
+
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.documents-empty {
+    padding: 20px 18px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    text-align: center;
+}
+
+.documents-empty h3 {
+    margin: 0 0 5px;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.documents-empty p {
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   PAGINATION
+   ======================================== */
+
+.documents-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.pagination-button {
+    min-width: 86px;
+    min-height: 32px;
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #374151;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+            background 0.2s ease,
+            border-color 0.2s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.pagination-button:disabled {
+    background: #f8fafc;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    min-width: 90px;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+
+@media (max-width: 900px) {
+
+    .category-documents-main-content {
+        padding: 16px 24px;
+        overflow-y: auto;
+    }
+
+    .category-documents-card {
+        padding: 16px 20px;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 700px) {
+
+    .category-documents-main-content {
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .category-documents-page-header h1 {
+        font-size: 26px;
+    }
+
+    .category-summary-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+
+    .category-summary-divider {
+        width: 100%;
+        height: 1px;
+        margin: 0;
+    }
+
+    .category-documents-card {
+        padding: 16px;
+    }
+
+    .document-title-button {
+        min-height: 42px;
+    }
+
+    .documents-pagination {
+        gap: 8px;
+    }
+
+    .pagination-button {
+        min-width: 78px;
+        padding: 7px 9px;
+    }
+
+    .page-indicator {
+        min-width: auto;
+    }
+}

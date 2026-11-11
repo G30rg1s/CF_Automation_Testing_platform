@@ -1,0 +1,298 @@
+
+name: Publish Automation Platform TXT
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - version.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: automation-platform-txt-release
+  cancel-in-progress: false
+
+env:
+  RELEASE_REPO: G30rg1s/automation-platform-txt-releases
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      # ========================================
+      # CHECKOUT PRIVATE SOURCE CODE
+      # ========================================
+      - name: Checkout Automation Platform source
+        uses: actions/checkout@v6
+
+      # ========================================
+      # JAVA 21
+      # ========================================
+      - name: Setup Java 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: |
+            pom.xml
+            parser-service/pom.xml
+
+      # ========================================
+      # SET VERSION
+      # ========================================
+      - name: Set release version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          VERSION="1.0.${GITHUB_RUN_NUMBER}"
+
+          echo "APP_VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "GVM_FILENAME=automation-platform-v${VERSION}.gvm.txt" >> "$GITHUB_ENV"
+
+      # ========================================
+      # BUILD BACKEND
+      # ========================================
+      - name: Build Backend JAR
+        shell: bash
+        run: mvn -B clean package -DskipTests
+
+      # ========================================
+      # BUILD PARSER
+      # ========================================
+      - name: Build Parser JAR
+        working-directory: parser-service
+        shell: bash
+        run: mvn -B clean package -DskipTests
+
+      # ========================================
+      # VERIFY PACKAGER INPUTS
+      # ========================================
+      - name: Verify build inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -s target/coding-factory-automation-1.0.0.jar
+          test -s parser-service/target/parser-service-0.0.1-SNAPSHOT.jar
+          test -s ap-packager/gvm-packager-v2.jar
+          test -s compose.yaml
+          test -s docker/mysql/init/01-create-databases.sql
+
+          if jar tf ap-packager/gvm-packager-v2.jar \
+            | grep -q 'gr/gvm/GvmRunner.class'; then
+            echo "::error::Runner must not be inside AP_packager"
+            exit 1
+          fi
+
+      # ========================================
+      # ENCRYPT JARS INTO GVM TXT
+      # ========================================
+      - name: Create encrypted GVM TXT
+        shell: bash
+        env:
+          GVM_KEY_HEX: ${{ secrets.GVM_KEY_HEX }}
+          APP_VERSION: ${{ env.APP_VERSION }}
+        run: |
+          set -euo pipefail
+
+          if ! [[ "$GVM_KEY_HEX" =~ ^[0-9a-fA-F]{64}$ ]]; then
+            echo "::error::Invalid GVM_KEY_HEX"
+            exit 1
+          fi
+
+          mkdir -p dist
+
+          java -jar ap-packager/gvm-packager-v2.jar \
+            pack "$GITHUB_WORKSPACE" \
+            "$GITHUB_WORKSPACE/dist/$GVM_FILENAME"
+
+          test -s "dist/$GVM_FILENAME"
+
+          (
+            cd dist
+            sha256sum "$GVM_FILENAME" > "$GVM_FILENAME.sha256"
+          )
+
+      # ========================================
+      # VALIDATE ENCRYPTED FORMAT
+      # ========================================
+      - name: Validate GVMFILE2 header
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import os
+          import base64
+          from pathlib import Path
+
+          p = Path("dist") / os.environ["GVM_FILENAME"]
+
+          with p.open("rb") as f:
+              header = base64.b64decode(f.read(16))
+
+          if not header.startswith(b"GVMFILE2"):
+              raise SystemExit("Invalid GVMFILE2 header")
+
+          print("Encrypted TXT:", p.name)
+          print("Size:", p.stat().st_size, "bytes")
+          PY
+
+      # ========================================
+      # VERIFY CROSS-REPO RELEASE TOKEN
+      # ========================================
+      - name: Verify release credentials
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.TXT_RELEASE_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${GH_TOKEN:-}" ]]; then
+            echo "::error::TXT_RELEASE_TOKEN is missing"
+            exit 1
+          fi
+
+          gh api "repos/$RELEASE_REPO" \
+            --jq '.full_name'
+
+      # ========================================
+      # PUBLISH TO PUBLIC RELEASE REPOSITORY
+      # ========================================
+      - name: Publish encrypted TXT
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.TXT_RELEASE_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if ! gh release view current \
+            --repo "$RELEASE_REPO" >/dev/null 2>&1; then
+
+            gh release create current \
+              --repo "$RELEASE_REPO" \
+              --title "Automation Platform ${APP_VERSION}" \
+              --notes "Current encrypted Automation Platform release."
+          fi
+
+          gh release upload current \
+            "dist/$GVM_FILENAME" \
+            "dist/$GVM_FILENAME.sha256" \
+            --repo "$RELEASE_REPO"
+
+          gh release edit current \
+            --repo "$RELEASE_REPO" \
+            --title "Automation Platform ${APP_VERSION}" \
+            --notes "Version: ${APP_VERSION} | Source commit: ${GITHUB_SHA}" \
+            --latest
+
+      # ========================================
+      # CHECKOUT PUBLIC RELEASE REPOSITORY
+      # ========================================
+      - name: Checkout public release repository
+        uses: actions/checkout@v6
+        with:
+          repository: G30rg1s/automation-platform-txt-releases
+          token: ${{ secrets.TXT_RELEASE_TOKEN }}
+          path: txt-release-repo
+          persist-credentials: true
+
+      # ========================================
+      # UPDATE PUBLIC VERSION.JSON
+      # ========================================
+      - name: Update public version manifest
+        working-directory: txt-release-repo
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          version = os.environ["APP_VERSION"]
+          filename = os.environ["GVM_FILENAME"]
+          repo = os.environ["RELEASE_REPO"]
+
+          manifest = {
+              "version": version,
+              "gvm_filename": filename,
+              "gvm_url": (
+                  f"https://github.com/{repo}/releases/"
+                  f"download/current/{filename}"
+              )
+          }
+
+          Path("version.json").write_text(
+              json.dumps(manifest, indent=2) + "\n",
+              encoding="utf-8"
+          )
+
+          print("Public manifest updated:", version)
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add version.json
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Update encrypted TXT to ${APP_VERSION}"
+            git push origin HEAD
+          fi
+
+      # ========================================
+      # REMOVE PREVIOUS TXT ASSETS
+      # ========================================
+      - name: Remove previous TXT assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.TXT_RELEASE_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          gh release view current \
+            --repo "$RELEASE_REPO" \
+            --json assets \
+            --jq '.assets[].name' |
+          while IFS= read -r asset; do
+
+            case "$asset" in
+              automation-platform-v*.gvm.txt|automation-platform-v*.gvm.txt.sha256)
+                if [[ "$asset" != "$GVM_FILENAME" &&
+                      "$asset" != "$GVM_FILENAME.sha256" ]]; then
+
+                  gh release delete-asset current "$asset" \
+                    --repo "$RELEASE_REPO" \
+                    --yes
+                fi
+                ;;
+            esac
+          done
+
+      # ========================================
+      # SUMMARY
+      # ========================================
+      - name: Release summary
+        shell: bash
+        run: |
+          {
+            echo "### Automation Platform Encrypted TXT"
+            echo ""
+            echo "Version: $APP_VERSION"
+            echo ""
+            echo "File: $GVM_FILENAME"
+            echo ""
+            echo "Public repository: $RELEASE_REPO"
+            echo ""
+            echo "Docker builds: NONE"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- ========================================
+     REUPLOAD DOCUMENT MODAL
+     ======================================== -->
+
+<div id="reuploadDocumentModal"
+     class="reupload-document-modal"
+     th:fragment="reuploadDocumentModal"
+     aria-hidden="true">
+
+    <div class="reupload-document-modal-content"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="reuploadDocumentModalTitle">
+
+        <!-- ========================================
+             HEADER
+             ======================================== -->
+
+        <div class="reupload-document-modal-header">
+
+            <div>
+
+                <p class="reupload-document-modal-label">
+                    Document
+                </p>
+
+                <h2 id="reuploadDocumentModalTitle">
+                    Reupload Document
+                </h2>
+
+            </div>
+
+
+            <!-- ========================================
+                 CLOSE
+                 ======================================== -->
+
+            <button type="button"
+                    id="closeReuploadDocumentModalButton"
+                    class="reupload-document-modal-close"
+                    aria-label="Close">
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- ========================================
+             FORM
+             ======================================== -->
+
+        <form id="reuploadDocumentForm"
+              enctype="multipart/form-data"
+              novalidate>
+
+            <!-- ========================================
+                 TITLE
+                 ======================================== -->
+
+            <div class="reupload-document-form-group">
+
+                <label for="reuploadDocumentTitleInput">
+                    Document Title
+                </label>
+
+                <input type="text"
+                       id="reuploadDocumentTitleInput"
+                       name="title"
+                       maxlength="255"
+                       autocomplete="off"
+                       required>
+
+                <p id="reuploadDocumentTitleError"
+                   class="reupload-document-field-error"></p>
+
+            </div>
+
+
+            <!-- ========================================
+                 OPTIONAL FILE
+                 ======================================== -->
+
+            <div class="reupload-document-form-group">
+
+                <label for="reuploadDocumentFileInput">
+                    New File
+                </label>
+
+                <label class="reupload-document-file-zone"
+                       for="reuploadDocumentFileInput">
+
+                    <span class="reupload-document-file-icon">
+                        ↑
+                    </span>
+
+                    <span class="reupload-document-file-text">
+                        Choose a new document file
+                    </span>
+
+                    <span class="reupload-document-file-description">
+                        Optional. Leave empty to update only the title.
+                    </span>
+
+                    <span id="reuploadDocumentFileName"
+                          class="reupload-document-file-name">
+                        No file selected
+                    </span>
+
+                </label>
+
+                <input type="file"
+                       id="reuploadDocumentFileInput"
+                       name="file"
+                       class="reupload-document-file-input">
+
+            </div>
+
+
+            <!-- ========================================
+                 INFORMATION
+                 ======================================== -->
+
+            <div class="reupload-document-info">
+
+                <p>
+                    Selecting a new file will replace the current document content
+                    and send the document for processing again.
+                </p>
+
+            </div>
+
+
+            <!-- ========================================
+                 RESPONSE MESSAGE
+                 ======================================== -->
+
+            <p id="reuploadDocumentMessage"
+               class="reupload-document-message"></p>
+
+
+            <!-- ========================================
+                 ACTIONS
+                 ======================================== -->
+
+            <div class="reupload-document-modal-actions">
+
+                <button type="button"
+                        id="cancelReuploadDocumentButton"
+                        class="reupload-document-cancel-button">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        id="saveReuploadDocumentButton"
+                        class="reupload-document-save-button">
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

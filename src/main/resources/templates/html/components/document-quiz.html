@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- ========================================
+     DOCUMENT QUIZ
+     ======================================== -->
+
+<div id="documentQuiz"
+     class="document-quiz"
+     th:fragment="documentQuiz"
+     hidden>
+
+    <div class="document-quiz-container">
+
+        <!-- ========================================
+             QUIZ HEADER
+             ======================================== -->
+
+        <div class="document-quiz-header">
+
+            <!-- ========================================
+                 HEADER CONTENT
+                 ======================================== -->
+
+            <div class="document-quiz-header-content">
+
+                <h2 id="documentQuizTitle"
+                    class="document-quiz-title">
+                    Quiz
+                </h2>
+
+                <p class="document-quiz-description">
+                    Select one answer per question.
+                    Submit your answers to see your results.
+                </p>
+
+            </div>
+
+            <!-- ========================================
+                 HEADER CONTROLS
+                 ======================================== -->
+
+            <div class="document-quiz-header-controls">
+
+                <!-- ANSWERED PROGRESS -->
+
+                <div class="document-quiz-progress">
+
+                    <span class="document-quiz-progress-label">
+                        Answered
+                    </span>
+
+                    <span id="documentQuizProgress"
+                          class="document-quiz-progress-value">
+                        0 / 0
+                    </span>
+
+                </div>
+
+                <!-- QUIZ ACTIONS -->
+
+                <div id="documentQuizActions"
+                     class="document-quiz-actions"
+                     hidden>
+
+                    <button type="button"
+                            id="documentQuizSubmitButton"
+                            class="document-quiz-submit-button">
+                        Submit Quiz
+                    </button>
+
+                    <button type="button"
+                            id="documentQuizDiscardButton"
+                            class="document-quiz-reset-button document-quiz-discard-button">
+                        Discard Quiz
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================
+             QUIZ BODY
+             ======================================== -->
+
+        <div class="document-quiz-body">
+
+            <!-- LOADING -->
+
+            <div id="documentQuizLoading"
+                 class="document-quiz-state"
+                 hidden>
+                Loading quiz...
+            </div>
+
+            <!-- ERROR -->
+
+            <div id="documentQuizError"
+                 class="document-quiz-state document-quiz-error"
+                 role="alert"
+                 hidden>
+                Unable to load quiz.
+            </div>
+
+            <!-- QUESTIONS -->
+
+            <div id="documentQuizQuestions"
+                 class="document-quiz-questions">
+                <!-- Questions rendered by document-quiz.js -->
+            </div>
+
+            <!-- ========================================
+                 QUIZ RESULTS
+                 ======================================== -->
+
+            <div id="documentQuizResults"
+                 class="document-quiz-results"
+                 role="status"
+                 aria-live="polite"
+                 hidden>
+
+                <div class="document-quiz-results-header">
+
+                    <span class="document-quiz-results-label">
+                        Your Results
+                    </span>
+
+                    <h3 class="document-quiz-results-title">
+                        Quiz Completed
+                    </h3>
+
+                </div>
+
+                <div class="document-quiz-results-summary">
+
+                    <div class="document-quiz-results-score">
+
+                        <span id="documentQuizScore"
+                              class="document-quiz-score-value">
+                            0%
+                        </span>
+
+                        <span class="document-quiz-score-label">
+                            Success Rate (Total)
+                        </span>
+
+                    </div>
+
+                    <div class="document-quiz-results-details">
+
+                        <p>
+                            Correct Answers:
+                            <strong id="documentQuizCorrectCount">
+                                0
+                            </strong>
+                        </p>
+
+                        <p>
+                            Total Questions:
+                            <strong id="documentQuizTotalCount">
+                                0
+                            </strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <p class="document-quiz-results-message">
+                    Correct answers are highlighted in green.
+                    Incorrect selections are highlighted in red.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

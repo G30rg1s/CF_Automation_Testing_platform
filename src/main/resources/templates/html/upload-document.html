@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Upload Document - Coding Factory Automation
+    </title>
+
+
+    <!-- ========================================
+         SHARED COMPONENT CSS
+         ======================================== -->
+
+    <link rel="stylesheet" th:href="@{/css/components/dashboard-sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/add-category-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/components/category-already-exists-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/components/delete-category-modal.css}">
+
+    <link rel="stylesheet" th:href="@{/css/upload-document.css(v=5)}">
+
+</head>
+
+
+<body>
+
+<div class="upload-page-layout">
+
+
+    <!-- ========================================
+         SIDEBAR
+         ======================================== -->
+
+    <div
+            th:replace="
+                ~{html/components/dashboard-sidebar :: dashboardSidebar}">
+    </div>
+
+
+    <!-- ========================================
+         RIGHT SIDE
+         ======================================== -->
+
+    <div class="upload-page-right">
+
+
+        <!-- ========================================
+             NAVBAR
+             ======================================== -->
+
+        <div
+                th:replace="
+                    ~{html/components/navbar :: navbar}">
+        </div>
+
+
+        <!-- ========================================
+             MAIN CONTENT
+             ======================================== -->
+
+        <main class="upload-main-content">
+
+
+            <!-- ========================================
+                 PAGE HEADER
+                 ======================================== -->
+
+            <div class="upload-page-header">
+
+                <div>
+
+                    <p class="upload-page-label">
+                        Documents
+                    </p>
+
+                    <h1>
+                        Upload Document
+                    </h1>
+
+                    <p class="upload-page-description">
+                        Create a new document and optionally upload a file.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 UPLOAD CARD
+                 ======================================== -->
+
+            <section class="upload-card">
+
+                <form
+                        id="uploadDocumentForm"
+                        class="upload-document-form"
+                        data-testid="upload-document-form"
+                        enctype="multipart/form-data"
+                        novalidate>
+
+
+                    <!-- ========================================
+                         TITLE
+                         ======================================== -->
+
+                    <div class="upload-form-section">
+
+                        <div class="upload-form-section-header">
+
+                            <h2>
+                                Document Details
+                            </h2>
+
+                            <p>
+                                Give your document a unique title.
+                            </p>
+
+                        </div>
+
+
+                        <div class="upload-form-group">
+
+                            <label for="documentTitle">
+                                Title
+                                <span class="required-marker">*</span>
+                            </label>
+
+                            <input
+                                    type="text"
+                                    id="documentTitle"
+                                    name="title"
+                                    maxlength="255"
+                                    autocomplete="off"
+                                    placeholder="e.g. Spring Boot Notes"
+                                    data-testid="document-title">
+
+                            <div
+                                    id="documentTitleError"
+                                    class="field-error"
+                                    data-testid="document-title-error"
+                                    aria-live="polite">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ========================================
+                         OPTIONAL FILE
+                         ======================================== -->
+
+                    <div class="upload-form-section">
+
+                        <div class="upload-form-section-header">
+
+                            <h2>
+                                Document File
+                            </h2>
+
+                            <p>
+                                You can upload a file now or add one later.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                                id="documentDropZone"
+                                class="document-drop-zone"
+                                data-testid="document-drop-zone">
+
+
+                            <div class="document-drop-zone-icon">
+                                ↑
+                            </div>
+
+
+                            <h3>
+                                Choose a document
+                            </h3>
+
+
+                            <p>
+                                File upload is optional.
+                            </p>
+
+
+                            <label
+                                    for="documentFile"
+                                    class="document-file-button">
+
+                                Select File
+
+                            </label>
+
+
+                            <input
+                                    type="file"
+                                    id="documentFile"
+                                    name="file"
+                                    class="document-file-input"
+                                    data-testid="document-file-input">
+
+
+                            <!-- ========================================
+                                 SELECTED FILE
+                                 ======================================== -->
+
+                            <div
+                                    id="selectedFileContainer"
+                                    class="selected-file-container">
+
+                                <span class="selected-file-label">
+                                    Selected file:
+                                </span>
+
+                                <span
+                                        id="selectedFileName"
+                                        class="selected-file-name"
+                                        data-testid="selected-file-name">
+
+                                    No file selected
+
+                                </span>
+
+                            </div>
+
+
+                            <!-- ========================================
+                                 FILE ERROR
+                                 ======================================== -->
+
+                            <div
+                                    id="documentFileError"
+                                    class="field-error"
+                                    data-testid="document-file-error"
+                                    aria-live="polite">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ========================================
+                         DEFAULT CATEGORY INFORMATION
+                         ======================================== -->
+
+                    <div class="default-category-notice">
+
+                        <div class="default-category-icon">
+                            i
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Initial category: Διάφορα
+                            </strong>
+
+                            <p>
+                                Every new document is initially assigned to
+                                the Διάφορα category. You can move it to
+                                another category later.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ========================================
+                         MESSAGE
+                         ======================================== -->
+
+                    <div
+                            id="uploadDocumentMessage"
+                            class="upload-document-message"
+                            data-testid="upload-document-message"
+                            aria-live="polite">
+                    </div>
+
+
+                    <!-- ========================================
+                         ACTIONS
+                         ======================================== -->
+
+                    <div class="upload-form-actions">
+
+                        <button
+                                type="button"
+                                id="clearUploadFormButton"
+                                class="upload-clear-button"
+                                data-testid="clear-upload-form-button">
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                                type="submit"
+                                id="uploadDocumentButton"
+                                class="upload-submit-button"
+                                data-testid="upload-document-button">
+
+                            Create Document
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </section>
+
+
+            <!-- ========================================
+                 INFORMATION
+                 ======================================== -->
+
+            <section class="upload-info-card">
+
+                <div class="upload-info-icon">
+                    i
+                </div>
+
+                <div>
+
+                    <h3>
+                        What happens after creation?
+                    </h3>
+
+                    <p>
+                        If you upload a file, it will be sent for processing.
+                        If you create the document without a file, you can
+                        upload one later.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+
+<!-- ========================================
+     ADD CATEGORY MODAL
+     ======================================== -->
+
+<div
+        th:replace="
+            ~{html/components/add-category-modal :: addCategoryModal}">
+</div>
+
+
+<!-- ========================================
+     CATEGORY ALREADY EXISTS MODAL
+     ======================================== -->
+
+<div
+        th:replace="
+            ~{html/components/category-already-exists-modal :: categoryAlreadyExistsModal}">
+</div>
+
+
+<!-- ========================================
+     DELETE CATEGORY MODAL
+     ======================================== -->
+
+<div
+        th:replace="
+            ~{html/components/delete-category-modal :: deleteCategoryModal}">
+</div>
+
+
+<!-- ========================================
+     SHARED JAVASCRIPT
+     ======================================== -->
+
+<script
+        th:src="@{/js/components/dashboard-sidebar.js}">
+</script>
+
+<script
+        th:src="@{/js/components/add-category-modal.js}">
+</script>
+
+<script
+        th:src="@{/js/components/delete-category-modal.js}">
+</script>
+
+<script
+        th:src="@{/js/components/navbar.js}">
+</script>
+
+
+<!-- ========================================
+     PAGE JAVASCRIPT
+     ======================================== -->
+
+<script
+        th:src="@{/js/upload-document.js(v=4)}">
+</script>
+
+
+</body>
+
+</html>

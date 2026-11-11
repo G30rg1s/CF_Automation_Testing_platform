@@ -1,0 +1,43 @@
+
+spring:
+  application:
+    name: parser-service
+
+  # ========================================
+  # KAFKA
+  # ========================================
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+
+
+# ========================================
+# SERVER
+# ========================================
+
+server:
+  port: 8081
+
+
+# ========================================
+# ACTUATOR
+# ========================================
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      enabled: true
+
+
+# ========================================
+# PARSER LOGGING
+# ========================================
+
+logging:
+  file:
+    name: "${PARSER_LOG_FILE:logs/parser.log}"

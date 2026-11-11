@@ -1,0 +1,44 @@
+<p>Playwright – Βασική Θεωρία και Κύριες Methods</p>
+<p>Επίσημη τεκμηρίωση Playwright for TypeScript:</p>
+<p>https://playwright.dev/docs/intro</p>
+<p>Το Playwright είναι framework/browser automation library για αυτοματοποιημένο έλεγχο web εφαρμογών. Δημιουργήθηκε με έμφαση στο end-to-end testing και μπορεί να τρέξει tests σε Chromium, Firefox και WebKit, σε headed ή headless mode. Στην πράξη το χρησιμοποιούμε για να προσομοιώσουμε ενέργειες πραγματικού χρήστη στο browser και να ελέγξουμε ότι το UI και τα flows της εφαρμογής λειτουργούν σωστά.</p>
+<p>Βασικές έννοιες</p>
+<p>Browser: Αντιπροσωπεύει το instance του browser που ανοίγει το Playwright και επιτρέπει εκτέλεση tests σε διαφορετικά browser engines.</p>
+<p>BrowserContext: Απομονωμένο browser session, σαν ξεχωριστό προφίλ/incognito περιβάλλον. Χρησιμοποιείται για test isolation ώστε tests να μην μοιράζονται cookies, sessions ή local storage.</p>
+<p>Page: Αντιπροσωπεύει μία σελίδα, tab ή popup. Μέσω του Page κάνουμε navigation και αλληλεπιδρούμε με την εφαρμογή.</p>
+<p>Locator: Αντιπροσωπεύει το element ή τα elements που θέλουμε να χρησιμοποιήσουμε. Είναι κεντρικό κομμάτι του auto-waiting και της σταθερότητας των tests.</p>
+<p>Βασικές κατηγορίες methods</p>
+<p>1. Navigation και Page</p>
+<p>navigate() – Μεταφέρει τη σελίδα σε συγκεκριμένο URL.
+url() – Επιστρέφει το τρέχον URL.
+title() – Επιστρέφει τον τίτλο της σελίδας.
+reload() – Κάνει refresh/reload.
+goBack() / goForward() – Κινείται στο browser history.</p>
+<p>2. Εντοπισμός Elements</p>
+<p>getByRole() – Εντοπίζει element με βάση accessibility role και όνομα.
+getByLabel() – Εντοπίζει form control από το label του.
+getByText() – Εντοπίζει element από το εμφανιζόμενο text.
+getByPlaceholder() – Εντοπίζει input από το placeholder.
+getByTestId() – Εντοπίζει element μέσω test identifier, συνήθως data-testid.
+locator() – Γενική method για custom selectors, CSS ή XPath.</p>
+<p>3. Ενέργειες πάνω σε Elements</p>
+<p>click() – Κάνει click σε clickable element.
+fill() – Συμπληρώνει text σε input ή textarea.
+press() – Προσομοιώνει πάτημα πλήκτρου.
+check() / uncheck() – Επιλέγει ή αποεπιλέγει checkbox/radio.
+selectOption() – Επιλέγει option από dropdown/select.
+hover() – Μετακινεί τον δείκτη πάνω από element.
+setInputFiles() – Χρησιμοποιείται για file upload.
+clear() – Καθαρίζει την τιμή ενός input.
+Assertions / Validations
+isVisible() / isHidden() – Ελέγχει αν element είναι ορατό ή κρυφό.
+hasText() – Ελέγχει το αναμενόμενο text.
+hasValue() – Ελέγχει την τιμή ενός input.
+isChecked() – Ελέγχει ότι checkbox/radio είναι selected.
+hasURL() – Ελέγχει το αναμενόμενο URL.
+hasTitle() – Ελέγχει τον τίτλο της σελίδας.</p>
+<p>Auto-waiting και σταθερότητα των tests</p>
+<p>Ένα από τα σημαντικότερα χαρακτηριστικά του Playwright είναι το auto-waiting. Πριν εκτελέσει ενέργειες όπως click ή fill, περιμένει το element να είναι σε κατάλληλη κατάσταση. Οι web-first assertions επαναλαμβάνουν τον έλεγχο μέχρι να επιτευχθεί η αναμενόμενη κατάσταση ή να λήξει το timeout. Αυτό μειώνει την ανάγκη για χειροκίνητα waits και βοηθά στην αποφυγή flaky tests.</p>
+<p>Τι χρησιμοποιούμε περισσότερο στην πράξη</p>
+<p>Σε ένα τυπικό UI automation flow χρησιμοποιούμε navigation, locators, click, συμπλήρωση inputs, επιλογές σε controls, upload αρχείων και assertions για element, text ή URL. Η ποιότητα των locators και η σωστή χρήση των built-in waits είναι βασικοί παράγοντες για αξιόπιστα tests.</p>
+<p>Το Playwright δεν περιορίζεται μόνο στο UI. Υποστηρίζει επίσης network interception, mocking, screenshots, traces, multiple tabs/popups, iframes και API requests. Για τη βασική θεωρία όμως, τα σημαντικότερα σημεία είναι τα Page, Locator, actions και assertions.</p>

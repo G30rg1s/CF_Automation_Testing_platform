@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Licence Request</title>
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/license-request.css}">
+
+</head>
+
+<body>
+
+<main class="license-request-page">
+
+    <section class="license-request-card">
+
+        <div class="license-request-header">
+
+            <div class="eyebrow">
+                AUTOMATION PLATFORM
+            </div>
+
+            <h1>
+                Licence Request
+            </h1>
+
+            <p>
+                Tell us whether you need a new licence
+                or help with an existing one.
+            </p>
+
+        </div>
+
+
+        <!-- ========================================
+             SUCCESS / ERROR
+             ======================================== -->
+
+        <div
+                th:if="${successMessage != null}"
+                class="message message-success"
+                th:text="${successMessage}">
+        </div>
+
+        <div
+                th:if="${errorMessage != null}"
+                class="message message-error"
+                th:text="${errorMessage}">
+        </div>
+
+
+        <!-- ========================================
+             REQUEST FORM
+             ======================================== -->
+
+        <form
+                th:action="@{/license/request}"
+                th:object="${licenseRequestForm}"
+                method="post"
+                class="license-request-form">
+
+
+            <!-- ========================================
+                 REQUEST TYPE
+                 ======================================== -->
+
+            <div class="form-group">
+
+                <label for="requestType">
+                    What do you need help with?
+                </label>
+
+                <select
+                        id="requestType"
+                        th:field="*{requestType}"
+                        required>
+
+                    <option value="">
+                        Select an option
+                    </option>
+
+                    <option value="NEW_LICENSE">
+                        I need a licence for the first time
+                    </option>
+
+                    <option value="EXISTING_LICENSE_PROBLEM">
+                        I have a problem with my existing licence
+                    </option>
+
+                </select>
+
+                <p
+                        class="field-error"
+                        th:if="${#fields.hasErrors('requestType')}"
+                        th:errors="*{requestType}">
+                </p>
+
+            </div>
+
+
+            <!-- ========================================
+                 EXISTING LICENCE INFORMATION
+                 ======================================== -->
+
+            <div
+                    id="existingLicenseInformation"
+                    class="existing-license-information"
+                    hidden>
+
+                <h2>
+                    Existing Licence
+                </h2>
+
+                <div class="existing-license-grid">
+
+                    <div>
+
+                        <span>
+                            Licence ID
+                        </span>
+
+                        <strong
+                                th:text="${licenseState != null && licenseState.licenseId != null
+                                    ? licenseState.licenseId
+                                    : 'Not available'}">
+                            Not available
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Current Status
+                        </span>
+
+                        <strong
+                                th:text="${licenseState != null
+                                    ? licenseState.status
+                                    : 'Unknown'}">
+                            Unknown
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <p class="existing-license-note">
+                    These licence details are detected automatically.
+                    You do not need to enter your Licence ID manually.
+                </p>
+
+            </div>
+
+
+            <!-- ========================================
+                 PERSONAL INFORMATION
+                 ======================================== -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="firstName">
+                        First Name
+                    </label>
+
+                    <input
+                            id="firstName"
+                            type="text"
+                            th:field="*{firstName}"
+                            maxlength="100"
+                            required>
+
+                    <p
+                            class="field-error"
+                            th:if="${#fields.hasErrors('firstName')}"
+                            th:errors="*{firstName}">
+                    </p>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lastName">
+                        Last Name
+                    </label>
+
+                    <input
+                            id="lastName"
+                            type="text"
+                            th:field="*{lastName}"
+                            maxlength="100"
+                            required>
+
+                    <p
+                            class="field-error"
+                            th:if="${#fields.hasErrors('lastName')}"
+                            th:errors="*{lastName}">
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 APPLICANT TYPE
+                 ======================================== -->
+
+            <div class="form-group">
+
+                <label for="applicantType">
+                    Applicant Type
+                </label>
+
+                <select
+                        id="applicantType"
+                        th:field="*{applicantType}"
+                        required>
+
+                    <option value="">
+                        Select applicant type
+                    </option>
+
+                    <option value="INDIVIDUAL">
+                        Individual
+                    </option>
+
+                    <option value="TEAM">
+                        Team
+                    </option>
+
+                </select>
+
+                <p
+                        class="field-error"
+                        th:if="${#fields.hasErrors('applicantType')}"
+                        th:errors="*{applicantType}">
+                </p>
+
+            </div>
+
+
+            <!-- ========================================
+                 TEAM NAME
+                 ======================================== -->
+
+            <div
+                    id="teamNameGroup"
+                    class="form-group"
+                    hidden>
+
+                <label for="teamName">
+                    Team Name
+                </label>
+
+                <input
+                        id="teamName"
+                        type="text"
+                        th:field="*{teamName}"
+                        maxlength="150">
+
+            </div>
+
+
+            <!-- ========================================
+                 CONTACT INFORMATION
+                 ======================================== -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                            id="email"
+                            type="email"
+                            th:field="*{email}"
+                            maxlength="200"
+                            required>
+
+                    <p
+                            class="field-error"
+                            th:if="${#fields.hasErrors('email')}"
+                            th:errors="*{email}">
+                    </p>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone
+                        <span class="optional">
+                            Optional
+                        </span>
+                    </label>
+
+                    <input
+                            id="phone"
+                            type="tel"
+                            th:field="*{phone}"
+                            maxlength="50">
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 REASON
+                 ======================================== -->
+
+            <div class="form-group">
+
+                <label
+                        id="reasonLabel"
+                        for="reason">
+                    Why would you like to use Automation Platform?
+                </label>
+
+                <textarea
+                        id="reason"
+                        th:field="*{reason}"
+                        rows="5"
+                        maxlength="2000"
+                        required>
+                </textarea>
+
+                <p
+                        class="field-error"
+                        th:if="${#fields.hasErrors('reason')}"
+                        th:errors="*{reason}">
+                </p>
+
+            </div>
+
+
+            <!-- ========================================
+                 DESCRIPTION
+                 ======================================== -->
+
+            <div class="form-group">
+
+                <label
+                        id="descriptionLabel"
+                        for="description">
+
+                    Additional Information
+
+                    <span class="optional">
+                        Optional
+                    </span>
+
+                </label>
+
+                <textarea
+                        id="description"
+                        th:field="*{description}"
+                        rows="4"
+                        maxlength="1000">
+                </textarea>
+
+            </div>
+
+
+            <!-- ========================================
+                 ACTIONS
+                 ======================================== -->
+
+            <div class="form-actions">
+
+                <a
+                        th:href="@{/license/activate}"
+                        class="button button-secondary">
+
+                    Back
+
+                </a>
+
+                <button
+                        type="submit"
+                        class="button button-primary">
+
+                    Send Request
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<div th:replace="~{html/components/application-update-modal :: applicationUpdate}"></div>
+
+<script th:src="@{/js/license-request.js}"></script>
+
+</body>
+
+</html>

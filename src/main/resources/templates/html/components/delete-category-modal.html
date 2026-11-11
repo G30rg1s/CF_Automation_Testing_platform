@@ -1,0 +1,65 @@
+<div
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="deleteCategoryModal"
+        id="deleteCategoryModal"
+        class="delete-category-modal"
+        data-testid="delete-category-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="deleteCategoryModalTitle">
+
+    <div class="delete-category-modal-content">
+
+        <div class="delete-category-icon">
+            !
+        </div>
+
+        <h2 id="deleteCategoryModalTitle">
+            Delete Category
+        </h2>
+
+        <p>
+            Are you sure you want to delete the category
+            <strong
+                    id="deleteCategoryName"
+                    data-testid="delete-category-name">
+            </strong>
+            ?
+        </p>
+
+        <p class="delete-category-warning">
+            This action cannot be undone.
+        </p>
+
+
+        <div
+                id="deleteCategoryMessage"
+                class="delete-category-message"
+                data-testid="delete-category-message"
+                aria-live="polite">
+        </div>
+
+
+        <div class="delete-category-actions">
+
+            <button
+                    type="button"
+                    id="cancelDeleteCategoryButton"
+                    class="delete-category-cancel-button"
+                    data-testid="cancel-delete-category-button">
+                Cancel
+            </button>
+
+            <button
+                    type="button"
+                    id="confirmDeleteCategoryButton"
+                    class="delete-category-confirm-button"
+                    data-testid="confirm-delete-category-button">
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

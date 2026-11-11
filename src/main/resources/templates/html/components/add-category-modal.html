@@ -1,0 +1,109 @@
+<div
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="addCategoryModal"
+        id="addCategoryModal"
+        class="category-modal"
+        data-testid="add-category-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="addCategoryModalTitle">
+
+    <div class="category-modal-content">
+
+        <!-- MODAL HEADER -->
+        <div class="category-modal-header">
+
+            <div>
+
+                <p class="category-modal-label">
+                    Categories
+                </p>
+
+                <h2 id="addCategoryModalTitle">
+                    Add Category
+                </h2>
+
+            </div>
+
+
+            <button
+                    type="button"
+                    id="closeCategoryModalButton"
+                    class="category-modal-close"
+                    data-testid="close-category-modal-button"
+                    aria-label="Close add category modal">
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- ADD CATEGORY FORM -->
+        <form
+                id="addCategoryForm"
+                data-testid="add-category-form"
+                novalidate>
+
+            <div class="category-form-group">
+
+                <label for="categoryName">
+                    Category Name
+                </label>
+
+                <input
+                        type="text"
+                        id="categoryName"
+                        name="categoryName"
+                        maxlength="100"
+                        autocomplete="off"
+                        placeholder="e.g. Theory"
+                        aria-describedby="categoryNameError"
+                        data-testid="category-name-input">
+
+
+                <div
+                        id="categoryNameError"
+                        class="field-error"
+                        data-testid="category-name-error"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+
+            <!-- BACKEND / SUCCESS MESSAGE -->
+            <div
+                    id="categoryModalMessage"
+                    class="category-modal-message"
+                    data-testid="category-modal-message"
+                    aria-live="polite">
+            </div>
+
+
+            <!-- ACTION BUTTONS -->
+            <div class="category-modal-actions">
+
+                <button
+                        type="button"
+                        id="cancelCategoryButton"
+                        class="category-cancel-button"
+                        data-testid="cancel-category-button">
+                    Cancel
+                </button>
+
+
+                <button
+                        type="submit"
+                        id="createCategoryButton"
+                        class="category-create-button"
+                        data-testid="create-category-button">
+                    Add Category
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

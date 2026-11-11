@@ -1,0 +1,28 @@
+# Maven
+target/
+
+# Environment / secrets
+.env
+.env.local
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Project-specific files
+/wait-for-parser.ps1
+
+# Runtime generated files
+uploads/
+license/activation.json
+
+# OS files
+.DS_Store
+Thumbs.db

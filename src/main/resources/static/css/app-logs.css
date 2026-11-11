@@ -1,0 +1,332 @@
+
+/* ========================================
+   APP LOGS - MAIN LAYOUT
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b1120;
+    color: #e5e7eb;
+}
+
+.app-logs-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100vh;
+    padding: 24px;
+    gap: 20px;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.app-logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.app-logs-heading {
+    min-width: 0;
+}
+
+.app-logs-eyebrow {
+    margin: 0 0 8px;
+    color: #93c5fd;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+.app-logs-heading h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.app-logs-description {
+    margin: 9px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ========================================
+   CONNECTION STATUS
+   ======================================== */
+
+.app-logs-connection-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #172033;
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.app-logs-status-indicator {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #f59e0b;
+}
+
+.app-logs-connection-status.connected
+.app-logs-status-indicator {
+    background: #22c55e;
+}
+
+.app-logs-connection-status.disconnected
+.app-logs-status-indicator {
+    background: #ef4444;
+}
+
+/* ========================================
+   MAIN PANEL
+   ======================================== */
+
+.app-logs-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    background: #111827;
+}
+
+/* ========================================
+   TABS
+   ======================================== */
+
+.app-logs-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    padding: 10px 12px 0;
+    border-bottom: 1px solid #334155;
+    background: #172033;
+    flex-shrink: 0;
+}
+
+.app-logs-tab {
+    padding: 13px 20px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    color: #94a3b8;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.app-logs-tab:hover {
+    background: #263449;
+    color: #f8fafc;
+}
+
+.app-logs-tab.active {
+    color: #60a5fa;
+    border-bottom-color: #3b82f6;
+}
+
+.app-logs-tab:focus-visible,
+.app-logs-button:focus-visible {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   TOOLBAR
+   ======================================== */
+
+.app-logs-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #334155;
+    background: #111827;
+    flex-shrink: 0;
+}
+
+.app-logs-toolbar-info,
+.app-logs-toolbar-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.app-logs-live-indicator {
+    padding: 5px 9px;
+    border-radius: 5px;
+    background: #14532d;
+    color: #86efac;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.app-logs-live-indicator.paused {
+    background: #78350f;
+    color: #fcd34d;
+}
+
+.app-logs-active-source {
+    color: #f1f5f9;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.app-logs-line-count {
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.app-logs-auto-scroll-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #cbd5e1;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.app-logs-auto-scroll-label input {
+    accent-color: #3b82f6;
+    cursor: pointer;
+}
+
+.app-logs-button {
+    padding: 8px 13px;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    background: #1e293b;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.app-logs-button:hover {
+    background: #334155;
+}
+
+/* ========================================
+   LOG CONTENT PANELS
+   ======================================== */
+
+.app-logs-content-panel {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.app-logs-content-panel[hidden] {
+    display: none;
+}
+
+.app-logs-output {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 20px;
+    overflow: auto;
+    background: #080d18;
+    color: #d1d5db;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 4;
+    scrollbar-color: #475569 #080d18;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.app-logs-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #64748b;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    .app-logs-layout {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .app-logs-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .app-logs-heading h1 {
+        font-size: 23px;
+    }
+
+    .app-logs-tabs {
+        padding: 8px 8px 0;
+    }
+
+    .app-logs-tab {
+        flex: 1;
+        padding: 12px 8px;
+        font-size: 11px;
+    }
+
+    .app-logs-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .app-logs-toolbar-actions {
+        width: 100%;
+    }
+
+    .app-logs-output {
+        padding: 12px;
+        font-size: 11px;
+    }
+}
