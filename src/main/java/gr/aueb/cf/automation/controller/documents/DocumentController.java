@@ -1,4 +1,3 @@
-
 package gr.aueb.cf.automation.controller.documents;
 
 import gr.aueb.cf.automation.dto.documents.DocumentCategoryAssignmentResponseDto;
@@ -8,28 +7,35 @@ import gr.aueb.cf.automation.dto.documents.UpdateDocumentCategoryDto;
 import gr.aueb.cf.automation.entity.documents.DocumentEntity;
 import gr.aueb.cf.automation.entity.documents.DocumentStatus;
 import gr.aueb.cf.automation.entity.documents.DocumentType;
+import gr.aueb.cf.automation.service.documents.DocumentPdfService;
 import gr.aueb.cf.automation.service.documents.DocumentService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/cf_automation")
 public class DocumentController {
 
     private final DocumentService documentService;
+    private final DocumentPdfService documentPdfService;
 
-
-    public DocumentController(DocumentService documentService) {
+    public DocumentController(
+            DocumentService documentService,
+            DocumentPdfService documentPdfService
+    ) {
         this.documentService = documentService;
+        this.documentPdfService = documentPdfService;
     }
-
 
     /* ========================================
        UPLOAD DOCUMENT
@@ -44,7 +50,6 @@ public class DocumentController {
         return documentService.upload(title, file);
     }
 
-
     /* ========================================
        GET DOCUMENT BY ID
        ======================================== */
@@ -53,11 +58,11 @@ public class DocumentController {
     public ResponseEntity<DocumentDetailsDto> getById(
             @PathVariable Long documentId
     ) {
-        DocumentDetailsDto document = documentService.getById(documentId);
+        DocumentDetailsDto document =
+                documentService.getById(documentId);
 
         return ResponseEntity.ok(document);
     }
-
 
     /* ========================================
        GET DOCUMENTS BY CATEGORY
@@ -74,7 +79,6 @@ public class DocumentController {
         );
     }
 
-
     /* ========================================
        REUPLOAD DOCUMENT
        ======================================== */
@@ -90,7 +94,6 @@ public class DocumentController {
         return ResponseEntity.ok().build();
     }
 
-
     /* ========================================
        FAILED DOCUMENTS
        ======================================== */
@@ -101,7 +104,6 @@ public class DocumentController {
                 documentService.getByStatus(DocumentStatus.FAILED)
         );
     }
-
 
     /* ========================================
        PENDING DOCUMENTS
@@ -114,7 +116,6 @@ public class DocumentController {
         );
     }
 
-
     /* ========================================
        READY DOCUMENTS
        ======================================== */
@@ -126,18 +127,18 @@ public class DocumentController {
         );
     }
 
-
     /* ========================================
        DELETE DOCUMENT
        ======================================== */
 
     @DeleteMapping("/documents/{documentId}")
-    public ResponseEntity<Void> delete(@PathVariable Long documentId) {
+    public ResponseEntity<Void> delete(
+            @PathVariable Long documentId
+    ) {
         documentService.delete(documentId);
 
         return ResponseEntity.noContent().build();
     }
-
 
     /* ========================================
        CHANGE DOCUMENT CATEGORY
@@ -154,7 +155,6 @@ public class DocumentController {
         );
     }
 
-
     /* ========================================
        UPDATE DOCUMENT TYPE
        ======================================== */
@@ -167,5 +167,37 @@ public class DocumentController {
         documentService.updateDocumentType(documentId, documentType);
 
         return ResponseEntity.noContent().build();
+    }
+
+    /* ========================================
+       EXPORT DOCUMENT AS PDF
+       ======================================== */
+
+    @GetMapping("/documents/{documentId}/pdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @PathVariable Long documentId
+    ) {
+        DocumentDetailsDto document =
+                documentService.getById(documentId);
+
+        byte[] pdf =
+                documentPdfService.createPdf(
+                        documentId,
+                        document.getHtmlContent()
+                );
+
+        String filename =
+                document.getTitle() + ".pdf";
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        ContentDisposition.attachment()
+                                .filename(filename, StandardCharsets.UTF_8)
+                                .build()
+                                .toString()
+                )
+                .body(pdf);
     }
 }

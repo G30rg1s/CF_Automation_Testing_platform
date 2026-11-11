@@ -11,6 +11,9 @@ const reuploadDocumentButton =
 const formatDocumentButton =
     document.getElementById("formatDocumentButton");
 
+const exportDocumentPdfButton =
+    document.getElementById("exportDocumentPdfButton");
+
 const deleteDocumentButton =
     document.getElementById("deleteDocumentButton");
 
@@ -133,6 +136,27 @@ if (formatDocumentButton) {
             openDocumentActionModal(
                 "formatDocumentModal"
             );
+        }
+    );
+}
+
+
+/* ========================================
+   EXPORT PDF
+   ======================================== */
+
+if (exportDocumentPdfButton) {
+
+    exportDocumentPdfButton.addEventListener(
+        "click",
+        () => {
+
+            if (!currentDocumentId) {
+                return;
+            }
+
+            window.location.href =
+                `/cf_automation/documents/${currentDocumentId}/pdf`;
         }
     );
 }
